@@ -8,6 +8,7 @@ import { useMemo, useState } from "react";
 import type { GrantSystemDocument } from "../../../document-models/grant-system/v1/gen/types.js";
 import type { GrantPoolDocument } from "../../../document-models/grant-pool/v1/gen/types.js";
 import type { GrantApplicationDocument } from "../../../document-models/grant-application/v1/gen/types.js";
+import type { ProjectDocument } from "../../../document-models/project/v1/gen/types.js";
 
 type DocGroup = {
   key: string;
@@ -95,13 +96,28 @@ export function DocumentBrowser({
   onCreate,
   creatingType,
   canCreate,
+  extraDocuments,
 }: {
   mode: DocumentBrowserMode;
   onCreate: (docType: string, name: string) => void;
   creatingType: string | null;
   canCreate: boolean;
+  /**
+   * Documents to merge in on top of `useDocumentsInSelectedDrive()`. Used by
+   * the funder back-office to inject cross-drive applications fetched from
+   * the switchboard so the sidebar count matches the kanban. Deduped by
+   * `header.id` — entries from `extraDocuments` win on conflict (fresher).
+   */
+  extraDocuments?: ReadonlyArray<PHDocument>;
 }) {
-  const documents = useDocumentsInSelectedDrive() ?? [];
+  const driveDocs = useDocumentsInSelectedDrive() ?? [];
+  const documents = useMemo(() => {
+    if (!extraDocuments?.length) return driveDocs;
+    const byId = new Map<string, PHDocument>();
+    for (const d of driveDocs) byId.set(d.header.id, d);
+    for (const d of extraDocuments) byId.set(d.header.id, d);
+    return Array.from(byId.values());
+  }, [driveDocs, extraDocuments]);
   const selected = useSelectedNode();
   const selectedId = selected?.id;
 
@@ -181,10 +197,18 @@ export function DocumentBrowser({
         docType: "rfp-hub/project",
         creatable: true,
         createLabel: "+ New project",
-        itemFor: (doc) => ({
-          title: doc.header.name ?? "Unnamed project",
-          dotClass: "rfp-dot-approved",
-        }),
+        itemFor: (doc) => {
+          const d = doc as ProjectDocument;
+          // Prefer the in-document project name (set via SET_PROJECT_NAME)
+          // over the drive file-node name, which is typically a generic
+          // "<Applicant> Project" string from the apply-to resolver.
+          const stateName = d.state.global.name?.trim();
+          const headerName = doc.header.name?.trim();
+          return {
+            title: stateName || headerName || "Unnamed project",
+            dotClass: "rfp-dot-approved",
+          };
+        },
       },
       {
         key: "applications",

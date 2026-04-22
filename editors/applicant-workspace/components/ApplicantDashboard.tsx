@@ -500,7 +500,7 @@ function FusionDiscoveryCallout() {
         onClick={() => {
           // Placeholder until Fusion is embedded
           if (typeof window !== "undefined") {
-            window.open("https://fusion.powerhouse.inc", "_blank");
+            window.open("https://rfp-hub.vetra.io/", "_blank");
           }
         }}
       >

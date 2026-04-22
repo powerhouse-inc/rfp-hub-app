@@ -17,6 +17,7 @@ import { PoolsGrid } from "./dashboard/PoolsGrid.js";
 import { GovernanceHealth } from "./dashboard/GovernanceHealth.js";
 import { ActivityFeed } from "./dashboard/ActivityFeed.js";
 import { OrgCard } from "./dashboard/OrgCard.js";
+import { useRemoteApplicationsForPools } from "../hooks/useRemoteApplications.js";
 
 function isDocumentOfType(doc: PHDocument, type: string): boolean {
   return doc.header.documentType === type;
@@ -44,13 +45,33 @@ export function BackOfficeDashboard({ children }: EditorProps) {
       ),
     [documents],
   );
-  const applications = useMemo(
+  const localApplications = useMemo(
     () =>
       (documents ?? []).filter((d): d is GrantApplicationDocument =>
         isDocumentOfType(d, DOC_TYPE.grantApplication),
       ),
     [documents],
   );
+  const poolIds = useMemo(
+    () =>
+      (documents ?? [])
+        .filter((d): d is GrantPoolDocument =>
+          isDocumentOfType(d, DOC_TYPE.grantPool),
+        )
+        .map((p) => p.header.id),
+    [documents],
+  );
+  const { applications: remoteApplications } =
+    useRemoteApplicationsForPools(poolIds);
+  // Merge local-drive and switchboard-wide results, deduping by id. Remote
+  // entries win on conflict — they carry the latest cross-drive state for
+  // apps that were mirrored into the funder drive as stale references.
+  const applications = useMemo(() => {
+    const byId = new Map<string, GrantApplicationDocument>();
+    for (const a of localApplications) byId.set(a.header.id, a);
+    for (const a of remoteApplications) byId.set(a.header.id, a);
+    return Array.from(byId.values());
+  }, [localApplications, remoteApplications]);
   const governance = useMemo(
     () =>
       (documents ?? []).filter((d): d is GovernanceDocument =>
@@ -83,6 +104,8 @@ export function BackOfficeDashboard({ children }: EditorProps) {
         onCreate={handleCreate}
         creatingType={creatingType}
         canCreate={!!driveId}
+        // Cross-drive apps so the sidebar count matches the kanban view.
+        extraDocuments={remoteApplications}
       />
       <div style={{ flex: 1, overflowY: "auto" }}>
         {showDocumentEditor ? (

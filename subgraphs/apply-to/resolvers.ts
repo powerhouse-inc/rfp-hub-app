@@ -1,16 +1,12 @@
 import { type ISubgraph } from "@powerhousedao/reactor-api";
 import type { IReactorClient } from "@powerhousedao/reactor";
 import { generateId } from "document-model";
-import type { PHDocument } from "document-model";
 import {
   addFile,
   addFolder,
   driveCreateDocument,
 } from "@powerhousedao/shared/document-drive";
-import type {
-  DocumentDriveDocument,
-  Node,
-} from "@powerhousedao/shared/document-drive";
+import type { DocumentDriveDocument } from "@powerhousedao/shared/document-drive";
 import type { GrantPoolDocument } from "../../document-models/grant-pool/v1/gen/types.js";
 import { GrantApplication } from "../../document-models/grant-application/v1/module.js";
 import { Project } from "../../document-models/project/v1/module.js";
@@ -165,31 +161,6 @@ function normalizeEmail(raw: string | null | undefined): string | null {
   if (!v) return null;
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return null;
   return v;
-}
-
-/**
- * A funder (operator) drive is one whose children include the given grant pool
- * document (same idea as getOperatorDrive for resource templates).
- */
-async function getFunderDriveForGrantPool(
-  reactorClient: IReactorClient,
-  grantPoolId: string,
-): Promise<DocumentDriveDocument | undefined> {
-  const { results: drives } = await reactorClient.find({
-    type: "powerhouse/document-drive",
-  });
-
-  for (const drive of drives) {
-    if (drive.state.document.isDeleted) continue;
-    const driveDoc = drive as DocumentDriveDocument;
-    const { results: children } = await reactorClient.getChildren(
-      driveDoc.header.id,
-    );
-    if (children.some((child: PHDocument) => child.header.id === grantPoolId)) {
-      return driveDoc;
-    }
-  }
-  return undefined;
 }
 
 /** Document IDs on drives that are themselves soft-deleted. */
@@ -436,50 +407,13 @@ export const getResolvers = (subgraph: ISubgraph): Record<string, unknown> => {
             appActions,
           );
 
-          // ---------------- Mirror into funder drive ----------------
-          const funderDrive = await getFunderDriveForGrantPool(
-            reactor,
-            grantPoolId,
-          );
-          if (funderDrive) {
-            let funderAppsFolderId = funderDrive.state.global.nodes.find(
-              (node: Node) =>
-                node.kind === "folder" && node.name === "Applications",
-            )?.id;
-
-            if (!funderAppsFolderId) {
-              funderAppsFolderId = generateId();
-              await reactor.execute(funderDrive.header.id, "main", [
-                addFolder({
-                  id: funderAppsFolderId,
-                  name: "Applications",
-                }),
-              ]);
-            }
-
-            // Reactor-level relationship so Connect syncs the child doc.
-            await reactor.addChildren(funderDrive.header.id, [
-              grantApplicationDoc.header.id,
-            ]);
-
-            // Funder-facing label. Keep applicant name prominent.
-            const funderFileName = truncateName(
-              sanitizeNodeName(`${applicantName} ${acronym}`),
-              64,
-            );
-            await reactor.execute(funderDrive.header.id, "main", [
-              addFile({
-                documentType: "rfp-hub/grant-application",
-                id: grantApplicationDoc.header.id,
-                name: funderFileName,
-                parentFolder: funderAppsFolderId,
-              }),
-            ]);
-          } else {
-            console.warn(
-              "applyToPool: no document drive found containing this grant pool; funder will not get a cross-drive file entry yet.",
-            );
-          }
+          // Cross-drive visibility is handled by the funder back office
+          // itself — it queries the switchboard's `GrantApplication`
+          // subgraph for every application whose `grantPoolId` matches one
+          // of its pools, so there's no need to mirror a file entry into the
+          // funder drive here. Previous mirror code was dropped because it
+          // was fragile (silent failures on name validation / missing
+          // parent folder / cross-drive permissions).
 
           return {
             success: true,
