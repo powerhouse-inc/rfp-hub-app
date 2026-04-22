@@ -79,5 +79,18 @@
     ],
     "subgraphs": [],
     "importScripts": [],
-    "config": []
+    "config": [
+        {
+            "name": "CONNECT_URL",
+            "type": "var",
+            "description": "URL of the Connect app. Used by the apply-to subgraph to link the new applicant drive to the funder drive.",
+            "required": true
+        },
+        {
+            "name": "SWITCHBOARD_URL",
+            "type": "var",
+            "description": "URL of the switchboard app. Used by the apply-to subgraph to create a new applicant drive.",
+            "required": true
+        }
+    ]
 }
