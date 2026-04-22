@@ -1,0 +1,527 @@
+import type { DocumentModelGlobalState } from "document-model";
+
+export const documentModel: DocumentModelGlobalState = {
+  id: "rfp-hub/grant-application",
+  name: "GrantApplication",
+  author: {
+    name: "Powerhouse",
+    website: "https://www.powerhouse.inc/",
+  },
+  extension: "rfpa",
+  description:
+    "DAOIP-5 GrantApplication \u2014 a project's submission to a grant pool. Richer reviewStage enum projects losslessly to DAOIP-5 6-value status.",
+  specifications: [
+    {
+      state: {
+        local: {
+          schema: "",
+          examples: [],
+          initialValue: "",
+        },
+        global: {
+          schema:
+            "type GrantApplicationState {\n  # DAOIP-5 canonical GrantApplication\n  grantPoolsURI: URL\n  grantPoolId: PHID\n  grantPoolName: String\n  projectsURI: URL\n  projectId: PHID\n  projectName: String\n  createdAt: DateTime\n  contentURI: URL\n  discussionsTo: URL\n  licenseURI: URL\n  isInactive: Boolean!\n  applicationCompletionRate: Float\n  socials: [AppSocial!]!\n  fundsAsked: [AppFundingAmount!]!\n  fundsAskedInUSD: Amount_Fiat\n  fundsApproved: [AppFundingAmount!]!\n  fundsApprovedInUSD: Amount_Fiat\n  payoutAddress: PayoutAddress\n  status: ApplicationStatus!           # DAOIP-5 canonical 6-value enum\n  payouts: [Payout!]!\n  extensions: String\n\n  # Powerhouse additions\n  paymentTerm: PaymentTerm\n  reviewStage: ReviewStage!             # richer lifecycle (additive)\n  feedbackNotes: String\n  revisionCount: Int!\n  submitter: AppSubmitter\n  submittedAt: DateTime\n  reviewedBy: String\n  reviewedAt: DateTime\n}\n\nenum ApplicationStatus {\n  pending\n  in_review\n  approved\n  funded\n  rejected\n  completed\n}\n\nenum ReviewStage {\n  DRAFT\n  SUBMITTED\n  OPENED\n  UNDER_REVIEW\n  NEEDS_REVISION\n  REVISED\n  APPROVED\n  CONDITIONALLY_APPROVED\n  REJECTED\n  WITHDRAWN\n  FUNDED\n  COMPLETED\n}\n\nenum PaymentTerm {\n  MILESTONE_BASED_FIXED_PRICE\n  MILESTONE_BASED_ADVANCE_PAYMENT\n  RETAINER_BASED\n  VARIABLE_COST\n  ESCROW\n}\n\nenum AppSubmitterType {\n  COMMUNITY\n  VERIFIED_PUBLISHER\n  AUTOMATION\n}\n\ntype AppSubmitter {\n  submitterType: AppSubmitterType!\n  identifier: String!\n  submittedAt: DateTime!\n}\n\ntype AppSocial {\n  id: OID!\n  platform: String!\n  url: URL!\n}\n\ntype AppFundingAmount {\n  id: OID!\n  amount: Amount!\n}\n\ntype PayoutAddress {\n  addressType: String!\n  value: String!\n}\n\ntype Payout {\n  id: OID!\n  payoutType: String!\n  value: String!\n  proof: String\n  timestamp: DateTime!\n}\n",
+          examples: [],
+          initialValue:
+            '{"grantPoolsURI": null, "grantPoolId": null, "grantPoolName": null, "projectsURI": null, "projectId": null, "projectName": null, "createdAt": null, "contentURI": null, "discussionsTo": null, "licenseURI": null, "isInactive": false, "applicationCompletionRate": null, "socials": [], "fundsAsked": [], "fundsAskedInUSD": null, "fundsApproved": [], "fundsApprovedInUSD": null, "payoutAddress": null, "status": "pending", "payouts": [], "extensions": null, "paymentTerm": null, "reviewStage": "DRAFT", "feedbackNotes": null, "revisionCount": 0, "submitter": null, "submittedAt": null, "reviewedBy": null, "reviewedAt": null}',
+        },
+      },
+      modules: [
+        {
+          id: "metadata-module",
+          name: "metadata",
+          description: "Pool+project refs, content links, socials",
+          operations: [
+            {
+              id: "ga-set-pool-ref",
+              name: "SET_POOL_REF",
+              description: "",
+              schema:
+                "input SetPoolRefInput {\n    grantPoolsURI: URL!\n    grantPoolId: PHID!\n    grantPoolName: String!\n}",
+              template: "",
+              reducer:
+                "state.grantPoolsURI = action.input.grantPoolsURI;\nstate.grantPoolId = action.input.grantPoolId;\nstate.grantPoolName = action.input.grantPoolName;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "ga-set-project-ref",
+              name: "SET_PROJECT_REF",
+              description: "",
+              schema:
+                "input SetProjectRefInput {\n    projectsURI: URL!\n    projectId: PHID!\n    projectName: String!\n}",
+              template: "",
+              reducer:
+                "state.projectsURI = action.input.projectsURI;\nstate.projectId = action.input.projectId;\nstate.projectName = action.input.projectName;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "ga-set-created-at",
+              name: "SET_CREATED_AT",
+              description: "",
+              schema: "input SetCreatedAtInput {\n    createdAt: DateTime!\n}",
+              template: "",
+              reducer: "state.createdAt = action.input.createdAt;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "ga-set-app-content-uri",
+              name: "SET_APP_CONTENT_URI",
+              description: "",
+              schema: "input SetAppContentUriInput {\n    contentURI: URL\n}",
+              template: "",
+              reducer: "state.contentURI = action.input.contentURI || null;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "ga-set-discussions-to",
+              name: "SET_DISCUSSIONS_TO",
+              description: "",
+              schema:
+                "input SetDiscussionsToInput {\n    discussionsTo: URL\n}",
+              template: "",
+              reducer:
+                "state.discussionsTo = action.input.discussionsTo || null;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "ga-set-app-license-uri",
+              name: "SET_APP_LICENSE_URI",
+              description: "",
+              schema: "input SetAppLicenseUriInput {\n    licenseURI: URL\n}",
+              template: "",
+              reducer: "state.licenseURI = action.input.licenseURI || null;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "ga-set-is-inactive",
+              name: "SET_IS_INACTIVE",
+              description: "",
+              schema: "input SetIsInactiveInput {\n    isInactive: Boolean!\n}",
+              template: "",
+              reducer: "state.isInactive = action.input.isInactive;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "ga-set-completion-rate",
+              name: "SET_COMPLETION_RATE",
+              description: "",
+              schema:
+                "input SetCompletionRateInput {\n    applicationCompletionRate: Float\n}",
+              template: "",
+              reducer:
+                "state.applicationCompletionRate = action.input.applicationCompletionRate || null;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "ga-set-app-extensions",
+              name: "SET_APP_EXTENSIONS",
+              description: "",
+              schema:
+                "input SetAppExtensionsInput {\n    extensions: String\n}",
+              template: "",
+              reducer: "state.extensions = action.input.extensions || null;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "ga-add-app-social",
+              name: "ADD_APP_SOCIAL",
+              description: "",
+              schema:
+                "input AddAppSocialInput {\n    id: OID!\n    platform: String!\n    url: URL!\n}",
+              template: "",
+              reducer:
+                "state.socials.push({id: action.input.id, platform: action.input.platform, url: action.input.url});",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "ga-remove-app-social",
+              name: "REMOVE_APP_SOCIAL",
+              description: "",
+              schema: "input RemoveAppSocialInput {\n    id: OID!\n}",
+              template: "",
+              reducer:
+                "const idx = state.socials.findIndex((s) => s.id === action.input.id);\nif (idx === -1) throw new AppSocialNotFoundError(`Social ${action.input.id} not found`);\nstate.socials.splice(idx, 1);",
+              errors: [
+                {
+                  id: "err-ga-social-not-found",
+                  name: "AppSocialNotFoundError",
+                  code: "APP_SOCIAL_NOT_FOUND",
+                  description: "Social entry not found.",
+                  template: "",
+                },
+              ],
+              examples: [],
+              scope: "global",
+            },
+          ],
+        },
+        {
+          id: "funding-module",
+          name: "funding",
+          description:
+            "Funds asked, funds approved, payout address, payment term",
+          operations: [
+            {
+              id: "ga-add-funds-asked",
+              name: "ADD_FUNDS_ASKED",
+              description: "",
+              schema:
+                "input AddFundsAskedInput {\n    id: OID!\n    amount: Amount!\n}",
+              template: "",
+              reducer:
+                "state.fundsAsked.push({id: action.input.id, amount: action.input.amount});",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "ga-remove-funds-asked",
+              name: "REMOVE_FUNDS_ASKED",
+              description: "",
+              schema: "input RemoveFundsAskedInput {\n    id: OID!\n}",
+              template: "",
+              reducer:
+                "const idx = state.fundsAsked.findIndex((f) => f.id === action.input.id);\nif (idx === -1) throw new FundsAskedNotFoundError(`Funds-asked entry ${action.input.id} not found`);\nstate.fundsAsked.splice(idx, 1);",
+              errors: [
+                {
+                  id: "err-ga-funds-asked-not-found",
+                  name: "FundsAskedNotFoundError",
+                  code: "FUNDS_ASKED_NOT_FOUND",
+                  description: "Funds-asked entry not found.",
+                  template: "",
+                },
+              ],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "ga-set-funds-asked-usd",
+              name: "SET_FUNDS_ASKED_USD",
+              description: "",
+              schema:
+                "input SetFundsAskedUsdInput {\n    fundsAskedInUSD: Amount_Fiat\n}",
+              template: "",
+              reducer:
+                "state.fundsAskedInUSD = action.input.fundsAskedInUSD || null;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "ga-add-funds-approved",
+              name: "ADD_FUNDS_APPROVED",
+              description: "",
+              schema:
+                "input AddFundsApprovedInput {\n    id: OID!\n    amount: Amount!\n}",
+              template: "",
+              reducer:
+                "state.fundsApproved.push({id: action.input.id, amount: action.input.amount});",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "ga-set-funds-approved-usd",
+              name: "SET_FUNDS_APPROVED_USD",
+              description: "",
+              schema:
+                "input SetFundsApprovedUsdInput {\n    fundsApprovedInUSD: Amount_Fiat\n}",
+              template: "",
+              reducer:
+                "state.fundsApprovedInUSD = action.input.fundsApprovedInUSD || null;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "ga-set-payout-address",
+              name: "SET_PAYOUT_ADDRESS",
+              description: "",
+              schema:
+                "input SetPayoutAddressInput {\n    addressType: String!\n    value: String!\n}",
+              template: "",
+              reducer:
+                "state.payoutAddress = {\n  addressType: action.input.addressType,\n  value: action.input.value,\n};",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "ga-set-payment-term",
+              name: "SET_PAYMENT_TERM",
+              description: "",
+              schema:
+                "input SetPaymentTermInput {\n    paymentTerm: PaymentTerm!\n}",
+              template: "",
+              reducer: "state.paymentTerm = action.input.paymentTerm;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+          ],
+        },
+        {
+          id: "review-module",
+          name: "review",
+          description:
+            "Submission + review lifecycle (reviewStage + DAOIP-5 status)",
+          operations: [
+            {
+              id: "ga-submit-application",
+              name: "SUBMIT_APPLICATION",
+              description: "",
+              schema:
+                "input SubmitApplicationInput {\n    submittedAt: DateTime!\n    submitterType: AppSubmitterType!\n    identifier: String!\n}",
+              template: "",
+              reducer:
+                'const legal = ["DRAFT", "REVISED", "NEEDS_REVISION"];\nif (!legal.includes(state.reviewStage)) {\n  throw new InvalidSubmitTransitionError(\n    `Cannot transition from ${state.reviewStage} to SUBMITTED`\n  );\n}\nstate.reviewStage = "SUBMITTED";\nstate.status = "pending";\nstate.submittedAt = action.input.submittedAt;\nstate.submitter = {\n  submitterType: action.input.submitterType,\n  identifier: action.input.identifier,\n  submittedAt: action.input.submittedAt,\n};',
+              errors: [
+                {
+                  id: "err-ga-invalid-submit",
+                  name: "InvalidSubmitTransitionError",
+                  code: "INVALID_SUBMIT_TRANSITION",
+                  description: "Invalid reviewStage transition.",
+                  template: "",
+                },
+              ],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "ga-open-application",
+              name: "OPEN_APPLICATION",
+              description: "",
+              schema:
+                "input OpenApplicationInput {\n    openedAt: DateTime!\n}",
+              template: "",
+              reducer:
+                'const legal = ["SUBMITTED"];\nif (!legal.includes(state.reviewStage)) {\n  throw new InvalidOpenTransitionError(\n    `Cannot transition from ${state.reviewStage} to OPENED`\n  );\n}\nstate.reviewStage = "OPENED";\nstate.status = "pending";\n',
+              errors: [
+                {
+                  id: "err-ga-invalid-open",
+                  name: "InvalidOpenTransitionError",
+                  code: "INVALID_OPEN_TRANSITION",
+                  description: "Cannot open from current reviewStage.",
+                  template: "",
+                },
+              ],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "ga-start-review",
+              name: "START_REVIEW",
+              description: "",
+              schema:
+                "input StartReviewInput {\n    reviewerDid: String!\n    startedAt: DateTime!\n}",
+              template: "",
+              reducer:
+                'const legal = ["SUBMITTED", "OPENED"];\nif (!legal.includes(state.reviewStage)) {\n  throw new InvalidStartReviewError(\n    `Cannot transition from ${state.reviewStage} to UNDER_REVIEW`\n  );\n}\nstate.reviewStage = "UNDER_REVIEW";\nstate.status = "in_review";\nstate.reviewedBy = action.input.reviewerDid;',
+              errors: [
+                {
+                  id: "err-ga-invalid-start-review",
+                  name: "InvalidStartReviewError",
+                  code: "INVALID_START_REVIEW",
+                  description: "Cannot start review from current reviewStage.",
+                  template: "",
+                },
+              ],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "ga-request-revision",
+              name: "REQUEST_REVISION",
+              description: "",
+              schema:
+                "input RequestRevisionInput {\n    feedbackNotes: String!\n    requestedAt: DateTime!\n}",
+              template: "",
+              reducer:
+                'const legal = ["UNDER_REVIEW"];\nif (!legal.includes(state.reviewStage)) {\n  throw new InvalidRequestRevisionError(\n    `Cannot transition from ${state.reviewStage} to NEEDS_REVISION`\n  );\n}\nstate.reviewStage = "NEEDS_REVISION";\nstate.status = "in_review";\nstate.feedbackNotes = action.input.feedbackNotes;',
+              errors: [
+                {
+                  id: "err-ga-invalid-request-revision",
+                  name: "InvalidRequestRevisionError",
+                  code: "INVALID_REQUEST_REVISION",
+                  description:
+                    "Cannot request revision from current reviewStage.",
+                  template: "",
+                },
+              ],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "ga-mark-revised",
+              name: "MARK_REVISED",
+              description: "",
+              schema: "input MarkRevisedInput {\n    revisedAt: DateTime!\n}",
+              template: "",
+              reducer:
+                'if (state.reviewStage !== "NEEDS_REVISION") {\n  throw new InvalidMarkRevisedError(`Can only mark revised from NEEDS_REVISION`);\n}\nstate.reviewStage = "REVISED";\nstate.status = "in_review";\nstate.revisionCount += 1;',
+              errors: [
+                {
+                  id: "err-ga-invalid-mark-revised",
+                  name: "InvalidMarkRevisedError",
+                  code: "INVALID_MARK_REVISED",
+                  description: "Cannot mark revised unless NEEDS_REVISION.",
+                  template: "",
+                },
+              ],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "ga-approve-application",
+              name: "APPROVE_APPLICATION",
+              description: "",
+              schema:
+                "input ApproveApplicationInput {\n    approvedAt: DateTime!\n    reviewerDid: String!\n}",
+              template: "",
+              reducer:
+                'const legal = ["UNDER_REVIEW", "REVISED"];\nif (!legal.includes(state.reviewStage)) {\n  throw new InvalidApproveError(\n    `Cannot transition from ${state.reviewStage} to APPROVED`\n  );\n}\nstate.reviewStage = "APPROVED";\nstate.status = "approved";\nstate.reviewedBy = action.input.reviewerDid;\nstate.reviewedAt = action.input.approvedAt;',
+              errors: [
+                {
+                  id: "err-ga-invalid-approve",
+                  name: "InvalidApproveError",
+                  code: "INVALID_APPROVE",
+                  description: "Cannot approve from current reviewStage.",
+                  template: "",
+                },
+              ],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "ga-conditionally-approve",
+              name: "CONDITIONALLY_APPROVE",
+              description: "",
+              schema:
+                "input ConditionallyApproveInput {\n    approvedAt: DateTime!\n    conditions: String!\n    reviewerDid: String!\n}",
+              template: "",
+              reducer:
+                'const legal = ["UNDER_REVIEW", "REVISED"];\nif (!legal.includes(state.reviewStage)) {\n  throw new InvalidConditionalApproveError(\n    `Cannot transition from ${state.reviewStage} to CONDITIONALLY_APPROVED`\n  );\n}\nstate.reviewStage = "CONDITIONALLY_APPROVED";\nstate.status = "approved";\nstate.reviewedBy = action.input.reviewerDid;\nstate.reviewedAt = action.input.approvedAt;\nstate.feedbackNotes = action.input.conditions;',
+              errors: [
+                {
+                  id: "err-ga-invalid-conditional",
+                  name: "InvalidConditionalApproveError",
+                  code: "INVALID_CONDITIONAL_APPROVE",
+                  description:
+                    "Cannot conditionally approve from current reviewStage.",
+                  template: "",
+                },
+              ],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "ga-reject-application",
+              name: "REJECT_APPLICATION",
+              description: "",
+              schema:
+                "input RejectApplicationInput {\n    rejectedAt: DateTime!\n    reason: String!\n    reviewerDid: String!\n}",
+              template: "",
+              reducer:
+                'const legal = ["UNDER_REVIEW", "REVISED"];\nif (!legal.includes(state.reviewStage)) {\n  throw new InvalidRejectError(\n    `Cannot transition from ${state.reviewStage} to REJECTED`\n  );\n}\nstate.reviewStage = "REJECTED";\nstate.status = "rejected";\nstate.reviewedBy = action.input.reviewerDid;\nstate.reviewedAt = action.input.rejectedAt;\nstate.feedbackNotes = action.input.reason;',
+              errors: [
+                {
+                  id: "err-ga-invalid-reject",
+                  name: "InvalidRejectError",
+                  code: "INVALID_REJECT",
+                  description: "Cannot reject from current reviewStage.",
+                  template: "",
+                },
+              ],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "ga-withdraw-application",
+              name: "WITHDRAW_APPLICATION",
+              description: "",
+              schema:
+                "input WithdrawApplicationInput {\n    withdrawnAt: DateTime!\n    reason: String\n}",
+              template: "",
+              reducer:
+                'if (["DRAFT", "SUBMITTED", "OPENED", "UNDER_REVIEW", "NEEDS_REVISION", "REVISED"].indexOf(state.reviewStage) === -1) {\n  throw new InvalidWithdrawError(`Cannot withdraw from ${state.reviewStage}`);\n}\nstate.reviewStage = "WITHDRAWN";\nstate.status = "rejected";',
+              errors: [
+                {
+                  id: "err-ga-invalid-withdraw",
+                  name: "InvalidWithdrawError",
+                  code: "INVALID_WITHDRAW",
+                  description: "Cannot withdraw from current reviewStage.",
+                  template: "",
+                },
+              ],
+              examples: [],
+              scope: "global",
+            },
+          ],
+        },
+        {
+          id: "payouts-module",
+          name: "payouts",
+          description: "Payout records + completion marking",
+          operations: [
+            {
+              id: "ga-record-payout",
+              name: "RECORD_PAYOUT",
+              description: "",
+              schema:
+                "input RecordPayoutInput {\n    id: OID!\n    payoutType: String!\n    value: String!\n    proof: String\n    timestamp: DateTime!\n}",
+              template: "",
+              reducer:
+                'state.payouts.push({\n  id: action.input.id,\n  payoutType: action.input.payoutType,\n  value: action.input.value,\n  proof: action.input.proof || null,\n  timestamp: action.input.timestamp,\n});\nstate.reviewStage = "FUNDED";\nstate.status = "funded";',
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "ga-mark-completed",
+              name: "MARK_COMPLETED",
+              description: "",
+              schema:
+                "input MarkCompletedInput {\n    completedAt: DateTime!\n}",
+              template: "",
+              reducer:
+                'if (state.reviewStage !== "FUNDED") {\n  throw new InvalidCompleteError(`Can only mark completed after FUNDED`);\n}\nstate.reviewStage = "COMPLETED";\nstate.status = "completed";',
+              errors: [
+                {
+                  id: "err-ga-invalid-complete",
+                  name: "InvalidCompleteError",
+                  code: "INVALID_COMPLETE",
+                  description: "Cannot mark completed unless FUNDED.",
+                  template: "",
+                },
+              ],
+              examples: [],
+              scope: "global",
+            },
+          ],
+        },
+      ],
+      version: 1,
+      changeLog: [],
+    },
+  ],
+};

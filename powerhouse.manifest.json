@@ -1,15 +1,32 @@
 {
-  "name": "rfp-hub-app",
-  "description": "",
-  "category": "",
-  "publisher": {
-    "name": "",
-    "url": ""
-  },
-  "documentModels": [],
-  "editors": [],
-  "apps": [],
-  "subgraphs": [],
-  "importScripts": [],
-  "config": []
+    "name": "rfp-hub-app",
+    "description": "",
+    "category": "",
+    "publisher": {
+        "name": "",
+        "url": ""
+    },
+    "documentModels": [
+        {
+            "id": "rfp-hub/grant-system",
+            "name": "GrantSystem"
+        },
+        {
+            "id": "rfp-hub/project",
+            "name": "Project"
+        },
+        {
+            "id": "rfp-hub/grant-application",
+            "name": "GrantApplication"
+        },
+        {
+            "id": "rfp-hub/governance",
+            "name": "Governance"
+        }
+    ],
+    "editors": [],
+    "apps": [],
+    "subgraphs": [],
+    "importScripts": [],
+    "config": []
 }

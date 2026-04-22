@@ -1,0 +1,271 @@
+scalar Unknown
+scalar DateTime
+scalar Attachment
+scalar Address
+scalar Amount_Tokens
+scalar EthereumAddress
+scalar EmailAddress
+scalar Amount_Percentage
+scalar Date
+scalar URL
+scalar Amount_Money
+scalar OLabel
+scalar Currency
+scalar PHID
+scalar OID
+scalar Amount_Fiat
+scalar Amount_Currency
+scalar Amount_Crypto
+scalar Amount
+scalar Upload
+
+type GrantApplicationState {
+  # DAOIP-5 canonical GrantApplication
+  grantPoolsURI: URL
+  grantPoolId: PHID
+  grantPoolName: String
+  projectsURI: URL
+  projectId: PHID
+  projectName: String
+  createdAt: DateTime
+  contentURI: URL
+  discussionsTo: URL
+  licenseURI: URL
+  isInactive: Boolean!
+  applicationCompletionRate: Float
+  socials: [AppSocial!]!
+  fundsAsked: [AppFundingAmount!]!
+  fundsAskedInUSD: Amount_Fiat
+  fundsApproved: [AppFundingAmount!]!
+  fundsApprovedInUSD: Amount_Fiat
+  payoutAddress: PayoutAddress
+  status: ApplicationStatus!           # DAOIP-5 canonical 6-value enum
+  payouts: [Payout!]!
+  extensions: String
+
+  # Powerhouse additions
+  paymentTerm: PaymentTerm
+  reviewStage: ReviewStage!             # richer lifecycle (additive)
+  feedbackNotes: String
+  revisionCount: Int!
+  submitter: AppSubmitter
+  submittedAt: DateTime
+  reviewedBy: String
+  reviewedAt: DateTime
+}
+
+enum ApplicationStatus {
+  pending
+  in_review
+  approved
+  funded
+  rejected
+  completed
+}
+
+enum ReviewStage {
+  DRAFT
+  SUBMITTED
+  OPENED
+  UNDER_REVIEW
+  NEEDS_REVISION
+  REVISED
+  APPROVED
+  CONDITIONALLY_APPROVED
+  REJECTED
+  WITHDRAWN
+  FUNDED
+  COMPLETED
+}
+
+enum PaymentTerm {
+  MILESTONE_BASED_FIXED_PRICE
+  MILESTONE_BASED_ADVANCE_PAYMENT
+  RETAINER_BASED
+  VARIABLE_COST
+  ESCROW
+}
+
+enum AppSubmitterType {
+  COMMUNITY
+  VERIFIED_PUBLISHER
+  AUTOMATION
+}
+
+type AppSubmitter {
+  submitterType: AppSubmitterType!
+  identifier: String!
+  submittedAt: DateTime!
+}
+
+type AppSocial {
+  id: OID!
+  platform: String!
+  url: URL!
+}
+
+type AppFundingAmount {
+  id: OID!
+  amount: Amount!
+}
+
+type PayoutAddress {
+  addressType: String!
+  value: String!
+}
+
+type Payout {
+  id: OID!
+  payoutType: String!
+  value: String!
+  proof: String
+  timestamp: DateTime!
+}
+
+
+# metadata
+
+input SetPoolRefInput {
+    grantPoolsURI: URL!
+    grantPoolId: PHID!
+    grantPoolName: String!
+}
+
+input SetProjectRefInput {
+    projectsURI: URL!
+    projectId: PHID!
+    projectName: String!
+}
+
+input SetCreatedAtInput {
+    createdAt: DateTime!
+}
+
+input SetAppContentUriInput {
+    contentURI: URL
+}
+
+input SetDiscussionsToInput {
+    discussionsTo: URL
+}
+
+input SetAppLicenseUriInput {
+    licenseURI: URL
+}
+
+input SetIsInactiveInput {
+    isInactive: Boolean!
+}
+
+input SetCompletionRateInput {
+    applicationCompletionRate: Float
+}
+
+input SetAppExtensionsInput {
+    extensions: String
+}
+
+input AddAppSocialInput {
+    id: OID!
+    platform: String!
+    url: URL!
+}
+
+input RemoveAppSocialInput {
+    id: OID!
+}
+
+# funding
+
+input AddFundsAskedInput {
+    id: OID!
+    amount: Amount!
+}
+
+input RemoveFundsAskedInput {
+    id: OID!
+}
+
+input SetFundsAskedUsdInput {
+    fundsAskedInUSD: Amount_Fiat
+}
+
+input AddFundsApprovedInput {
+    id: OID!
+    amount: Amount!
+}
+
+input SetFundsApprovedUsdInput {
+    fundsApprovedInUSD: Amount_Fiat
+}
+
+input SetPayoutAddressInput {
+    addressType: String!
+    value: String!
+}
+
+input SetPaymentTermInput {
+    paymentTerm: PaymentTerm!
+}
+
+# review
+
+input SubmitApplicationInput {
+    submittedAt: DateTime!
+    submitterType: AppSubmitterType!
+    identifier: String!
+}
+
+input OpenApplicationInput {
+    openedAt: DateTime!
+}
+
+input StartReviewInput {
+    reviewerDid: String!
+    startedAt: DateTime!
+}
+
+input RequestRevisionInput {
+    feedbackNotes: String!
+    requestedAt: DateTime!
+}
+
+input MarkRevisedInput {
+    revisedAt: DateTime!
+}
+
+input ApproveApplicationInput {
+    approvedAt: DateTime!
+    reviewerDid: String!
+}
+
+input ConditionallyApproveInput {
+    approvedAt: DateTime!
+    conditions: String!
+    reviewerDid: String!
+}
+
+input RejectApplicationInput {
+    rejectedAt: DateTime!
+    reason: String!
+    reviewerDid: String!
+}
+
+input WithdrawApplicationInput {
+    withdrawnAt: DateTime!
+    reason: String
+}
+
+# payouts
+
+input RecordPayoutInput {
+    id: OID!
+    payoutType: String!
+    value: String!
+    proof: String
+    timestamp: DateTime!
+}
+
+input MarkCompletedInput {
+    completedAt: DateTime!
+}

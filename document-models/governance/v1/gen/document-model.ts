@@ -1,0 +1,246 @@
+import type { DocumentModelGlobalState } from "document-model";
+
+export const documentModel: DocumentModelGlobalState = {
+  id: "rfp-hub/governance",
+  name: "Governance",
+  author: {
+    name: "Powerhouse",
+    website: "https://www.powerhouse.inc/",
+  },
+  extension: "rfpg",
+  description:
+    "RFP Hub governance \u2014 disputes, publisher allowlist decisions, schema/policy RFCs, and published policies. First-class audit trail for all meta-decisions.",
+  specifications: [
+    {
+      state: {
+        local: {
+          schema: "",
+          examples: [],
+          initialValue: "",
+        },
+        global: {
+          schema:
+            "type GovernanceState {\n  # Disputes queue\n  disputes: [Dispute!]!\n\n  # Publisher verification decisions audit trail\n  publisherDecisions: [PublisherDecision!]!\n\n  # Schema / policy change RFCs\n  rfcs: [Rfc!]!\n\n  # Published policies (inclusion, ranking, etc.)\n  policies: [Policy!]!\n}\n\ntype Dispute {\n  id: OID!\n  disputeKind: DisputeKind!\n  subjectRef: PHID!\n  filedBy: String!\n  filedAt: DateTime!\n  summary: String!\n  status: DisputeStatus!\n  assignedTo: String\n  resolvedAt: DateTime\n  resolution: String\n  appealAt: DateTime\n  appealReason: String\n}\n\nenum DisputeKind {\n  DUPLICATE_CLAIM\n  INACCURATE_ENTRY\n  PUBLISHER_CONDUCT\n  REVIEW_DECISION\n  POLICY_VIOLATION\n  OTHER\n}\n\nenum DisputeStatus {\n  OPEN\n  INVESTIGATING\n  RESOLVED\n  DISMISSED\n  APPEALED\n}\n\ntype PublisherDecision {\n  id: OID!\n  grantSystemRef: PHID!\n  decision: PublisherDecisionKind!\n  decidedBy: String!\n  decidedAt: DateTime!\n  reason: String\n}\n\nenum PublisherDecisionKind {\n  APPROVED\n  REVOKED\n  SUSPENDED\n  REINSTATED\n}\n\ntype Rfc {\n  id: OID!\n  title: String!\n  summary: String!\n  author: String!\n  proposedAt: DateTime!\n  status: RfcStatus!\n  ratifiedAt: DateTime\n  implementedAt: DateTime\n}\n\nenum RfcStatus {\n  PROPOSED\n  UNDER_REVIEW\n  RATIFIED\n  IMPLEMENTED\n  REJECTED\n  WITHDRAWN\n}\n\ntype Policy {\n  id: OID!\n  name: String!\n  summary: String!\n  content: String!\n  effectiveFrom: DateTime!\n  supersededAt: DateTime\n  supersededBy: OID\n}\n",
+          examples: [],
+          initialValue:
+            '{"disputes": [], "publisherDecisions": [], "rfcs": [], "policies": []}',
+        },
+      },
+      modules: [
+        {
+          id: "disputes-module",
+          name: "disputes",
+          description:
+            "Dispute filing + investigation + resolution + appeal lifecycle",
+          operations: [
+            {
+              id: "gv-file-dispute",
+              name: "FILE_DISPUTE",
+              description: "",
+              schema:
+                "input FileDisputeInput {\n    id: OID!\n    disputeKind: DisputeKind!\n    subjectRef: PHID!\n    filedBy: String!\n    filedAt: DateTime!\n    summary: String!\n}",
+              template: "",
+              reducer:
+                'state.disputes.push({\n  id: action.input.id,\n  disputeKind: action.input.disputeKind,\n  subjectRef: action.input.subjectRef,\n  filedBy: action.input.filedBy,\n  filedAt: action.input.filedAt,\n  summary: action.input.summary,\n  status: "OPEN",\n  assignedTo: null,\n  resolvedAt: null,\n  resolution: null,\n  appealAt: null,\n  appealReason: null,\n});',
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gv-assign-investigator",
+              name: "ASSIGN_INVESTIGATOR",
+              description: "",
+              schema:
+                "input AssignInvestigatorInput {\n    id: OID!\n    assignedTo: String!\n}",
+              template: "",
+              reducer:
+                'const d = state.disputes.find((x) => x.id === action.input.id);\nif (!d) throw new Error(`Dispute ${action.input.id} not found`);\nd.assignedTo = action.input.assignedTo;\nd.status = "INVESTIGATING";',
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gv-resolve-dispute",
+              name: "RESOLVE_DISPUTE",
+              description: "",
+              schema:
+                "input ResolveDisputeInput {\n    id: OID!\n    resolvedAt: DateTime!\n    resolution: String!\n}",
+              template: "",
+              reducer:
+                'const d = state.disputes.find((x) => x.id === action.input.id);\nif (!d) throw new Error(`Dispute ${action.input.id} not found`);\nd.resolvedAt = action.input.resolvedAt;\nd.resolution = action.input.resolution;\nd.status = "RESOLVED";',
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gv-dismiss-dispute",
+              name: "DISMISS_DISPUTE",
+              description: "",
+              schema:
+                "input DismissDisputeInput {\n    id: OID!\n    dismissedAt: DateTime!\n    reason: String!\n}",
+              template: "",
+              reducer:
+                'const d = state.disputes.find((x) => x.id === action.input.id);\nif (!d) throw new Error(`Dispute ${action.input.id} not found`);\nd.resolvedAt = action.input.dismissedAt;\nd.resolution = action.input.reason;\nd.status = "DISMISSED";',
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gv-appeal-dispute",
+              name: "APPEAL_DISPUTE",
+              description: "",
+              schema:
+                "input AppealDisputeInput {\n    id: OID!\n    appealAt: DateTime!\n    appealReason: String!\n}",
+              template: "",
+              reducer:
+                'const d = state.disputes.find((x) => x.id === action.input.id);\nif (!d) throw new Error(`Dispute ${action.input.id} not found`);\nd.appealAt = action.input.appealAt;\nd.appealReason = action.input.appealReason;\nd.status = "APPEALED";',
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+          ],
+        },
+        {
+          id: "publisher-decisions-module",
+          name: "publisher_decisions",
+          description:
+            "Audit trail of verified-publisher approval/revoke/suspend decisions",
+          operations: [
+            {
+              id: "gv-record-publisher-decision",
+              name: "RECORD_PUBLISHER_DECISION",
+              description: "",
+              schema:
+                "input RecordPublisherDecisionInput {\n    id: OID!\n    grantSystemRef: PHID!\n    decision: PublisherDecisionKind!\n    decidedBy: String!\n    decidedAt: DateTime!\n    reason: String\n}",
+              template: "",
+              reducer:
+                "state.publisherDecisions.push({\n  id: action.input.id,\n  grantSystemRef: action.input.grantSystemRef,\n  decision: action.input.decision,\n  decidedBy: action.input.decidedBy,\n  decidedAt: action.input.decidedAt,\n  reason: action.input.reason || null,\n});",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+          ],
+        },
+        {
+          id: "rfcs-module",
+          name: "rfcs",
+          description:
+            "Schema and policy change RFCs with propose \u2192 review \u2192 ratify \u2192 implement flow",
+          operations: [
+            {
+              id: "gv-propose-rfc",
+              name: "PROPOSE_RFC",
+              description: "",
+              schema:
+                "input ProposeRfcInput {\n    id: OID!\n    title: String!\n    summary: String!\n    author: String!\n    proposedAt: DateTime!\n}",
+              template: "",
+              reducer:
+                'state.rfcs.push({\n  id: action.input.id,\n  title: action.input.title,\n  summary: action.input.summary,\n  author: action.input.author,\n  proposedAt: action.input.proposedAt,\n  status: "PROPOSED",\n  ratifiedAt: null,\n  implementedAt: null,\n});',
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gv-start-rfc-review",
+              name: "START_RFC_REVIEW",
+              description: "",
+              schema: "input StartRfcReviewInput {\n    id: OID!\n}",
+              template: "",
+              reducer:
+                'const r = state.rfcs.find((x) => x.id === action.input.id);\nif (!r) throw new Error(`RFC ${action.input.id} not found`);\nr.status = "UNDER_REVIEW";',
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gv-ratify-rfc",
+              name: "RATIFY_RFC",
+              description: "",
+              schema:
+                "input RatifyRfcInput {\n    id: OID!\n    ratifiedAt: DateTime!\n}",
+              template: "",
+              reducer:
+                'const r = state.rfcs.find((x) => x.id === action.input.id);\nif (!r) throw new Error(`RFC ${action.input.id} not found`);\nr.status = "RATIFIED";\nr.ratifiedAt = action.input.ratifiedAt;',
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gv-implement-rfc",
+              name: "IMPLEMENT_RFC",
+              description: "",
+              schema:
+                "input ImplementRfcInput {\n    id: OID!\n    implementedAt: DateTime!\n}",
+              template: "",
+              reducer:
+                'const r = state.rfcs.find((x) => x.id === action.input.id);\nif (!r) throw new Error(`RFC ${action.input.id} not found`);\nr.status = "IMPLEMENTED";\nr.implementedAt = action.input.implementedAt;',
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gv-reject-rfc",
+              name: "REJECT_RFC",
+              description: "",
+              schema: "input RejectRfcInput {\n    id: OID!\n}",
+              template: "",
+              reducer:
+                'const r = state.rfcs.find((x) => x.id === action.input.id);\nif (!r) throw new Error(`RFC ${action.input.id} not found`);\nr.status = "REJECTED";',
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gv-withdraw-rfc",
+              name: "WITHDRAW_RFC",
+              description: "",
+              schema: "input WithdrawRfcInput {\n    id: OID!\n}",
+              template: "",
+              reducer:
+                'const r = state.rfcs.find((x) => x.id === action.input.id);\nif (!r) throw new Error(`RFC ${action.input.id} not found`);\nr.status = "WITHDRAWN";',
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+          ],
+        },
+        {
+          id: "policies-module",
+          name: "policies",
+          description:
+            "Published policies (inclusion, ranking, featured placement, etc.)",
+          operations: [
+            {
+              id: "gv-publish-policy",
+              name: "PUBLISH_POLICY",
+              description: "",
+              schema:
+                "input PublishPolicyInput {\n    id: OID!\n    name: String!\n    summary: String!\n    content: String!\n    effectiveFrom: DateTime!\n}",
+              template: "",
+              reducer:
+                "state.policies.push({\n  id: action.input.id,\n  name: action.input.name,\n  summary: action.input.summary,\n  content: action.input.content,\n  effectiveFrom: action.input.effectiveFrom,\n  supersededAt: null,\n  supersededBy: null,\n});",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gv-supersede-policy",
+              name: "SUPERSEDE_POLICY",
+              description: "",
+              schema:
+                "input SupersedePolicyInput {\n    id: OID!\n    supersededAt: DateTime!\n    supersededBy: OID!\n}",
+              template: "",
+              reducer:
+                "const p = state.policies.find((x) => x.id === action.input.id);\nif (!p) throw new Error(`Policy ${action.input.id} not found`);\np.supersededAt = action.input.supersededAt;\np.supersededBy = action.input.supersededBy;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+          ],
+        },
+      ],
+      version: 1,
+      changeLog: [],
+    },
+  ],
+};

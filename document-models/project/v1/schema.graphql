@@ -1,0 +1,145 @@
+scalar Unknown
+scalar DateTime
+scalar Attachment
+scalar Address
+scalar Amount_Tokens
+scalar EthereumAddress
+scalar EmailAddress
+scalar Amount_Percentage
+scalar Date
+scalar URL
+scalar Amount_Money
+scalar OLabel
+scalar Currency
+scalar PHID
+scalar OID
+scalar Amount_Fiat
+scalar Amount_Currency
+scalar Amount_Crypto
+scalar Amount
+scalar Upload
+
+type ProjectState {
+  # DAOIP-5 canonical Project fields
+  name: String
+  description: String
+  contentURI: URL
+  email: EmailAddress
+  membersURI: URL
+  attestationIssuersURI: URL
+  relevantTo: [RelevantPool!]!
+  image: URL
+  coverImage: URL
+  licenseURI: URL
+  socials: [ProjectSocial!]!
+  extensions: String
+
+  # schema.org addition
+  sameAs: [URL!]!
+
+  # Hub additions
+  ownerDid: String
+  code: String
+}
+
+type RelevantPool {
+  id: OID!
+  poolId: PHID!
+  poolName: String!
+}
+
+type ProjectSocial {
+  id: OID!
+  name: String!
+  value: URL!
+}
+
+
+# profile
+
+input SetProjectNameInput {
+    name: String!
+}
+
+input SetProjectDescriptionInput {
+    description: String
+}
+
+input SetContentUriInput {
+    contentURI: URL
+}
+
+input SetProjectEmailInput {
+    email: EmailAddress
+}
+
+input SetMembersUriInput {
+    membersURI: URL
+}
+
+input SetProjectImageInput {
+    image: URL
+}
+
+input SetProjectCoverImageInput {
+    coverImage: URL
+}
+
+input SetLicenseUriInput {
+    licenseURI: URL
+}
+
+input SetProjectCodeInput {
+    code: String
+}
+
+input SetOwnerDidInput {
+    ownerDid: String!
+}
+
+input SetProjectExtensionsInput {
+    extensions: String
+}
+
+# attestations
+
+input SetProjectAttestationIssuersUriInput {
+    attestationIssuersURI: URL
+}
+
+# relevance
+
+input AddRelevantPoolInput {
+    id: OID!
+    poolId: PHID!
+    poolName: String!
+}
+
+input RemoveRelevantPoolInput {
+    id: OID!
+}
+
+# links
+
+input AddProjectSocialInput {
+    id: OID!
+    name: String!
+    value: URL!
+}
+
+input RemoveProjectSocialInput {
+    id: OID!
+}
+
+input UpdateProjectSocialUrlInput {
+    id: OID!
+    value: URL!
+}
+
+input AddProjectSameAsInput {
+    url: URL!
+}
+
+input RemoveProjectSameAsInput {
+    url: URL!
+}

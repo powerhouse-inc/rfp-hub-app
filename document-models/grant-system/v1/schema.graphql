@@ -1,0 +1,196 @@
+scalar Unknown
+scalar DateTime
+scalar Attachment
+scalar Address
+scalar Amount_Tokens
+scalar EthereumAddress
+scalar EmailAddress
+scalar Amount_Percentage
+scalar Date
+scalar URL
+scalar Amount_Money
+scalar OLabel
+scalar Currency
+scalar PHID
+scalar OID
+scalar Amount_Fiat
+scalar Amount_Currency
+scalar Amount_Crypto
+scalar Amount
+scalar Upload
+
+type GrantSystemState {
+  # DAOIP-5 canonical
+  name: String
+  type: GrantSystemType
+  grantPoolsURI: URL
+  extensions: String
+
+  # schema.org/Grant additions (non-breaking)
+  sameAs: [URL!]!
+
+  # Powerhouse profile additions
+  code: String
+  description: String
+  image: URL
+  coverImage: URL
+  email: EmailAddress
+  contactName: String
+  socials: [Social!]!
+
+  # Publisher verification lifecycle
+  verificationState: VerificationState!
+  verificationMethod: VerificationMethod
+  verifiedAt: DateTime
+  verifiedBy: String
+  revokedAt: DateTime
+  revocationReason: String
+  publisherWallet: EthereumAddress
+}
+
+enum GrantSystemType {
+  DAO
+  FOUNDATION
+  PROTOCOL
+  COMPANY
+  PROGRAM
+  PERSON
+  OTHER
+}
+
+enum VerificationState {
+  UNVERIFIED
+  PENDING_REVIEW
+  VERIFIED
+  SUSPENDED
+  REVOKED
+}
+
+enum VerificationMethod {
+  MANUAL_REVIEW
+  DOMAIN_VERIFICATION
+  WALLET_SIGNATURE
+  THIRD_PARTY_ATTESTATION
+}
+
+type Social {
+  id: OID!
+  platform: SocialPlatform!
+  url: URL!
+}
+
+enum SocialPlatform {
+  TWITTER
+  DISCORD
+  TELEGRAM
+  GITHUB
+  LINKEDIN
+  FARCASTER
+  LENS
+  MIRROR
+  WEBSITE
+}
+
+
+# identity
+
+input SetTypeInput {
+    type: GrantSystemType!
+}
+
+input SetCodeInput {
+    code: String
+}
+
+input SetDescriptionInput {
+    description: String
+}
+
+input SetGrantPoolsUriInput {
+    grantPoolsURI: URL
+}
+
+input SetExtensionsInput {
+    extensions: String
+}
+
+input SetImageInput {
+    image: URL
+}
+
+input SetCoverImageInput {
+    coverImage: URL
+}
+
+input SetEmailInput {
+    email: EmailAddress
+}
+
+input SetContactNameInput {
+    contactName: String
+}
+
+input SetOrgNameInput {
+    name: String!
+}
+
+# links
+
+input AddSameAsInput {
+    url: URL!
+}
+
+input RemoveSameAsInput {
+    url: URL!
+}
+
+input AddSocialInput {
+    id: OID!
+    platform: SocialPlatform!
+    url: URL!
+}
+
+input RemoveSocialInput {
+    id: OID!
+}
+
+input UpdateSocialUrlInput {
+    id: OID!
+    url: URL!
+}
+
+# verification
+
+input SetPublisherWalletInput {
+    publisherWallet: EthereumAddress!
+}
+
+input RequestVerificationInput {
+    requestedAt: DateTime!
+}
+
+input ApproveVerificationInput {
+    verifiedBy: String!
+    method: VerificationMethod!
+    verifiedAt: DateTime!
+}
+
+input RejectVerificationInput {
+    reason: String!
+    rejectedAt: DateTime!
+}
+
+input SuspendVerificationInput {
+    reason: String!
+    suspendedAt: DateTime!
+}
+
+input RevokeVerificationInput {
+    reason: String!
+    revokedAt: DateTime!
+}
+
+input ReinstateVerificationInput {
+    reinstatedBy: String!
+    verifiedAt: DateTime!
+}

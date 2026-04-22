@@ -1,0 +1,206 @@
+scalar Unknown
+scalar DateTime
+scalar Attachment
+scalar Address
+scalar Amount_Tokens
+scalar EthereumAddress
+scalar EmailAddress
+scalar Amount_Percentage
+scalar Date
+scalar URL
+scalar Amount_Money
+scalar OLabel
+scalar Currency
+scalar PHID
+scalar OID
+scalar Amount_Fiat
+scalar Amount_Currency
+scalar Amount_Crypto
+scalar Amount
+scalar Upload
+
+type GovernanceState {
+  # Disputes queue
+  disputes: [Dispute!]!
+
+  # Publisher verification decisions audit trail
+  publisherDecisions: [PublisherDecision!]!
+
+  # Schema / policy change RFCs
+  rfcs: [Rfc!]!
+
+  # Published policies (inclusion, ranking, etc.)
+  policies: [Policy!]!
+}
+
+type Dispute {
+  id: OID!
+  disputeKind: DisputeKind!
+  subjectRef: PHID!
+  filedBy: String!
+  filedAt: DateTime!
+  summary: String!
+  status: DisputeStatus!
+  assignedTo: String
+  resolvedAt: DateTime
+  resolution: String
+  appealAt: DateTime
+  appealReason: String
+}
+
+enum DisputeKind {
+  DUPLICATE_CLAIM
+  INACCURATE_ENTRY
+  PUBLISHER_CONDUCT
+  REVIEW_DECISION
+  POLICY_VIOLATION
+  OTHER
+}
+
+enum DisputeStatus {
+  OPEN
+  INVESTIGATING
+  RESOLVED
+  DISMISSED
+  APPEALED
+}
+
+type PublisherDecision {
+  id: OID!
+  grantSystemRef: PHID!
+  decision: PublisherDecisionKind!
+  decidedBy: String!
+  decidedAt: DateTime!
+  reason: String
+}
+
+enum PublisherDecisionKind {
+  APPROVED
+  REVOKED
+  SUSPENDED
+  REINSTATED
+}
+
+type Rfc {
+  id: OID!
+  title: String!
+  summary: String!
+  author: String!
+  proposedAt: DateTime!
+  status: RfcStatus!
+  ratifiedAt: DateTime
+  implementedAt: DateTime
+}
+
+enum RfcStatus {
+  PROPOSED
+  UNDER_REVIEW
+  RATIFIED
+  IMPLEMENTED
+  REJECTED
+  WITHDRAWN
+}
+
+type Policy {
+  id: OID!
+  name: String!
+  summary: String!
+  content: String!
+  effectiveFrom: DateTime!
+  supersededAt: DateTime
+  supersededBy: OID
+}
+
+
+# disputes
+
+input FileDisputeInput {
+    id: OID!
+    disputeKind: DisputeKind!
+    subjectRef: PHID!
+    filedBy: String!
+    filedAt: DateTime!
+    summary: String!
+}
+
+input AssignInvestigatorInput {
+    id: OID!
+    assignedTo: String!
+}
+
+input ResolveDisputeInput {
+    id: OID!
+    resolvedAt: DateTime!
+    resolution: String!
+}
+
+input DismissDisputeInput {
+    id: OID!
+    dismissedAt: DateTime!
+    reason: String!
+}
+
+input AppealDisputeInput {
+    id: OID!
+    appealAt: DateTime!
+    appealReason: String!
+}
+
+# publisher_decisions
+
+input RecordPublisherDecisionInput {
+    id: OID!
+    grantSystemRef: PHID!
+    decision: PublisherDecisionKind!
+    decidedBy: String!
+    decidedAt: DateTime!
+    reason: String
+}
+
+# rfcs
+
+input ProposeRfcInput {
+    id: OID!
+    title: String!
+    summary: String!
+    author: String!
+    proposedAt: DateTime!
+}
+
+input StartRfcReviewInput {
+    id: OID!
+}
+
+input RatifyRfcInput {
+    id: OID!
+    ratifiedAt: DateTime!
+}
+
+input ImplementRfcInput {
+    id: OID!
+    implementedAt: DateTime!
+}
+
+input RejectRfcInput {
+    id: OID!
+}
+
+input WithdrawRfcInput {
+    id: OID!
+}
+
+# policies
+
+input PublishPolicyInput {
+    id: OID!
+    name: String!
+    summary: String!
+    content: String!
+    effectiveFrom: DateTime!
+}
+
+input SupersedePolicyInput {
+    id: OID!
+    supersededAt: DateTime!
+    supersededBy: OID!
+}
