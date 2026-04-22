@@ -6,6 +6,9 @@
   "files": [
     "/dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -66,6 +69,7 @@
     "document-model": "6.0.0-dev.189",
     "@powerhousedao/design-system": "6.0.0-dev.189",
     "@powerhousedao/reactor-api": "6.0.0-dev.189",
+    "@powerhousedao/shared": "6.0.0-dev.189",
     "@powerhousedao/reactor-browser": "6.0.0-dev.189",
     "@powerhousedao/connect": "6.0.0-dev.189",
     "@powerhousedao/analytics-engine-core": "6.0.0-dev.189",

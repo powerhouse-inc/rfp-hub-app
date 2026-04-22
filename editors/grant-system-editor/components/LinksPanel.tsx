@@ -7,6 +7,7 @@ type Props = {
   onRemoveSameAs: (url: string) => void;
   onAddSocial: (platform: string, url: string) => void;
   onRemoveSocial: (id: string) => void;
+  onUpdateSocialUrl: (id: string, url: string) => void;
 };
 
 const SOCIAL_PLATFORMS = [
@@ -141,16 +142,20 @@ export function LinksPanel(p: Props) {
           <ul className="rfp-list">
             {p.state.socials.map((s) => (
               <li key={s.id} className="rfp-list-item">
-                <div className="rfp-row" style={{ gap: 12 }}>
+                <div
+                  className="rfp-row"
+                  style={{ gap: 12, flex: 1, minWidth: 0 }}
+                >
                   <span className="rfp-chip">{s.platform.toLowerCase()}</span>
-                  <a
-                    href={s.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    style={{ color: "inherit", textDecoration: "none" }}
-                  >
-                    {s.url}
-                  </a>
+                  <input
+                    className="rfp-input"
+                    style={{ flex: 1 }}
+                    defaultValue={s.url}
+                    onBlur={(e) => {
+                      const v = e.target.value.trim();
+                      if (v && v !== s.url) p.onUpdateSocialUrl(s.id, v);
+                    }}
+                  />
                 </div>
                 <button
                   className="rfp-btn-ghost"

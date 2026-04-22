@@ -1,115 +1,114 @@
-import type { EditorProps } from "document-model";
-import { useSelectedDrive } from "@powerhousedao/reactor-browser";
-import { FolderTree } from "./FolderTree.js";
+import type { EditorProps, PHDocument } from "document-model";
+import {
+  addDocument,
+  useDocumentsInSelectedDrive,
+  useSelectedDrive,
+} from "@powerhousedao/reactor-browser";
+import { useCallback, useMemo, useState } from "react";
+import type { GrantPoolDocument } from "../../../document-models/grant-pool/v1/gen/types.js";
+import type { GrantApplicationDocument } from "../../../document-models/grant-application/v1/gen/types.js";
+import type { GovernanceDocument } from "../../../document-models/governance/v1/gen/types.js";
+import type { GrantSystemDocument } from "../../../document-models/grant-system/v1/gen/types.js";
+import { DocumentBrowser } from "./DocumentBrowser.js";
+import { DOC_TYPE } from "./dashboard/constants.js";
+import { StatsRow } from "./dashboard/StatsRow.js";
+import { ReviewKanban } from "./dashboard/ReviewKanban.js";
+import { PoolsGrid } from "./dashboard/PoolsGrid.js";
+import { GovernanceHealth } from "./dashboard/GovernanceHealth.js";
+import { ActivityFeed } from "./dashboard/ActivityFeed.js";
+import { OrgCard } from "./dashboard/OrgCard.js";
 
-type DriveNode = {
-  id: string;
-  kind: string;
-  name: string;
-  documentType?: string;
-  parentFolder?: string | null;
-};
+function isDocumentOfType(doc: PHDocument, type: string): boolean {
+  return doc.header.documentType === type;
+}
 
 export function BackOfficeDashboard({ children }: EditorProps) {
   const showDocumentEditor = !!children;
-  const [driveDoc] = useSelectedDrive() as any;
-  const nodes: DriveNode[] =
-    driveDoc?.state?.global?.nodes?.filter((n: any) => n.kind === "file") ??
-    [];
+  const documents = useDocumentsInSelectedDrive();
+  const [selectedDrive] = useSelectedDrive();
+  const [creatingType, setCreatingType] = useState<string | null>(null);
 
-  const byType = {
-    grantSystem: nodes.filter(
-      (n) => n.documentType === "rfp-hub/grant-system",
-    ),
-    grantPool: nodes.filter(
-      (n) => n.documentType === "rfp-hub/grant-pool",
-    ),
-    grantApplication: nodes.filter(
-      (n) => n.documentType === "rfp-hub/grant-application",
-    ),
-    governance: nodes.filter(
-      (n) => n.documentType === "rfp-hub/governance",
-    ),
-    other: nodes.filter(
-      (n) => !n.documentType?.startsWith("rfp-hub/"),
-    ),
-  };
+  const driveId = selectedDrive?.header.id;
+
+  const grantSystems = useMemo(
+    () =>
+      (documents ?? []).filter((d): d is GrantSystemDocument =>
+        isDocumentOfType(d, DOC_TYPE.grantSystem),
+      ),
+    [documents],
+  );
+  const grantPools = useMemo(
+    () =>
+      (documents ?? []).filter((d): d is GrantPoolDocument =>
+        isDocumentOfType(d, DOC_TYPE.grantPool),
+      ),
+    [documents],
+  );
+  const applications = useMemo(
+    () =>
+      (documents ?? []).filter((d): d is GrantApplicationDocument =>
+        isDocumentOfType(d, DOC_TYPE.grantApplication),
+      ),
+    [documents],
+  );
+  const governance = useMemo(
+    () =>
+      (documents ?? []).filter((d): d is GovernanceDocument =>
+        isDocumentOfType(d, DOC_TYPE.governance),
+      ),
+    [documents],
+  );
+
+  const hasGrantSystem = grantSystems.length > 0;
+
+  const handleCreate = useCallback(
+    async (documentType: string, name: string) => {
+      if (!driveId || creatingType) return;
+      setCreatingType(documentType);
+      try {
+        await addDocument(driveId, name, documentType);
+      } catch (err) {
+        console.error(`Failed to create ${documentType}:`, err);
+      } finally {
+        setCreatingType(null);
+      }
+    },
+    [driveId, creatingType],
+  );
 
   return (
     <div style={{ display: "flex", height: "100%" }}>
-      <FolderTree />
+      <DocumentBrowser
+        mode="funder"
+        onCreate={handleCreate}
+        creatingType={creatingType}
+        canCreate={!!driveId}
+      />
       <div style={{ flex: 1, overflowY: "auto" }}>
         {showDocumentEditor ? (
           children
         ) : (
           <div className="rfp-page">
             <div className="rfp-page-inner">
-              <header className="rfp-header">
-                <span className="rfp-meta">RFP Hub · Back office</span>
-                <h1 className="rfp-h1">Funder dashboard</h1>
-                <p className="rfp-hint">
-                  Manage your grant system, pools, applications, and governance.
-                </p>
-              </header>
-
-              <div className="rfp-grid-2">
-                <TypeCard
-                  label="Organization"
-                  type="rfp-hub/grant-system"
-                  docs={byType.grantSystem}
-                  emptyHint="Create a grant-system doc to publish your organization identity."
-                  accent
+              {!hasGrantSystem ? (
+                <OnboardingHero
+                  isCreating={creatingType === DOC_TYPE.grantSystem}
+                  onCreate={() =>
+                    handleCreate(DOC_TYPE.grantSystem, "Grant System")
+                  }
                 />
-                <TypeCard
-                  label="Governance"
-                  type="rfp-hub/governance"
-                  docs={byType.governance}
-                  emptyHint="Create a governance doc to track disputes, RFCs, and policies."
+              ) : (
+                <DashboardBody
+                  grantSystems={grantSystems}
+                  grantPools={grantPools}
+                  applications={applications}
+                  governance={governance}
+                  documents={documents ?? []}
+                  creatingType={creatingType}
+                  canCreate={!!driveId}
+                  onCreate={handleCreate}
                 />
-              </div>
-
-              <section className="rfp-card rfp-section">
-                <div className="rfp-row" style={{ justifyContent: "space-between" }}>
-                  <h2 className="rfp-section-subtitle">
-                    Grant pools · {byType.grantPool.length}
-                  </h2>
-                  <span className="rfp-meta">DAOIP-5 GrantPool</span>
-                </div>
-                <hr className="rfp-divider" />
-                {byType.grantPool.length === 0 ? (
-                  <div className="rfp-empty">
-                    No grant pools yet. Drop a <code>rfp-hub/grant-pool</code> doc
-                    or create one from the sidebar.
-                  </div>
-                ) : (
-                  <ul className="rfp-list">
-                    {byType.grantPool.map((p) => (
-                      <DocRow key={p.id} doc={p} />
-                    ))}
-                  </ul>
-                )}
-              </section>
-
-              <section className="rfp-card rfp-section">
-                <div className="rfp-row" style={{ justifyContent: "space-between" }}>
-                  <h2 className="rfp-section-subtitle">
-                    Applications review · {byType.grantApplication.length}
-                  </h2>
-                  <span className="rfp-meta">DAOIP-5 GrantApplication</span>
-                </div>
-                <hr className="rfp-divider" />
-                {byType.grantApplication.length === 0 ? (
-                  <div className="rfp-empty">
-                    No submitted applications yet.
-                  </div>
-                ) : (
-                  <ul className="rfp-list">
-                    {byType.grantApplication.map((a) => (
-                      <DocRow key={a.id} doc={a} />
-                    ))}
-                  </ul>
-                )}
-              </section>
+              )}
             </div>
           </div>
         )}
@@ -118,53 +117,111 @@ export function BackOfficeDashboard({ children }: EditorProps) {
   );
 }
 
-function TypeCard({
-  label,
-  type,
-  docs,
-  emptyHint,
-  accent,
+function DashboardBody({
+  grantSystems,
+  grantPools,
+  applications,
+  governance,
+  documents,
+  creatingType,
+  canCreate,
+  onCreate,
 }: {
-  label: string;
-  type: string;
-  docs: DriveNode[];
-  emptyHint: string;
-  accent?: boolean;
+  grantSystems: GrantSystemDocument[];
+  grantPools: GrantPoolDocument[];
+  applications: GrantApplicationDocument[];
+  governance: GovernanceDocument[];
+  documents: PHDocument[];
+  creatingType: string | null;
+  canCreate: boolean;
+  onCreate: (docType: string, name: string) => void;
 }) {
+  const primarySystem = grantSystems[0];
+
   return (
-    <section
-      className="rfp-card rfp-section"
-      style={
-        accent
-          ? { boxShadow: "0px 4px 20px rgba(176,35,43,0.08)" }
-          : undefined
-      }
-    >
-      <div className="rfp-row" style={{ justifyContent: "space-between" }}>
-        <h3 className="rfp-section-subtitle">{label}</h3>
-        <span className="rfp-chip">{docs.length}</span>
+    <>
+      <header className="rfp-header">
+        <div className="rfp-header-row">
+          <div className="rfp-col" style={{ gap: 6 }}>
+            <span className="rfp-meta">RFP Hub · Back office</span>
+            <h1 className="rfp-h1">Funder dashboard</h1>
+            <p className="rfp-hint" style={{ maxWidth: 640 }}>
+              Set up pools, review applications, and manage governance from
+              one control center.
+            </p>
+          </div>
+          {primarySystem ? (
+            <div style={{ minWidth: 260, maxWidth: 360 }}>
+              <OrgCard system={primarySystem} />
+            </div>
+          ) : null}
+        </div>
+      </header>
+
+      <StatsRow
+        pools={grantPools}
+        applications={applications}
+        governance={governance}
+      />
+
+      <ReviewKanban
+        applications={applications}
+        hasPools={grantPools.length > 0}
+      />
+
+      <PoolsGrid
+        pools={grantPools}
+        applications={applications}
+        creating={creatingType === DOC_TYPE.grantPool}
+        canCreate={canCreate}
+        onCreate={() =>
+          onCreate(
+            DOC_TYPE.grantPool,
+            `Grant pool ${grantPools.length + 1}`,
+          )
+        }
+      />
+
+      <div className="rfp-grid-2">
+        <GovernanceHealth
+          governance={governance}
+          creating={creatingType === DOC_TYPE.governance}
+          canCreate={canCreate}
+          onCreate={() => onCreate(DOC_TYPE.governance, "Governance")}
+        />
+        <ActivityFeed documents={documents} />
       </div>
-      <hr className="rfp-divider" />
-      {docs.length === 0 ? (
-        <div className="rfp-empty">{emptyHint}</div>
-      ) : (
-        <ul className="rfp-list">
-          {docs.map((d) => (
-            <DocRow key={d.id} doc={d} />
-          ))}
-        </ul>
-      )}
-    </section>
+    </>
   );
 }
 
-function DocRow({ doc }: { doc: DriveNode }) {
+function OnboardingHero({
+  isCreating,
+  onCreate,
+}: {
+  isCreating: boolean;
+  onCreate: () => void;
+}) {
   return (
-    <li className="rfp-list-item">
-      <div className="rfp-col" style={{ gap: 4, flex: 1 }}>
-        <strong>{doc.name}</strong>
-        <span className="rfp-meta">{doc.documentType}</span>
+    <div style={{ padding: "48px 0" }}>
+      <div className="rfp-hero">
+        <span className="rfp-hero-badge">Stage 1 of 4</span>
+        <h2 className="rfp-hero-title">Set up your organization</h2>
+        <p className="rfp-hero-body">
+          Welcome to the Funder Back Office. Before you can publish a grant
+          pool or review applications, publish your organization identity as
+          a <code>rfp-hub/grant-system</code> document. This becomes the
+          parent record for everything you fund.
+        </p>
+        <button
+          type="button"
+          className="rfp-btn-primary-lg"
+          onClick={onCreate}
+          disabled={isCreating}
+        >
+          {isCreating ? "Creating…" : "Create your Grant System →"}
+        </button>
       </div>
-    </li>
+    </div>
   );
 }

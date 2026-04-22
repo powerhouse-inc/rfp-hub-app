@@ -12,6 +12,7 @@ import { ContactPanel } from "./components/ContactPanel.js";
 import { LinksPanel } from "./components/LinksPanel.js";
 import { VerificationPanel } from "./components/VerificationPanel.js";
 import { VerificationBadge } from "./components/VerificationBadge.js";
+import { ExtensionsPanel } from "./components/ExtensionsPanel.js";
 
 export default function Editor() {
   const [document, dispatch] = useSelectedGrantSystemDocument();
@@ -82,6 +83,15 @@ export default function Editor() {
     (id: string) => dispatch(actions.removeSocial({ id })),
     [dispatch],
   );
+  const onUpdateSocialUrl = useCallback(
+    (id: string, url: string) =>
+      dispatch(actions.updateSocialUrl({ id, url })),
+    [dispatch],
+  );
+  const onSetExtensions = useCallback(
+    (extensions: string) => dispatch(actions.setExtensions({ extensions })),
+    [dispatch],
+  );
   const onSetPublisherWallet = useCallback(
     (publisherWallet: string) =>
       dispatch(actions.setPublisherWallet({ publisherWallet })),
@@ -105,12 +115,42 @@ export default function Editor() {
       ),
     [dispatch],
   );
+  const onRejectVerification = useCallback(
+    (reason: string) =>
+      dispatch(
+        actions.rejectVerification({
+          reason,
+          rejectedAt: new Date().toISOString(),
+        }),
+      ),
+    [dispatch],
+  );
+  const onSuspendVerification = useCallback(
+    (reason: string) =>
+      dispatch(
+        actions.suspendVerification({
+          reason,
+          suspendedAt: new Date().toISOString(),
+        }),
+      ),
+    [dispatch],
+  );
   const onRevokeVerification = useCallback(
     (reason: string) =>
       dispatch(
         actions.revokeVerification({
           reason,
           revokedAt: new Date().toISOString(),
+        }),
+      ),
+    [dispatch],
+  );
+  const onReinstateVerification = useCallback(
+    (reinstatedBy: string) =>
+      dispatch(
+        actions.reinstateVerification({
+          reinstatedBy,
+          verifiedAt: new Date().toISOString(),
         }),
       ),
     [dispatch],
@@ -161,6 +201,7 @@ export default function Editor() {
             onRemoveSameAs={onRemoveSameAs}
             onAddSocial={onAddSocial}
             onRemoveSocial={onRemoveSocial}
+            onUpdateSocialUrl={onUpdateSocialUrl}
           />
 
           <VerificationPanel
@@ -168,7 +209,15 @@ export default function Editor() {
             onSetPublisherWallet={onSetPublisherWallet}
             onRequestVerification={onRequestVerification}
             onApproveVerification={onApproveVerification}
+            onRejectVerification={onRejectVerification}
+            onSuspendVerification={onSuspendVerification}
             onRevokeVerification={onRevokeVerification}
+            onReinstateVerification={onReinstateVerification}
+          />
+
+          <ExtensionsPanel
+            state={state}
+            on={{ setExtensions: onSetExtensions }}
           />
         </div>
       </div>

@@ -9,18 +9,29 @@ type Props = {
     verifiedBy: string,
     method: "MANUAL_REVIEW" | "DOMAIN_VERIFICATION" | "WALLET_SIGNATURE" | "THIRD_PARTY_ATTESTATION",
   ) => void;
+  onRejectVerification: (reason: string) => void;
+  onSuspendVerification: (reason: string) => void;
   onRevokeVerification: (reason: string) => void;
+  onReinstateVerification: (reinstatedBy: string) => void;
 };
 
 export function VerificationPanel(p: Props) {
   const [verifier, setVerifier] = useState("");
   const [method, setMethod] =
     useState<Parameters<Props["onApproveVerification"]>[1]>("MANUAL_REVIEW");
+  const [rejectReason, setRejectReason] = useState("");
+  const [suspendReason, setSuspendReason] = useState("");
   const [revocationReason, setRevocationReason] = useState("");
+  const [reinstatedBy, setReinstatedBy] = useState("");
 
   const canRequest = p.state.verificationState === "UNVERIFIED";
   const canApprove = p.state.verificationState === "PENDING_REVIEW";
+  const canReject = p.state.verificationState === "PENDING_REVIEW";
+  const canSuspend = p.state.verificationState === "VERIFIED";
   const canRevoke = p.state.verificationState === "VERIFIED";
+  const canReinstate =
+    p.state.verificationState === "SUSPENDED" ||
+    p.state.verificationState === "REVOKED";
 
   return (
     <section className="rfp-card rfp-section">
@@ -91,46 +102,140 @@ export function VerificationPanel(p: Props) {
                 </select>
               </label>
             </div>
+            <div className="rfp-row" style={{ gap: 8, flexWrap: "wrap" }}>
+              <button
+                className="rfp-btn-primary"
+                disabled={!verifier.trim()}
+                onClick={() => {
+                  p.onApproveVerification(verifier.trim(), method);
+                  setVerifier("");
+                }}
+              >
+                Approve
+              </button>
+              {canReject ? (
+                <button
+                  className="rfp-btn-secondary"
+                  disabled={!rejectReason.trim()}
+                  onClick={() => {
+                    p.onRejectVerification(rejectReason.trim());
+                    setRejectReason("");
+                  }}
+                  style={{ color: "var(--rfp-error)" }}
+                >
+                  Reject
+                </button>
+              ) : null}
+            </div>
+            {canReject ? (
+              <label className="rfp-field">
+                <span className="rfp-label">Rejection reason</span>
+                <input
+                  className="rfp-input"
+                  value={rejectReason}
+                  onChange={(e) => setRejectReason(e.target.value)}
+                  placeholder="Why rejecting"
+                />
+              </label>
+            ) : null}
+          </div>
+        </div>
+      ) : null}
+
+      {canSuspend || canRevoke ? (
+        <div className="rfp-card" style={{ background: "#fff" }}>
+          <div className="rfp-section">
+            <span className="rfp-label">Suspend / Revoke</span>
+            {canSuspend ? (
+              <>
+                <label className="rfp-field">
+                  <span className="rfp-label">Suspension reason</span>
+                  <input
+                    className="rfp-input"
+                    value={suspendReason}
+                    onChange={(e) => setSuspendReason(e.target.value)}
+                    placeholder="Reason for suspension"
+                  />
+                </label>
+                <button
+                  className="rfp-btn-secondary"
+                  disabled={!suspendReason.trim()}
+                  onClick={() => {
+                    p.onSuspendVerification(suspendReason.trim());
+                    setSuspendReason("");
+                  }}
+                  style={{ alignSelf: "flex-start" }}
+                >
+                  Suspend
+                </button>
+              </>
+            ) : null}
+            {canRevoke ? (
+              <>
+                <label className="rfp-field">
+                  <span className="rfp-label">Revocation reason</span>
+                  <textarea
+                    className="rfp-textarea"
+                    value={revocationReason}
+                    onChange={(e) => setRevocationReason(e.target.value)}
+                    placeholder="Why is verification being revoked?"
+                  />
+                </label>
+                <button
+                  className="rfp-btn-secondary"
+                  disabled={!revocationReason.trim()}
+                  onClick={() => {
+                    p.onRevokeVerification(revocationReason.trim());
+                    setRevocationReason("");
+                  }}
+                  style={{
+                    color: "var(--rfp-error)",
+                    alignSelf: "flex-start",
+                  }}
+                >
+                  Revoke
+                </button>
+              </>
+            ) : null}
+          </div>
+        </div>
+      ) : null}
+
+      {canReinstate ? (
+        <div className="rfp-card" style={{ background: "#fff" }}>
+          <div className="rfp-section">
+            <span className="rfp-label">Reinstate verification</span>
+            <label className="rfp-field">
+              <span className="rfp-label">Reinstated by (DID)</span>
+              <input
+                className="rfp-input"
+                value={reinstatedBy}
+                onChange={(e) => setReinstatedBy(e.target.value)}
+                placeholder="did:pkh:eip155:1:0x…"
+              />
+            </label>
             <button
               className="rfp-btn-primary"
-              disabled={!verifier.trim()}
+              disabled={!reinstatedBy.trim()}
               onClick={() => {
-                p.onApproveVerification(verifier.trim(), method);
-                setVerifier("");
+                p.onReinstateVerification(reinstatedBy.trim());
+                setReinstatedBy("");
               }}
+              style={{ alignSelf: "flex-start" }}
             >
-              Approve
+              Reinstate
             </button>
           </div>
         </div>
       ) : null}
 
-      {canRevoke ? (
-        <div className="rfp-card" style={{ background: "#fff" }}>
-          <div className="rfp-section">
-            <span className="rfp-label">Revoke verification</span>
-            <label className="rfp-field">
-              <span className="rfp-label">Reason</span>
-              <textarea
-                className="rfp-textarea"
-                value={revocationReason}
-                onChange={(e) => setRevocationReason(e.target.value)}
-                placeholder="Why is verification being revoked?"
-              />
-            </label>
-            <button
-              className="rfp-btn-secondary"
-              disabled={!revocationReason.trim()}
-              onClick={() => {
-                p.onRevokeVerification(revocationReason.trim());
-                setRevocationReason("");
-              }}
-              style={{ color: "var(--rfp-error)" }}
-            >
-              Revoke
-            </button>
-          </div>
-        </div>
+      {p.state.revokedAt || p.state.revocationReason ? (
+        <p className="rfp-hint">
+          {p.state.revokedAt
+            ? `Revoked/suspended ${new Date(p.state.revokedAt).toLocaleString()}`
+            : ""}
+          {p.state.revocationReason ? ` · ${p.state.revocationReason}` : ""}
+        </p>
       ) : null}
 
       {p.state.verifiedAt ? (
