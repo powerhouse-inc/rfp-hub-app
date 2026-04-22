@@ -293,7 +293,7 @@ export const getResolvers = (subgraph: ISubgraph): Record<string, unknown> => {
           const projectFolderId = generateId();
           const applicationsFolderId = generateId();
 
-          const driveExecResult = await reactor.execute(driveId, "main", [
+          await reactor.execute(driveId, "main", [
             addFolder({
               id: projectFolderId,
               name: "My Project",
@@ -315,37 +315,6 @@ export const getResolvers = (subgraph: ISubgraph): Record<string, unknown> => {
               parentFolder: applicationsFolderId,
             }),
           ]);
-
-          // Dump the whole execute return so we can see what the reactor
-          // actually recorded (shape varies by reactor version — may be an
-          // ExecutionResult with `operations`, or a wrapper, or the drive
-          // doc itself).
-          try {
-            console.log(
-              `applyToPool: driveId=${driveId} execute return:`,
-              JSON.stringify(driveExecResult, null, 2),
-            );
-          } catch {
-            console.log(
-              `applyToPool: driveId=${driveId} execute return (unstringifiable):`,
-              driveExecResult,
-            );
-          }
-
-          // Re-read the drive to confirm folder + file nodes landed.
-          try {
-            const refreshed =
-              await reactor.get<DocumentDriveDocument>(driveId);
-            console.log(
-              `applyToPool: driveId=${driveId} nodes after execute:`,
-              JSON.stringify(refreshed.state.global.nodes, null, 2),
-            );
-          } catch (e) {
-            console.error(
-              "applyToPool: failed to re-read drive after execute:",
-              e,
-            );
-          }
 
           // ---------------- Project pre-population ----------------
           const projectLabel = truncateName(applicantName, 120);

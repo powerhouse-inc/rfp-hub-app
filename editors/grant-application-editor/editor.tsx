@@ -6,7 +6,7 @@ import {
   actions,
 } from "document-models/grant-application";
 import type { GrantApplicationState } from "document-models/grant-application";
-import "../design-tokens.css";
+import "../load-design-tokens.js";
 import { ApplicationHeader } from "./components/ApplicationHeader.js";
 import { ApplicationContent } from "./components/ApplicationContent.js";
 import { ApplicationMeta } from "./components/ApplicationMeta.js";

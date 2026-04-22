@@ -6,7 +6,7 @@ import {
   actions,
 } from "document-models/governance";
 import type { GovernanceState } from "document-models/governance";
-import "../design-tokens.css";
+import "../load-design-tokens.js";
 import { GovernanceHeader } from "./components/GovernanceHeader.js";
 import { DisputesSection } from "./components/DisputesSection.js";
 import { RfcsSection } from "./components/RfcsSection.js";

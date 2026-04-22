@@ -6,7 +6,7 @@ import {
   actions,
 } from "document-models/grant-pool";
 import type { GrantPoolState } from "document-models/grant-pool";
-import "../design-tokens.css";
+import "../load-design-tokens.js";
 import { PoolHeader } from "./components/PoolHeader.js";
 import { PoolBasics } from "./components/PoolBasics.js";
 import { PoolReferences } from "./components/PoolReferences.js";

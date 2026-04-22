@@ -6,7 +6,7 @@ import {
   actions,
 } from "document-models/project";
 import type { ProjectState } from "document-models/project";
-import "../design-tokens.css";
+import "../load-design-tokens.js";
 import { ProjectHeader } from "./components/ProjectHeader.js";
 import { ProjectProfile } from "./components/ProjectProfile.js";
 import { ProjectAttestations } from "./components/ProjectAttestations.js";

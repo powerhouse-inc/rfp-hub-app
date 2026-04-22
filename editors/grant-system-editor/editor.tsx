@@ -6,7 +6,7 @@ import {
   actions,
 } from "document-models/grant-system";
 import type { GrantSystemState } from "document-models/grant-system";
-import "../design-tokens.css";
+import "../load-design-tokens.js";
 import { OrgProfile } from "./components/OrgProfile.js";
 import { ContactPanel } from "./components/ContactPanel.js";
 import { LinksPanel } from "./components/LinksPanel.js";

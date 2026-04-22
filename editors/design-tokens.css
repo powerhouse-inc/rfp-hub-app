@@ -1,8 +1,9 @@
 /* Ethereal Red design tokens — CSS variables + base classes for all editors.
-   Import in each editor: import "../design-tokens.css";
-   Source: /home/p/Powerhouse/swarm-connect/DESIGN.md */
-
-@import url('https://fonts.googleapis.com/css2?family=Spline+Sans:wght@400;500;600;700&display=swap');
+   Each editor imports "../load-design-tokens.js" which pulls in this file
+   AND injects the Google Fonts <link> for Spline Sans at runtime (bundlers
+   like tsdown/css can't resolve a remote `@import url(...)` at build time,
+   so we inject it from JS instead). `--rfp-font` falls back to system
+   sans-serif if the font hasn't loaded yet. */
 
 .rfp-scope {
   /* Surfaces */

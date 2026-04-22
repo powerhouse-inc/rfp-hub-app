@@ -2,7 +2,7 @@ import { useSetPHAppConfig } from "@powerhousedao/reactor-browser";
 import type { EditorProps } from "document-model";
 import { ApplicantDashboard } from "./components/ApplicantDashboard.js";
 import { editorConfig } from "./config.js";
-import "../design-tokens.css";
+import "../load-design-tokens.js";
 
 export default function Editor(props: EditorProps) {
   useSetPHAppConfig(editorConfig);
