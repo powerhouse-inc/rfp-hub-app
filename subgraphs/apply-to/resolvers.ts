@@ -51,9 +51,41 @@ const ACRONYM_STOPWORDS = new Set([
   "as",
 ]);
 
+/**
+ * Connect + Switchboard URLs are environment-specific. Read them from env vars
+ * when available (deployed), fall back to the local Vetra defaults (3001 /
+ * 4001) for `ph vetra`. Trailing slashes and `/graphql` suffixes are stripped
+ * so we can append `/d/<slug>` reliably.
+ */
+function stripTrailingSlash(url: string): string {
+  return url.replace(/\/+$/, "");
+}
+
+function getConnectUrl(): string {
+  const raw =
+    process.env.CONNECT_URL ??
+    process.env.NEXT_PUBLIC_CONNECT_URL ??
+    "http://localhost:3001";
+  return stripTrailingSlash(raw);
+}
+
+function getSwitchboardBaseUrl(): string {
+  const raw =
+    process.env.SWITCHBOARD_URL ??
+    process.env.NEXT_PUBLIC_SWITCHBOARD_URL ??
+    "http://localhost:4001";
+  // Drop /graphql (or /graphql/) suffix so the remaining base can be reused
+  // for drive URLs at /d/<slug>.
+  return stripTrailingSlash(raw).replace(/\/graphql$/, "");
+}
+
 function getRedirectUrl(driveSlug: string, applicationId: string): string {
-  return `http://localhost:3001/?driveUrl=http://localhost:4001/d/${encodeURIComponent(
+  const connectUrl = getConnectUrl();
+  const driveUrl = `${getSwitchboardBaseUrl()}/d/${encodeURIComponent(
     driveSlug,
+  )}`;
+  return `${connectUrl}/?driveUrl=${encodeURIComponent(
+    driveUrl,
   )}&docId=${encodeURIComponent(applicationId)}`;
 }
 

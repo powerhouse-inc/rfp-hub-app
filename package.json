@@ -1,6 +1,6 @@
 {
   "name": "rfp-hub-app",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "AGPL-3.0-only",
   "type": "module",
   "files": [
@@ -58,7 +58,7 @@
     "check-circular-imports": "npx dpdm -T ./index.ts",
     "generate": "ph-cli generate",
     "connect": "ph-cli connect",
-    "build": "ph-cli build",
+    "build": "bun run build.ts",
     "reactor": "ph-cli reactor",
     "service": "ph-cli service",
     "vetra": "ph-cli vetra",
