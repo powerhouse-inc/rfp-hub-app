@@ -52,11 +52,20 @@ const ACRONYM_STOPWORDS = new Set([
 ]);
 
 /**
- * Connect + Switchboard URLs are environment-specific. Read them from env vars
- * when available (deployed), fall back to the local Vetra defaults (3001 /
- * 4001) for `ph vetra`. Trailing slashes and `/graphql` suffixes are stripped
- * so we can append `/d/<slug>` reliably.
+ * Connect + Switchboard URLs are environment-specific. Preference order:
+ *   1. `CONNECT_URL` / `SWITCHBOARD_URL` — injected by the Vetra deployment
+ *      platform via manifest `config`, or set locally in `.env`.
+ *   2. `NEXT_PUBLIC_*` aliases — same var, alt prefix some deployments use.
+ *   3. Hardcoded `light-fawn-92` deployment fallback, so a misconfigured
+ *      deploy still produces a working production redirect rather than a
+ *      dead `localhost` link.
+ * Trailing slashes and `/graphql` suffixes are stripped so we can append
+ * `/d/<slug>` reliably.
  */
+const FALLBACK_CONNECT_URL = "https://connect.light-fawn-92.vetra.io";
+const FALLBACK_SWITCHBOARD_URL =
+  "https://switchboard.light-fawn-92.vetra.io/graphql";
+
 function stripTrailingSlash(url: string): string {
   return url.replace(/\/+$/, "");
 }
@@ -65,7 +74,7 @@ function getConnectUrl(): string {
   const raw =
     process.env.CONNECT_URL ??
     process.env.NEXT_PUBLIC_CONNECT_URL ??
-    "http://localhost:3001";
+    FALLBACK_CONNECT_URL;
   return stripTrailingSlash(raw);
 }
 
@@ -73,7 +82,7 @@ function getSwitchboardBaseUrl(): string {
   const raw =
     process.env.SWITCHBOARD_URL ??
     process.env.NEXT_PUBLIC_SWITCHBOARD_URL ??
-    "http://localhost:4001";
+    FALLBACK_SWITCHBOARD_URL;
   // Drop /graphql (or /graphql/) suffix so the remaining base can be reused
   // for drive URLs at /d/<slug>.
   return stripTrailingSlash(raw).replace(/\/graphql$/, "");
