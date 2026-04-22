@@ -1,0 +1,790 @@
+import type { DocumentModelGlobalState } from "document-model";
+
+export const documentModel: DocumentModelGlobalState = {
+  id: "rfp-hub/grant-pool",
+  name: "GrantPool",
+  author: {
+    name: "Powerhouse",
+    website: "https://www.powerhouse.inc/",
+  },
+  extension: "rfpp",
+  description:
+    "DAOIP-5 Grant Pool \u2014 a specific funding call (RFP, bounty, QF round, etc.) issued by a Grant System. Supports all 31 DAOIP-5 funding mechanisms.",
+  specifications: [
+    {
+      state: {
+        local: {
+          schema: "",
+          examples: [],
+          initialValue: "",
+        },
+        global: {
+          schema:
+            "type GrantPoolState {\n  # DAOIP-5 canonical (hub added FK to grant-system)\n  grantSystemRef: PHID\n  name: String\n  description: String\n  grantFundingMechanism: FundingMechanism\n  isOpen: Boolean!\n  openDate: DateTime\n  closeDate: DateTime\n  applicationsURI: URL\n  governanceURI: URL\n  attestationIssuersURI: URL\n  requiredCredentials: [String!]!\n  totalGrantPoolSize: [FundingAmount!]!\n  totalGrantPoolSizeInUSD: Amount_Fiat\n  minGrant: [FundingAmount!]!\n  maxGrant: [FundingAmount!]!\n  email: EmailAddress\n  image: URL\n  coverImage: URL\n  extensions: String\n\n  # schema.org addition\n  sameAs: [URL!]!\n\n  # network-admin inspired\n  code: String\n  briefingURI: URL\n  eligibilityCriteria: String\n  evaluationCriteria: String\n  contextDocuments: [ContextDocument!]!\n  reviewers: [Reviewer!]!\n\n  # RFP filter dimensions\n  categories: [String!]!\n  ecosystems: [String!]!\n  tags: [String!]!\n\n  # Richer lifecycle (projects losslessly to DAOIP-5 isOpen)\n  lifecycle: GrantPoolLifecycle!\n\n  # Hub provenance\n  submitter: Submitter\n  publisher: Publisher\n  lastVerifiedAt: DateTime\n  verificationMethod: VerificationMethod\n  verifiedBy: String\n\n  # Hub governance state\n  governanceState: PoolGovernanceState!\n\n  # Lineage\n  supersedes: PHID\n  claimedFromEntry: PHID\n  duplicateOf: PHID\n}\n\nenum FundingMechanism {\n  DIRECT_GRANTS\n  QUADRATIC_FUNDING\n  STREAMING_QUADRATIC_FUNDING\n  RETRO_FUNDING\n  CONVICTION_VOTING\n  SELF_CURATED_REGISTRIES\n  GIFT_CIRCLES\n  SOCIAL_MEDIA_CAPITAL_ALLOCATION\n  FUTARCHY\n  ASSURANCE_CONTRACTS\n  COOKIE_JAR\n  IMPACT_ATTESTATIONS\n  STOKVEL\n  REQUEST_FOR_PROPOSAL\n  DELEGATED_DOMAIN_ALLOCATION\n  EVOLUTIONARY_GRANTS_GAMES\n  DIRECT_TO_CONTRACT_INCENTIVES\n  ANGEL_INVESTMENT\n  DOMINANT_ASSURANCE_CONTRACTS\n  COMMUNITY_CURRENCIES\n  UNIVERSAL_BASIC_INCOME\n  BOUNTIES\n  GNOSIS_SAFE\n  WAQF\n  RANKED_CHOICE_VOTING\n  HONOUR\n  MUTUAL_AID_NETWORKS\n  BONDING_CURVES\n  ZAKAT\n  DECENTRALIZED_VALIDATORS\n  REVNETS\n  OTHER\n}\n\nenum GrantPoolLifecycle {\n  DRAFT\n  REQUEST_FOR_COMMENTS\n  UPCOMING\n  OPEN\n  CLOSED\n  AWARDED\n  NOT_AWARDED\n  CANCELLED\n}\n\nenum PoolGovernanceState {\n  PENDING\n  UNDER_REVIEW\n  APPROVED\n  REJECTED\n  DISPUTED\n  SUPERSEDED\n}\n\nenum SubmitterType {\n  COMMUNITY\n  VERIFIED_PUBLISHER\n  AUTOMATION\n}\n\nenum VerificationMethod {\n  MANUAL_REVIEW\n  DOMAIN_VERIFICATION\n  HTTP_PROBE\n  REVIEWER_CONFIRMATION\n}\n\nenum ReviewerScope {\n  INTERNAL\n  EXTERNAL\n}\n\nenum ReviewerType {\n  HUMAN\n  GROUP\n  AI\n}\n\ntype Submitter {\n  type: SubmitterType!\n  identifier: String!\n  submittedAt: DateTime!\n}\n\ntype Publisher {\n  identifier: String!\n  publishedAt: DateTime!\n}\n\ntype FundingAmount {\n  id: OID!\n  amount: Amount!\n}\n\ntype ContextDocument {\n  id: OID!\n  name: String!\n  url: URL!\n}\n\ntype Reviewer {\n  id: OID!\n  did: String!\n  scope: ReviewerScope!\n  reviewerType: ReviewerType!\n  name: String!\n}\n",
+          examples: [],
+          initialValue:
+            '{"grantSystemRef": null, "name": null, "description": null, "grantFundingMechanism": null, "isOpen": false, "openDate": null, "closeDate": null, "applicationsURI": null, "governanceURI": null, "attestationIssuersURI": null, "requiredCredentials": [], "totalGrantPoolSize": [], "totalGrantPoolSizeInUSD": null, "minGrant": [], "maxGrant": [], "email": null, "image": null, "coverImage": null, "extensions": null, "sameAs": [], "code": null, "briefingURI": null, "eligibilityCriteria": null, "evaluationCriteria": null, "contextDocuments": [], "reviewers": [], "categories": [], "ecosystems": [], "tags": [], "lifecycle": "DRAFT", "submitter": null, "publisher": null, "lastVerifiedAt": null, "verificationMethod": null, "verifiedBy": null, "governanceState": "PENDING", "supersedes": null, "claimedFromEntry": null, "duplicateOf": null}',
+        },
+      },
+      modules: [
+        {
+          id: "metadata-module",
+          name: "metadata",
+          description: "Name, descriptors, branding, references",
+          operations: [
+            {
+              id: "gp-set-pool-name",
+              name: "SET_POOL_NAME",
+              description: "",
+              schema: "input SetPoolNameInput {\n    name: String!\n}",
+              template: "",
+              reducer: "state.name = action.input.name;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-set-description",
+              name: "SET_DESCRIPTION",
+              description: "",
+              schema: "input SetDescriptionInput {\n    description: String\n}",
+              template: "",
+              reducer: "state.description = action.input.description || null;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-set-code",
+              name: "SET_CODE",
+              description: "",
+              schema: "input SetCodeInput {\n    code: String\n}",
+              template: "",
+              reducer: "state.code = action.input.code || null;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-set-grant-system-ref",
+              name: "SET_GRANT_SYSTEM_REF",
+              description: "",
+              schema:
+                "input SetGrantSystemRefInput {\n    grantSystemRef: PHID!\n}",
+              template: "",
+              reducer: "state.grantSystemRef = action.input.grantSystemRef;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-set-briefing-uri",
+              name: "SET_BRIEFING_URI",
+              description: "",
+              schema: "input SetBriefingUriInput {\n    briefingURI: URL\n}",
+              template: "",
+              reducer: "state.briefingURI = action.input.briefingURI || null;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-set-eligibility-criteria",
+              name: "SET_ELIGIBILITY_CRITERIA",
+              description: "",
+              schema:
+                "input SetEligibilityCriteriaInput {\n    eligibilityCriteria: String\n}",
+              template: "",
+              reducer:
+                "state.eligibilityCriteria = action.input.eligibilityCriteria || null;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-set-evaluation-criteria",
+              name: "SET_EVALUATION_CRITERIA",
+              description: "",
+              schema:
+                "input SetEvaluationCriteriaInput {\n    evaluationCriteria: String\n}",
+              template: "",
+              reducer:
+                "state.evaluationCriteria = action.input.evaluationCriteria || null;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-set-pool-email",
+              name: "SET_POOL_EMAIL",
+              description: "",
+              schema: "input SetPoolEmailInput {\n    email: EmailAddress\n}",
+              template: "",
+              reducer: "state.email = action.input.email || null;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-set-pool-image",
+              name: "SET_POOL_IMAGE",
+              description: "",
+              schema: "input SetPoolImageInput {\n    image: URL\n}",
+              template: "",
+              reducer: "state.image = action.input.image || null;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-set-pool-cover-image",
+              name: "SET_POOL_COVER_IMAGE",
+              description: "",
+              schema: "input SetPoolCoverImageInput {\n    coverImage: URL\n}",
+              template: "",
+              reducer: "state.coverImage = action.input.coverImage || null;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-set-pool-extensions",
+              name: "SET_POOL_EXTENSIONS",
+              description: "",
+              schema:
+                "input SetPoolExtensionsInput {\n    extensions: String\n}",
+              template: "",
+              reducer: "state.extensions = action.input.extensions || null;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+          ],
+        },
+        {
+          id: "funding-module",
+          name: "funding",
+          description: "Funding mechanism, pool size, grant bounds",
+          operations: [
+            {
+              id: "gp-set-funding-mechanism",
+              name: "SET_FUNDING_MECHANISM",
+              description: "",
+              schema:
+                "input SetFundingMechanismInput {\n    grantFundingMechanism: FundingMechanism!\n}",
+              template: "",
+              reducer:
+                "state.grantFundingMechanism = action.input.grantFundingMechanism;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-add-pool-size-entry",
+              name: "ADD_POOL_SIZE_ENTRY",
+              description: "",
+              schema:
+                "input AddPoolSizeEntryInput {\n    id: OID!\n    amount: Amount!\n}",
+              template: "",
+              reducer:
+                "state.totalGrantPoolSize.push({\n  id: action.input.id,\n  amount: action.input.amount,\n});",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-remove-pool-size-entry",
+              name: "REMOVE_POOL_SIZE_ENTRY",
+              description: "",
+              schema: "input RemovePoolSizeEntryInput {\n    id: OID!\n}",
+              template: "",
+              reducer:
+                "const idx = state.totalGrantPoolSize.findIndex((e) => e.id === action.input.id);\nif (idx === -1) {\n  throw new FundingAmountNotFoundError(`Pool size entry ${action.input.id} not found`);\n}\nstate.totalGrantPoolSize.splice(idx, 1);",
+              errors: [
+                {
+                  id: "err-gp-funding-not-found",
+                  name: "FundingAmountNotFoundError",
+                  code: "FUNDING_AMOUNT_NOT_FOUND",
+                  description: "Funding amount entry not found in list.",
+                  template: "",
+                },
+              ],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-set-total-pool-size-usd",
+              name: "SET_TOTAL_POOL_SIZE_USD",
+              description: "",
+              schema:
+                "input SetTotalPoolSizeUsdInput {\n    totalGrantPoolSizeInUSD: Amount_Fiat\n}",
+              template: "",
+              reducer:
+                "state.totalGrantPoolSizeInUSD = action.input.totalGrantPoolSizeInUSD || null;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-set-grant-bounds",
+              name: "SET_GRANT_BOUNDS",
+              description: "",
+              schema:
+                "input SetGrantBoundsInput {\n    minGrantId1: OID!\n    minGrantAmount1: Amount\n    maxGrantId1: OID!\n    maxGrantAmount1: Amount\n}",
+              template: "",
+              reducer:
+                "state.minGrant = [{ id: action.input.minGrantId1, amount: action.input.minGrantAmount1 }];\nstate.maxGrant = [{ id: action.input.maxGrantId1, amount: action.input.maxGrantAmount1 }];",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+          ],
+        },
+        {
+          id: "schedule-module",
+          name: "schedule",
+          description: "Timing + lifecycle advancement",
+          operations: [
+            {
+              id: "gp-set-open-date",
+              name: "SET_OPEN_DATE",
+              description: "",
+              schema: "input SetOpenDateInput {\n    openDate: DateTime\n}",
+              template: "",
+              reducer: "state.openDate = action.input.openDate || null;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-set-close-date",
+              name: "SET_CLOSE_DATE",
+              description: "",
+              schema: "input SetCloseDateInput {\n    closeDate: DateTime\n}",
+              template: "",
+              reducer: "state.closeDate = action.input.closeDate || null;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-set-is-open",
+              name: "SET_IS_OPEN",
+              description: "",
+              schema: "input SetIsOpenInput {\n    isOpen: Boolean!\n}",
+              template: "",
+              reducer: "state.isOpen = action.input.isOpen;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-advance-lifecycle",
+              name: "ADVANCE_LIFECYCLE",
+              description: "",
+              schema:
+                "input AdvanceLifecycleInput {\n    lifecycle: GrantPoolLifecycle!\n}",
+              template: "",
+              reducer:
+                'const current = state.lifecycle;\nconst target = action.input.lifecycle;\nconst legal = {\n  DRAFT: ["REQUEST_FOR_COMMENTS", "UPCOMING", "OPEN", "CANCELLED"],\n  REQUEST_FOR_COMMENTS: ["UPCOMING", "OPEN", "CANCELLED"],\n  UPCOMING: ["OPEN", "CANCELLED"],\n  OPEN: ["CLOSED", "CANCELLED"],\n  CLOSED: ["AWARDED", "NOT_AWARDED"],\n  AWARDED: [],\n  NOT_AWARDED: [],\n  CANCELLED: [],\n};\nif (!legal[current] || !legal[current].includes(target)) {\n  throw new InvalidLifecycleTransitionError(\n    `Cannot transition from ${current} to ${target}`\n  );\n}\nstate.lifecycle = target;\nif (target === "OPEN") state.isOpen = true;\nif (target === "CLOSED" || target === "AWARDED" || target === "NOT_AWARDED" || target === "CANCELLED") {\n  state.isOpen = false;\n}',
+              errors: [
+                {
+                  id: "err-gp-invalid-lifecycle-advance",
+                  name: "InvalidLifecycleTransitionError",
+                  code: "INVALID_LIFECYCLE_TRANSITION",
+                  description: "Invalid lifecycle state transition.",
+                  template: "",
+                },
+              ],
+              examples: [],
+              scope: "global",
+            },
+          ],
+        },
+        {
+          id: "classification-module",
+          name: "classification",
+          description: "Categories, ecosystems, tags for filtering",
+          operations: [
+            {
+              id: "gp-add-category",
+              name: "ADD_CATEGORY",
+              description: "",
+              schema: "input AddCategoryInput {\n    category: String!\n}",
+              template: "",
+              reducer:
+                "if (state.categories.includes(action.input.category)) {\n  throw new DuplicateCategoryError(`Category ${action.input.category} already present`);\n}\nstate.categories.push(action.input.category);",
+              errors: [
+                {
+                  id: "err-gp-duplicate-category",
+                  name: "DuplicateCategoryError",
+                  code: "DUPLICATE_CATEGORY",
+                  description: "Category already present.",
+                  template: "",
+                },
+              ],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-remove-category",
+              name: "REMOVE_CATEGORY",
+              description: "",
+              schema: "input RemoveCategoryInput {\n    category: String!\n}",
+              template: "",
+              reducer:
+                "const idx = state.categories.indexOf(action.input.category);\nif (idx === -1) {\n  throw new CategoryNotFoundError(`Category ${action.input.category} not found`);\n}\nstate.categories.splice(idx, 1);",
+              errors: [
+                {
+                  id: "err-gp-category-not-found",
+                  name: "CategoryNotFoundError",
+                  code: "CATEGORY_NOT_FOUND",
+                  description: "Category not found.",
+                  template: "",
+                },
+              ],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-add-ecosystem",
+              name: "ADD_ECOSYSTEM",
+              description: "",
+              schema: "input AddEcosystemInput {\n    ecosystem: String!\n}",
+              template: "",
+              reducer:
+                "if (state.ecosystems.includes(action.input.ecosystem)) {\n  throw new DuplicateEcosystemError(`Ecosystem ${action.input.ecosystem} already present`);\n}\nstate.ecosystems.push(action.input.ecosystem);",
+              errors: [
+                {
+                  id: "err-gp-duplicate-ecosystem",
+                  name: "DuplicateEcosystemError",
+                  code: "DUPLICATE_ECOSYSTEM",
+                  description: "Ecosystem already present.",
+                  template: "",
+                },
+              ],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-remove-ecosystem",
+              name: "REMOVE_ECOSYSTEM",
+              description: "",
+              schema: "input RemoveEcosystemInput {\n    ecosystem: String!\n}",
+              template: "",
+              reducer:
+                "const idx = state.ecosystems.indexOf(action.input.ecosystem);\nif (idx === -1) {\n  throw new EcosystemNotFoundError(`Ecosystem ${action.input.ecosystem} not found`);\n}\nstate.ecosystems.splice(idx, 1);",
+              errors: [
+                {
+                  id: "err-gp-ecosystem-not-found",
+                  name: "EcosystemNotFoundError",
+                  code: "ECOSYSTEM_NOT_FOUND",
+                  description: "Ecosystem not found.",
+                  template: "",
+                },
+              ],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-add-tag",
+              name: "ADD_TAG",
+              description: "",
+              schema: "input AddTagInput {\n    tag: String!\n}",
+              template: "",
+              reducer:
+                "if (state.tags.includes(action.input.tag)) {\n  throw new DuplicateTagError(`Tag ${action.input.tag} already present`);\n}\nstate.tags.push(action.input.tag);",
+              errors: [
+                {
+                  id: "err-gp-duplicate-tag",
+                  name: "DuplicateTagError",
+                  code: "DUPLICATE_TAG",
+                  description: "Tag already present.",
+                  template: "",
+                },
+              ],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-remove-tag",
+              name: "REMOVE_TAG",
+              description: "",
+              schema: "input RemoveTagInput {\n    tag: String!\n}",
+              template: "",
+              reducer:
+                "const idx = state.tags.indexOf(action.input.tag);\nif (idx === -1) {\n  throw new TagNotFoundError(`Tag ${action.input.tag} not found`);\n}\nstate.tags.splice(idx, 1);",
+              errors: [
+                {
+                  id: "err-gp-tag-not-found",
+                  name: "TagNotFoundError",
+                  code: "TAG_NOT_FOUND",
+                  description: "Tag not found.",
+                  template: "",
+                },
+              ],
+              examples: [],
+              scope: "global",
+            },
+          ],
+        },
+        {
+          id: "resources-module",
+          name: "resources",
+          description: "Linked URIs, credentials, context docs, sameAs",
+          operations: [
+            {
+              id: "gp-set-governance-uri",
+              name: "SET_GOVERNANCE_URI",
+              description: "",
+              schema:
+                "input SetGovernanceUriInput {\n    governanceURI: URL\n}",
+              template: "",
+              reducer:
+                "state.governanceURI = action.input.governanceURI || null;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-set-applications-uri",
+              name: "SET_APPLICATIONS_URI",
+              description: "",
+              schema:
+                "input SetApplicationsUriInput {\n    applicationsURI: URL\n}",
+              template: "",
+              reducer:
+                "state.applicationsURI = action.input.applicationsURI || null;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-set-attestation-issuers-uri",
+              name: "SET_ATTESTATION_ISSUERS_URI",
+              description: "",
+              schema:
+                "input SetAttestationIssuersUriInput {\n    attestationIssuersURI: URL\n}",
+              template: "",
+              reducer:
+                "state.attestationIssuersURI = action.input.attestationIssuersURI || null;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-add-required-credential",
+              name: "ADD_REQUIRED_CREDENTIAL",
+              description: "",
+              schema:
+                "input AddRequiredCredentialInput {\n    credential: String!\n}",
+              template: "",
+              reducer:
+                "if (state.requiredCredentials.includes(action.input.credential)) {\n  throw new DuplicateCredentialError(`Credential ${action.input.credential} already required`);\n}\nstate.requiredCredentials.push(action.input.credential);",
+              errors: [
+                {
+                  id: "err-gp-duplicate-credential",
+                  name: "DuplicateCredentialError",
+                  code: "DUPLICATE_CREDENTIAL",
+                  description: "Credential already required.",
+                  template: "",
+                },
+              ],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-remove-required-credential",
+              name: "REMOVE_REQUIRED_CREDENTIAL",
+              description: "",
+              schema:
+                "input RemoveRequiredCredentialInput {\n    credential: String!\n}",
+              template: "",
+              reducer:
+                "const idx = state.requiredCredentials.indexOf(action.input.credential);\nif (idx === -1) {\n  throw new CredentialNotFoundError(`Credential ${action.input.credential} not found`);\n}\nstate.requiredCredentials.splice(idx, 1);",
+              errors: [
+                {
+                  id: "err-gp-credential-not-found",
+                  name: "CredentialNotFoundError",
+                  code: "CREDENTIAL_NOT_FOUND",
+                  description: "Credential not found.",
+                  template: "",
+                },
+              ],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-add-context-document",
+              name: "ADD_CONTEXT_DOCUMENT",
+              description: "",
+              schema:
+                "input AddContextDocumentInput {\n    id: OID!\n    name: String!\n    url: URL!\n}",
+              template: "",
+              reducer:
+                "state.contextDocuments.push({\n  id: action.input.id,\n  name: action.input.name,\n  url: action.input.url,\n});",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-remove-context-document",
+              name: "REMOVE_CONTEXT_DOCUMENT",
+              description: "",
+              schema: "input RemoveContextDocumentInput {\n    id: OID!\n}",
+              template: "",
+              reducer:
+                "const idx = state.contextDocuments.findIndex((d) => d.id === action.input.id);\nif (idx === -1) {\n  throw new ContextDocumentNotFoundError(`Context document ${action.input.id} not found`);\n}\nstate.contextDocuments.splice(idx, 1);",
+              errors: [
+                {
+                  id: "err-gp-ctx-doc-not-found",
+                  name: "ContextDocumentNotFoundError",
+                  code: "CONTEXT_DOC_NOT_FOUND",
+                  description: "Context document not found.",
+                  template: "",
+                },
+              ],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-add-pool-same-as",
+              name: "ADD_POOL_SAME_AS",
+              description: "",
+              schema: "input AddPoolSameAsInput {\n    url: URL!\n}",
+              template: "",
+              reducer:
+                "if (state.sameAs.includes(action.input.url)) {\n  throw new SameAsAlreadyExistsError(`URL already in sameAs list`);\n}\nstate.sameAs.push(action.input.url);",
+              errors: [
+                {
+                  id: "err-gp-same-as-exists",
+                  name: "SameAsAlreadyExistsError",
+                  code: "SAME_AS_ALREADY_EXISTS_POOL",
+                  description: "URL already in sameAs list.",
+                  template: "",
+                },
+              ],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-remove-pool-same-as",
+              name: "REMOVE_POOL_SAME_AS",
+              description: "",
+              schema: "input RemovePoolSameAsInput {\n    url: URL!\n}",
+              template: "",
+              reducer:
+                "const idx = state.sameAs.indexOf(action.input.url);\nif (idx === -1) {\n  throw new SameAsNotFoundError(`URL not in sameAs list`);\n}\nstate.sameAs.splice(idx, 1);",
+              errors: [
+                {
+                  id: "err-gp-same-as-not-found",
+                  name: "SameAsNotFoundError",
+                  code: "SAME_AS_NOT_FOUND_POOL",
+                  description: "URL not in sameAs list.",
+                  template: "",
+                },
+              ],
+              examples: [],
+              scope: "global",
+            },
+          ],
+        },
+        {
+          id: "reviewers-module",
+          name: "reviewers",
+          description: "Invited reviewers (internal/external, human/AI)",
+          operations: [
+            {
+              id: "gp-add-reviewer",
+              name: "ADD_REVIEWER",
+              description: "",
+              schema:
+                "input AddReviewerInput {\n    id: OID!\n    did: String!\n    scope: ReviewerScope!\n    reviewerType: ReviewerType!\n    name: String!\n}",
+              template: "",
+              reducer:
+                "state.reviewers.push({\n  id: action.input.id,\n  did: action.input.did,\n  scope: action.input.scope,\n  reviewerType: action.input.reviewerType,\n  name: action.input.name,\n});",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-remove-reviewer",
+              name: "REMOVE_REVIEWER",
+              description: "",
+              schema: "input RemoveReviewerInput {\n    id: OID!\n}",
+              template: "",
+              reducer:
+                "const idx = state.reviewers.findIndex((r) => r.id === action.input.id);\nif (idx === -1) {\n  throw new ReviewerNotFoundError(`Reviewer ${action.input.id} not found`);\n}\nstate.reviewers.splice(idx, 1);",
+              errors: [
+                {
+                  id: "err-gp-reviewer-not-found",
+                  name: "ReviewerNotFoundError",
+                  code: "REVIEWER_NOT_FOUND",
+                  description: "Reviewer not found.",
+                  template: "",
+                },
+              ],
+              examples: [],
+              scope: "global",
+            },
+          ],
+        },
+        {
+          id: "governance-module",
+          name: "governance",
+          description:
+            "Submitter, publisher, verification, publish/close/cancel",
+          operations: [
+            {
+              id: "gp-set-submitter",
+              name: "SET_SUBMITTER",
+              description: "",
+              schema:
+                "input SetSubmitterInput {\n    type: SubmitterType!\n    identifier: String!\n    submittedAt: DateTime!\n}",
+              template: "",
+              reducer:
+                "state.submitter = {\n  type: action.input.type,\n  identifier: action.input.identifier,\n  submittedAt: action.input.submittedAt,\n};",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-set-publisher",
+              name: "SET_PUBLISHER",
+              description: "",
+              schema:
+                "input SetPublisherInput {\n    identifier: String!\n    publishedAt: DateTime!\n}",
+              template: "",
+              reducer:
+                "state.publisher = {\n  identifier: action.input.identifier,\n  publishedAt: action.input.publishedAt,\n};",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-record-verification",
+              name: "RECORD_VERIFICATION",
+              description: "",
+              schema:
+                "input RecordVerificationInput {\n    verifiedBy: String!\n    verificationMethod: VerificationMethod!\n    verifiedAt: DateTime!\n}",
+              template: "",
+              reducer:
+                "state.verifiedBy = action.input.verifiedBy;\nstate.verificationMethod = action.input.verificationMethod;\nstate.lastVerifiedAt = action.input.verifiedAt;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-publish-pool",
+              name: "PUBLISH_POOL",
+              description: "",
+              schema: "input PublishPoolInput {\n    publishedAt: DateTime!\n}",
+              template: "",
+              reducer:
+                'if (state.governanceState === "APPROVED") {\n  throw new AlreadyPublishedError(`Pool already published`);\n}\nstate.governanceState = "APPROVED";\nif (state.lifecycle === "DRAFT") state.lifecycle = "UPCOMING";',
+              errors: [
+                {
+                  id: "err-gp-already-published",
+                  name: "AlreadyPublishedError",
+                  code: "POOL_ALREADY_PUBLISHED",
+                  description: "Pool already published.",
+                  template: "",
+                },
+              ],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-close-pool",
+              name: "CLOSE_POOL",
+              description: "",
+              schema: "input ClosePoolInput {\n    closedAt: DateTime!\n}",
+              template: "",
+              reducer:
+                'if (state.lifecycle !== "OPEN") {\n  throw new InvalidLifecycleTransitionError(`Cannot close pool unless OPEN`);\n}\nstate.lifecycle = "CLOSED";\nstate.isOpen = false;',
+              errors: [
+                {
+                  id: "err-gp-close-wrong-state",
+                  name: "InvalidCloseStateError",
+                  code: "INVALID_CLOSE_STATE",
+                  description: "Cannot close pool unless lifecycle is OPEN.",
+                  template: "",
+                },
+              ],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-cancel-pool",
+              name: "CANCEL_POOL",
+              description: "",
+              schema:
+                "input CancelPoolInput {\n    cancelledAt: DateTime!\n    reason: String\n}",
+              template: "",
+              reducer: 'state.lifecycle = "CANCELLED";\nstate.isOpen = false;',
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-set-governance-state",
+              name: "SET_GOVERNANCE_STATE",
+              description: "",
+              schema:
+                "input SetGovernanceStateInput {\n    governanceState: PoolGovernanceState!\n}",
+              template: "",
+              reducer: "state.governanceState = action.input.governanceState;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+          ],
+        },
+        {
+          id: "lineage-module",
+          name: "lineage",
+          description: "Supersedes, claim, duplicate tracking",
+          operations: [
+            {
+              id: "gp-mark-supersedes",
+              name: "MARK_SUPERSEDES",
+              description: "",
+              schema: "input MarkSupersedesInput {\n    supersedes: PHID!\n}",
+              template: "",
+              reducer: "state.supersedes = action.input.supersedes;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-mark-claimed-from-entry",
+              name: "MARK_CLAIMED_FROM_ENTRY",
+              description: "",
+              schema:
+                "input MarkClaimedFromEntryInput {\n    claimedFromEntry: PHID!\n}",
+              template: "",
+              reducer:
+                "state.claimedFromEntry = action.input.claimedFromEntry;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+            {
+              id: "gp-mark-duplicate-of",
+              name: "MARK_DUPLICATE_OF",
+              description: "",
+              schema: "input MarkDuplicateOfInput {\n    duplicateOf: PHID!\n}",
+              template: "",
+              reducer: "state.duplicateOf = action.input.duplicateOf;",
+              errors: [],
+              examples: [],
+              scope: "global",
+            },
+          ],
+        },
+      ],
+      version: 1,
+      changeLog: [],
+    },
+  ],
+};

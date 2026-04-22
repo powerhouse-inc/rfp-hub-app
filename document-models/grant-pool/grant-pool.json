@@ -211,9 +211,9 @@
               "id": "gp-set-grant-bounds",
               "name": "SET_GRANT_BOUNDS",
               "description": "",
-              "schema": "input SetGrantBoundsInput {\n    minGrant: [FundingAmountInput!]!\n    maxGrant: [FundingAmountInput!]!\n}",
+              "schema": "input SetGrantBoundsInput {\n    minGrantId1: OID!\n    minGrantAmount1: Amount\n    maxGrantId1: OID!\n    maxGrantAmount1: Amount\n}",
               "template": "",
-              "reducer": "state.minGrant = action.input.minGrant.map((e) => ({ id: e.id, amount: e.amount }));\nstate.maxGrant = action.input.maxGrant.map((e) => ({ id: e.id, amount: e.amount }));",
+              "reducer": "state.minGrant = [{ id: action.input.minGrantId1, amount: action.input.minGrantAmount1 }];\nstate.maxGrant = [{ id: action.input.maxGrantId1, amount: action.input.maxGrantAmount1 }];",
               "errors": [],
               "examples": [],
               "scope": "global"

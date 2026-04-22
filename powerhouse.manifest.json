@@ -22,10 +22,61 @@
         {
             "id": "rfp-hub/governance",
             "name": "Governance"
+        },
+        {
+            "id": "rfp-hub/grant-pool",
+            "name": "GrantPool"
         }
     ],
-    "editors": [],
-    "apps": [],
+    "editors": [
+        {
+            "id": "grant-system-editor",
+            "name": "Grant System Editor",
+            "documentTypes": [
+                "rfp-hub/grant-system"
+            ]
+        },
+        {
+            "id": "project-editor",
+            "name": "Project Editor",
+            "documentTypes": [
+                "rfp-hub/project"
+            ]
+        },
+        {
+            "id": "grant-application-editor",
+            "name": "Grant Application Editor",
+            "documentTypes": [
+                "rfp-hub/grant-application"
+            ]
+        },
+        {
+            "id": "governance-editor",
+            "name": "Governance Editor",
+            "documentTypes": [
+                "rfp-hub/governance"
+            ]
+        },
+        {
+            "id": "grant-pool-editor",
+            "name": "Grant Pool Editor",
+            "documentTypes": [
+                "rfp-hub/grant-pool"
+            ]
+        }
+    ],
+    "apps": [
+        {
+            "id": "funder-back-office",
+            "name": "Funder Back Office",
+            "app": "funder-back-office"
+        },
+        {
+            "id": "applicant-workspace",
+            "name": "Applicant Workspace",
+            "app": "applicant-workspace"
+        }
+    ],
     "subgraphs": [],
     "importScripts": [],
     "config": []

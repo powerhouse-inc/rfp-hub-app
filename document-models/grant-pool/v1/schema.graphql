@@ -1,0 +1,407 @@
+scalar Unknown
+scalar DateTime
+scalar Attachment
+scalar Address
+scalar Amount_Tokens
+scalar EthereumAddress
+scalar EmailAddress
+scalar Amount_Percentage
+scalar Date
+scalar URL
+scalar Amount_Money
+scalar OLabel
+scalar Currency
+scalar PHID
+scalar OID
+scalar Amount_Fiat
+scalar Amount_Currency
+scalar Amount_Crypto
+scalar Amount
+scalar Upload
+
+type GrantPoolState {
+  # DAOIP-5 canonical (hub added FK to grant-system)
+  grantSystemRef: PHID
+  name: String
+  description: String
+  grantFundingMechanism: FundingMechanism
+  isOpen: Boolean!
+  openDate: DateTime
+  closeDate: DateTime
+  applicationsURI: URL
+  governanceURI: URL
+  attestationIssuersURI: URL
+  requiredCredentials: [String!]!
+  totalGrantPoolSize: [FundingAmount!]!
+  totalGrantPoolSizeInUSD: Amount_Fiat
+  minGrant: [FundingAmount!]!
+  maxGrant: [FundingAmount!]!
+  email: EmailAddress
+  image: URL
+  coverImage: URL
+  extensions: String
+
+  # schema.org addition
+  sameAs: [URL!]!
+
+  # network-admin inspired
+  code: String
+  briefingURI: URL
+  eligibilityCriteria: String
+  evaluationCriteria: String
+  contextDocuments: [ContextDocument!]!
+  reviewers: [Reviewer!]!
+
+  # RFP filter dimensions
+  categories: [String!]!
+  ecosystems: [String!]!
+  tags: [String!]!
+
+  # Richer lifecycle (projects losslessly to DAOIP-5 isOpen)
+  lifecycle: GrantPoolLifecycle!
+
+  # Hub provenance
+  submitter: Submitter
+  publisher: Publisher
+  lastVerifiedAt: DateTime
+  verificationMethod: VerificationMethod
+  verifiedBy: String
+
+  # Hub governance state
+  governanceState: PoolGovernanceState!
+
+  # Lineage
+  supersedes: PHID
+  claimedFromEntry: PHID
+  duplicateOf: PHID
+}
+
+enum FundingMechanism {
+  DIRECT_GRANTS
+  QUADRATIC_FUNDING
+  STREAMING_QUADRATIC_FUNDING
+  RETRO_FUNDING
+  CONVICTION_VOTING
+  SELF_CURATED_REGISTRIES
+  GIFT_CIRCLES
+  SOCIAL_MEDIA_CAPITAL_ALLOCATION
+  FUTARCHY
+  ASSURANCE_CONTRACTS
+  COOKIE_JAR
+  IMPACT_ATTESTATIONS
+  STOKVEL
+  REQUEST_FOR_PROPOSAL
+  DELEGATED_DOMAIN_ALLOCATION
+  EVOLUTIONARY_GRANTS_GAMES
+  DIRECT_TO_CONTRACT_INCENTIVES
+  ANGEL_INVESTMENT
+  DOMINANT_ASSURANCE_CONTRACTS
+  COMMUNITY_CURRENCIES
+  UNIVERSAL_BASIC_INCOME
+  BOUNTIES
+  GNOSIS_SAFE
+  WAQF
+  RANKED_CHOICE_VOTING
+  HONOUR
+  MUTUAL_AID_NETWORKS
+  BONDING_CURVES
+  ZAKAT
+  DECENTRALIZED_VALIDATORS
+  REVNETS
+  OTHER
+}
+
+enum GrantPoolLifecycle {
+  DRAFT
+  REQUEST_FOR_COMMENTS
+  UPCOMING
+  OPEN
+  CLOSED
+  AWARDED
+  NOT_AWARDED
+  CANCELLED
+}
+
+enum PoolGovernanceState {
+  PENDING
+  UNDER_REVIEW
+  APPROVED
+  REJECTED
+  DISPUTED
+  SUPERSEDED
+}
+
+enum SubmitterType {
+  COMMUNITY
+  VERIFIED_PUBLISHER
+  AUTOMATION
+}
+
+enum VerificationMethod {
+  MANUAL_REVIEW
+  DOMAIN_VERIFICATION
+  HTTP_PROBE
+  REVIEWER_CONFIRMATION
+}
+
+enum ReviewerScope {
+  INTERNAL
+  EXTERNAL
+}
+
+enum ReviewerType {
+  HUMAN
+  GROUP
+  AI
+}
+
+type Submitter {
+  type: SubmitterType!
+  identifier: String!
+  submittedAt: DateTime!
+}
+
+type Publisher {
+  identifier: String!
+  publishedAt: DateTime!
+}
+
+type FundingAmount {
+  id: OID!
+  amount: Amount!
+}
+
+type ContextDocument {
+  id: OID!
+  name: String!
+  url: URL!
+}
+
+type Reviewer {
+  id: OID!
+  did: String!
+  scope: ReviewerScope!
+  reviewerType: ReviewerType!
+  name: String!
+}
+
+
+# metadata
+
+input SetPoolNameInput {
+    name: String!
+}
+
+input SetDescriptionInput {
+    description: String
+}
+
+input SetCodeInput {
+    code: String
+}
+
+input SetGrantSystemRefInput {
+    grantSystemRef: PHID!
+}
+
+input SetBriefingUriInput {
+    briefingURI: URL
+}
+
+input SetEligibilityCriteriaInput {
+    eligibilityCriteria: String
+}
+
+input SetEvaluationCriteriaInput {
+    evaluationCriteria: String
+}
+
+input SetPoolEmailInput {
+    email: EmailAddress
+}
+
+input SetPoolImageInput {
+    image: URL
+}
+
+input SetPoolCoverImageInput {
+    coverImage: URL
+}
+
+input SetPoolExtensionsInput {
+    extensions: String
+}
+
+# funding
+
+input SetFundingMechanismInput {
+    grantFundingMechanism: FundingMechanism!
+}
+
+input AddPoolSizeEntryInput {
+    id: OID!
+    amount: Amount!
+}
+
+input RemovePoolSizeEntryInput {
+    id: OID!
+}
+
+input SetTotalPoolSizeUsdInput {
+    totalGrantPoolSizeInUSD: Amount_Fiat
+}
+
+input SetGrantBoundsInput {
+    minGrantId1: OID!
+    minGrantAmount1: Amount
+    maxGrantId1: OID!
+    maxGrantAmount1: Amount
+}
+
+# schedule
+
+input SetOpenDateInput {
+    openDate: DateTime
+}
+
+input SetCloseDateInput {
+    closeDate: DateTime
+}
+
+input SetIsOpenInput {
+    isOpen: Boolean!
+}
+
+input AdvanceLifecycleInput {
+    lifecycle: GrantPoolLifecycle!
+}
+
+# classification
+
+input AddCategoryInput {
+    category: String!
+}
+
+input RemoveCategoryInput {
+    category: String!
+}
+
+input AddEcosystemInput {
+    ecosystem: String!
+}
+
+input RemoveEcosystemInput {
+    ecosystem: String!
+}
+
+input AddTagInput {
+    tag: String!
+}
+
+input RemoveTagInput {
+    tag: String!
+}
+
+# resources
+
+input SetGovernanceUriInput {
+    governanceURI: URL
+}
+
+input SetApplicationsUriInput {
+    applicationsURI: URL
+}
+
+input SetAttestationIssuersUriInput {
+    attestationIssuersURI: URL
+}
+
+input AddRequiredCredentialInput {
+    credential: String!
+}
+
+input RemoveRequiredCredentialInput {
+    credential: String!
+}
+
+input AddContextDocumentInput {
+    id: OID!
+    name: String!
+    url: URL!
+}
+
+input RemoveContextDocumentInput {
+    id: OID!
+}
+
+input AddPoolSameAsInput {
+    url: URL!
+}
+
+input RemovePoolSameAsInput {
+    url: URL!
+}
+
+# reviewers
+
+input AddReviewerInput {
+    id: OID!
+    did: String!
+    scope: ReviewerScope!
+    reviewerType: ReviewerType!
+    name: String!
+}
+
+input RemoveReviewerInput {
+    id: OID!
+}
+
+# governance
+
+input SetSubmitterInput {
+    type: SubmitterType!
+    identifier: String!
+    submittedAt: DateTime!
+}
+
+input SetPublisherInput {
+    identifier: String!
+    publishedAt: DateTime!
+}
+
+input RecordVerificationInput {
+    verifiedBy: String!
+    verificationMethod: VerificationMethod!
+    verifiedAt: DateTime!
+}
+
+input PublishPoolInput {
+    publishedAt: DateTime!
+}
+
+input ClosePoolInput {
+    closedAt: DateTime!
+}
+
+input CancelPoolInput {
+    cancelledAt: DateTime!
+    reason: String
+}
+
+input SetGovernanceStateInput {
+    governanceState: PoolGovernanceState!
+}
+
+# lineage
+
+input MarkSupersedesInput {
+    supersedes: PHID!
+}
+
+input MarkClaimedFromEntryInput {
+    claimedFromEntry: PHID!
+}
+
+input MarkDuplicateOfInput {
+    duplicateOf: PHID!
+}
