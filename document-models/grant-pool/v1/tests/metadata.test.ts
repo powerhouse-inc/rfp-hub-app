@@ -1,32 +1,32 @@
 import { generateMock } from "document-model";
-import { describe, expect, it } from "vitest";
 import {
-  reducer,
-  utils,
   isGrantPoolDocument,
-  setPoolName,
-  setDescription,
-  setCode,
-  setGrantSystemRef,
+  reducer,
   setBriefingUri,
-  setEligibilityCriteria,
-  setEvaluationCriteria,
-  setPoolEmail,
-  setPoolImage,
-  setPoolCoverImage,
-  setPoolExtensions,
-  SetPoolNameInputSchema,
-  SetDescriptionInputSchema,
-  SetCodeInputSchema,
-  SetGrantSystemRefInputSchema,
   SetBriefingUriInputSchema,
+  setCode,
+  SetCodeInputSchema,
+  setDescription,
+  SetDescriptionInputSchema,
+  setEligibilityCriteria,
   SetEligibilityCriteriaInputSchema,
+  setEvaluationCriteria,
   SetEvaluationCriteriaInputSchema,
-  SetPoolEmailInputSchema,
-  SetPoolImageInputSchema,
+  setGrantSystemRef,
+  SetGrantSystemRefInputSchema,
+  setPoolCoverImage,
   SetPoolCoverImageInputSchema,
+  setPoolEmail,
+  SetPoolEmailInputSchema,
+  setPoolExtensions,
   SetPoolExtensionsInputSchema,
+  setPoolImage,
+  SetPoolImageInputSchema,
+  setPoolName,
+  SetPoolNameInputSchema,
+  utils,
 } from "document-models/grant-pool/v1";
+import { describe, expect, it } from "vitest";
 
 describe("MetadataOperations", () => {
   it("should handle setPoolName operation", () => {
@@ -97,7 +97,9 @@ describe("MetadataOperations", () => {
 
   it("should handle setBriefingUri operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(SetBriefingUriInputSchema());
+    const input = generateMock(SetBriefingUriInputSchema(), {
+      briefingURI: "https://example.com",
+    });
 
     const updatedDocument = reducer(document, setBriefingUri(input));
 
@@ -165,7 +167,9 @@ describe("MetadataOperations", () => {
 
   it("should handle setPoolImage operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(SetPoolImageInputSchema());
+    const input = generateMock(SetPoolImageInputSchema(), {
+      image: "https://example.com",
+    });
 
     const updatedDocument = reducer(document, setPoolImage(input));
 
@@ -182,7 +186,9 @@ describe("MetadataOperations", () => {
 
   it("should handle setPoolCoverImage operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(SetPoolCoverImageInputSchema());
+    const input = generateMock(SetPoolCoverImageInputSchema(), {
+      coverImage: "https://example.com",
+    });
 
     const updatedDocument = reducer(document, setPoolCoverImage(input));
 

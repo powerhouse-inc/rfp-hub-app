@@ -3,7 +3,7 @@ import {
   getSwitchboardGatewayUrlFromDriveUrl,
   useSelectedDriveId,
   useSyncList,
-  driveCollectionId,
+  DriveCollectionId,
 } from "@powerhousedao/reactor-browser";
 import type { GrantApplicationDocument } from "../../../document-models/grant-application/v1/gen/types.js";
 
@@ -177,8 +177,9 @@ function useSwitchboardGqlUrl(): string | null {
   const syncList = useSyncList();
   return useMemo(() => {
     if (!driveId) return null;
-    const remote = syncList.find(
-      (r) => r.collectionId === driveCollectionId("main", driveId),
+    const targetCollectionId = DriveCollectionId.forDrive(driveId, "main");
+    const remote = syncList.find((r) =>
+      r.collectionId.equals(targetCollectionId),
     );
     const channel = remote?.channel as { config?: { url?: string } } | undefined;
     const driveUrl = channel?.config?.url;

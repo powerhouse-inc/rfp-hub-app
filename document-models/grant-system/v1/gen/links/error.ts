@@ -38,7 +38,10 @@ export class SocialNotFoundUpdateError extends Error implements ReducerError {
 
 export const errors = {
   AddSameAs: { SameAsAlreadyExistsError },
+
   RemoveSameAs: { SameAsNotFoundError },
+
   RemoveSocial: { SocialNotFoundError },
+
   UpdateSocialUrl: { SocialNotFoundUpdateError },
 };

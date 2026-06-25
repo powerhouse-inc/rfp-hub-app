@@ -1,29 +1,29 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import type { Reducer, StateReducer } from "document-model";
-import { isDocumentAction, createReducer } from "document-model";
+import { createReducer, isDocumentAction } from "document-model";
 import type { GovernancePHState } from "document-models/governance/v1";
 
 import { governanceDisputesOperations } from "../src/reducers/disputes.js";
+import { governancePoliciesOperations } from "../src/reducers/policies.js";
 import { governancePublisherDecisionsOperations } from "../src/reducers/publisher-decisions.js";
 import { governanceRfcsOperations } from "../src/reducers/rfcs.js";
-import { governancePoliciesOperations } from "../src/reducers/policies.js";
 
 import {
-  FileDisputeInputSchema,
-  AssignInvestigatorInputSchema,
-  ResolveDisputeInputSchema,
-  DismissDisputeInputSchema,
   AppealDisputeInputSchema,
-  RecordPublisherDecisionInputSchema,
-  ProposeRfcInputSchema,
-  StartRfcReviewInputSchema,
-  RatifyRfcInputSchema,
+  AssignInvestigatorInputSchema,
+  DismissDisputeInputSchema,
+  FileDisputeInputSchema,
   ImplementRfcInputSchema,
-  RejectRfcInputSchema,
-  WithdrawRfcInputSchema,
+  ProposeRfcInputSchema,
   PublishPolicyInputSchema,
+  RatifyRfcInputSchema,
+  RecordPublisherDecisionInputSchema,
+  RejectRfcInputSchema,
+  ResolveDisputeInputSchema,
+  StartRfcReviewInputSchema,
   SupersedePolicyInputSchema,
+  WithdrawRfcInputSchema,
 } from "./schema/zod.js";
 
 const stateReducer: StateReducer<GovernancePHState> = (

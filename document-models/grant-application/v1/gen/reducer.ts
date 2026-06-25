@@ -1,44 +1,44 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import type { Reducer, StateReducer } from "document-model";
-import { isDocumentAction, createReducer } from "document-model";
+import { createReducer, isDocumentAction } from "document-model";
 import type { GrantApplicationPHState } from "document-models/grant-application/v1";
 
-import { grantApplicationMetadataOperations } from "../src/reducers/metadata.js";
 import { grantApplicationFundingOperations } from "../src/reducers/funding.js";
-import { grantApplicationReviewOperations } from "../src/reducers/review.js";
+import { grantApplicationMetadataOperations } from "../src/reducers/metadata.js";
 import { grantApplicationPayoutsOperations } from "../src/reducers/payouts.js";
+import { grantApplicationReviewOperations } from "../src/reducers/review.js";
 
 import {
-  SetPoolRefInputSchema,
-  SetProjectRefInputSchema,
-  SetCreatedAtInputSchema,
-  SetAppContentUriInputSchema,
-  SetDiscussionsToInputSchema,
-  SetAppLicenseUriInputSchema,
-  SetIsInactiveInputSchema,
-  SetCompletionRateInputSchema,
-  SetAppExtensionsInputSchema,
   AddAppSocialInputSchema,
-  RemoveAppSocialInputSchema,
-  AddFundsAskedInputSchema,
-  RemoveFundsAskedInputSchema,
-  SetFundsAskedUsdInputSchema,
   AddFundsApprovedInputSchema,
-  SetFundsApprovedUsdInputSchema,
-  SetPayoutAddressInputSchema,
-  SetPaymentTermInputSchema,
-  SubmitApplicationInputSchema,
-  OpenApplicationInputSchema,
-  StartReviewInputSchema,
-  RequestRevisionInputSchema,
-  MarkRevisedInputSchema,
+  AddFundsAskedInputSchema,
   ApproveApplicationInputSchema,
   ConditionallyApproveInputSchema,
-  RejectApplicationInputSchema,
-  WithdrawApplicationInputSchema,
-  RecordPayoutInputSchema,
   MarkCompletedInputSchema,
+  MarkRevisedInputSchema,
+  OpenApplicationInputSchema,
+  RecordPayoutInputSchema,
+  RejectApplicationInputSchema,
+  RemoveAppSocialInputSchema,
+  RemoveFundsAskedInputSchema,
+  RequestRevisionInputSchema,
+  SetAppContentUriInputSchema,
+  SetAppExtensionsInputSchema,
+  SetAppLicenseUriInputSchema,
+  SetCompletionRateInputSchema,
+  SetCreatedAtInputSchema,
+  SetDiscussionsToInputSchema,
+  SetFundsApprovedUsdInputSchema,
+  SetFundsAskedUsdInputSchema,
+  SetIsInactiveInputSchema,
+  SetPaymentTermInputSchema,
+  SetPayoutAddressInputSchema,
+  SetPoolRefInputSchema,
+  SetProjectRefInputSchema,
+  StartReviewInputSchema,
+  SubmitApplicationInputSchema,
+  WithdrawApplicationInputSchema,
 } from "./schema/zod.js";
 
 const stateReducer: StateReducer<GrantApplicationPHState> = (

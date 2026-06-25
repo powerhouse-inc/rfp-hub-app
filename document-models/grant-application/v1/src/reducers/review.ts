@@ -61,7 +61,9 @@ export const grantApplicationReviewOperations: GrantApplicationReviewOperations 
     conditionallyApproveOperation(state, action) {
       const legal = ["UNDER_REVIEW", "REVISED"];
       if (!legal.includes(state.reviewStage)) {
-        throw new Error(`Cannot conditionally approve from ${state.reviewStage}`);
+        throw new Error(
+          `Cannot conditionally approve from ${state.reviewStage}`,
+        );
       }
       state.reviewStage = "CONDITIONALLY_APPROVED";
       state.status = "approved";
@@ -81,7 +83,14 @@ export const grantApplicationReviewOperations: GrantApplicationReviewOperations 
       state.feedbackNotes = action.input.reason;
     },
     withdrawApplicationOperation(state, _action) {
-      const legal = ["DRAFT", "SUBMITTED", "OPENED", "UNDER_REVIEW", "NEEDS_REVISION", "REVISED"];
+      const legal = [
+        "DRAFT",
+        "SUBMITTED",
+        "OPENED",
+        "UNDER_REVIEW",
+        "NEEDS_REVISION",
+        "REVISED",
+      ];
       if (!legal.includes(state.reviewStage)) {
         throw new Error(`Cannot withdraw from ${state.reviewStage}`);
       }

@@ -1,36 +1,40 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { createAction } from "document-model";
 import {
-  SetGovernanceUriInputSchema,
+  AddContextDocumentInputSchema,
+  AddPoolSameAsInputSchema,
+  AddRequiredCredentialInputSchema,
+  RemoveContextDocumentInputSchema,
+  RemovePoolSameAsInputSchema,
+  RemoveRequiredCredentialInputSchema,
   SetApplicationsUriInputSchema,
   SetAttestationIssuersUriInputSchema,
-  AddRequiredCredentialInputSchema,
-  RemoveRequiredCredentialInputSchema,
-  AddContextDocumentInputSchema,
-  RemoveContextDocumentInputSchema,
-  AddPoolSameAsInputSchema,
-  RemovePoolSameAsInputSchema,
+  SetGovernanceUriInputSchema,
 } from "../schema/zod.js";
 import type {
-  SetGovernanceUriInput,
+  AddContextDocumentInput,
+  AddPoolSameAsInput,
+  AddRequiredCredentialInput,
+  RemoveContextDocumentInput,
+  RemovePoolSameAsInput,
+  RemoveRequiredCredentialInput,
   SetApplicationsUriInput,
   SetAttestationIssuersUriInput,
-  AddRequiredCredentialInput,
-  RemoveRequiredCredentialInput,
-  AddContextDocumentInput,
-  RemoveContextDocumentInput,
-  AddPoolSameAsInput,
-  RemovePoolSameAsInput,
+  SetGovernanceUriInput,
 } from "../types.js";
 import type {
-  SetGovernanceUriAction,
+  AddContextDocumentAction,
+  AddPoolSameAsAction,
+  AddRequiredCredentialAction,
+  RemoveContextDocumentAction,
+  RemovePoolSameAsAction,
+  RemoveRequiredCredentialAction,
   SetApplicationsUriAction,
   SetAttestationIssuersUriAction,
-  AddRequiredCredentialAction,
-  RemoveRequiredCredentialAction,
-  AddContextDocumentAction,
-  RemoveContextDocumentAction,
-  AddPoolSameAsAction,
-  RemovePoolSameAsAction,
+  SetGovernanceUriAction,
 } from "./actions.js";
 
 export const setGovernanceUri = (input: SetGovernanceUriInput) =>

@@ -54,9 +54,14 @@ export class InvalidReinstateStateError extends Error implements ReducerError {
 
 export const errors = {
   RequestVerification: { InvalidStateTransitionError },
+
   ApproveVerification: { InvalidApproveStateError },
+
   RejectVerification: { InvalidRejectStateError },
+
   SuspendVerification: { InvalidSuspendStateError },
+
   RevokeVerification: { InvalidRevokeStateError },
+
   ReinstateVerification: { InvalidReinstateStateError },
 };

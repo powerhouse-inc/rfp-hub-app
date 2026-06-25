@@ -1,27 +1,29 @@
 import { generateMock } from "document-model";
-import { describe, expect, it } from "vitest";
 import {
-  reducer,
-  utils,
+  implementRfc,
+  ImplementRfcInputSchema,
   isGovernanceDocument,
   proposeRfc,
-  startRfcReview,
-  ratifyRfc,
-  implementRfc,
-  rejectRfc,
-  withdrawRfc,
   ProposeRfcInputSchema,
-  StartRfcReviewInputSchema,
+  ratifyRfc,
   RatifyRfcInputSchema,
-  ImplementRfcInputSchema,
+  reducer,
+  rejectRfc,
   RejectRfcInputSchema,
+  startRfcReview,
+  StartRfcReviewInputSchema,
+  utils,
+  withdrawRfc,
   WithdrawRfcInputSchema,
 } from "document-models/governance/v1";
+import { describe, expect, it } from "vitest";
 
 describe("RfcsOperations", () => {
   it("should handle proposeRfc operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(ProposeRfcInputSchema());
+    const input = generateMock(ProposeRfcInputSchema(), {
+      proposedAt: "2024-01-01T00:00:00.000Z",
+    });
 
     const updatedDocument = reducer(document, proposeRfc(input));
 
@@ -55,7 +57,9 @@ describe("RfcsOperations", () => {
 
   it("should handle ratifyRfc operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(RatifyRfcInputSchema());
+    const input = generateMock(RatifyRfcInputSchema(), {
+      ratifiedAt: "2024-01-01T00:00:00.000Z",
+    });
 
     const updatedDocument = reducer(document, ratifyRfc(input));
 
@@ -70,7 +74,9 @@ describe("RfcsOperations", () => {
 
   it("should handle implementRfc operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(ImplementRfcInputSchema());
+    const input = generateMock(ImplementRfcInputSchema(), {
+      implementedAt: "2024-01-01T00:00:00.000Z",
+    });
 
     const updatedDocument = reducer(document, implementRfc(input));
 

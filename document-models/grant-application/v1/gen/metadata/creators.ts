@@ -1,42 +1,46 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { createAction } from "document-model";
 import {
-  SetPoolRefInputSchema,
-  SetProjectRefInputSchema,
-  SetCreatedAtInputSchema,
-  SetAppContentUriInputSchema,
-  SetDiscussionsToInputSchema,
-  SetAppLicenseUriInputSchema,
-  SetIsInactiveInputSchema,
-  SetCompletionRateInputSchema,
-  SetAppExtensionsInputSchema,
   AddAppSocialInputSchema,
   RemoveAppSocialInputSchema,
+  SetAppContentUriInputSchema,
+  SetAppExtensionsInputSchema,
+  SetAppLicenseUriInputSchema,
+  SetCompletionRateInputSchema,
+  SetCreatedAtInputSchema,
+  SetDiscussionsToInputSchema,
+  SetIsInactiveInputSchema,
+  SetPoolRefInputSchema,
+  SetProjectRefInputSchema,
 } from "../schema/zod.js";
 import type {
-  SetPoolRefInput,
-  SetProjectRefInput,
-  SetCreatedAtInput,
-  SetAppContentUriInput,
-  SetDiscussionsToInput,
-  SetAppLicenseUriInput,
-  SetIsInactiveInput,
-  SetCompletionRateInput,
-  SetAppExtensionsInput,
   AddAppSocialInput,
   RemoveAppSocialInput,
+  SetAppContentUriInput,
+  SetAppExtensionsInput,
+  SetAppLicenseUriInput,
+  SetCompletionRateInput,
+  SetCreatedAtInput,
+  SetDiscussionsToInput,
+  SetIsInactiveInput,
+  SetPoolRefInput,
+  SetProjectRefInput,
 } from "../types.js";
 import type {
-  SetPoolRefAction,
-  SetProjectRefAction,
-  SetCreatedAtAction,
-  SetAppContentUriAction,
-  SetDiscussionsToAction,
-  SetAppLicenseUriAction,
-  SetIsInactiveAction,
-  SetCompletionRateAction,
-  SetAppExtensionsAction,
   AddAppSocialAction,
   RemoveAppSocialAction,
+  SetAppContentUriAction,
+  SetAppExtensionsAction,
+  SetAppLicenseUriAction,
+  SetCompletionRateAction,
+  SetCreatedAtAction,
+  SetDiscussionsToAction,
+  SetIsInactiveAction,
+  SetPoolRefAction,
+  SetProjectRefAction,
 } from "./actions.js";
 
 export const setPoolRef = (input: SetPoolRefInput) =>

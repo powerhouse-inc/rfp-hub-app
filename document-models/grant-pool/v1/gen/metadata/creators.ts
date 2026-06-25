@@ -1,42 +1,46 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { createAction } from "document-model";
 import {
-  SetPoolNameInputSchema,
-  SetDescriptionInputSchema,
-  SetCodeInputSchema,
-  SetGrantSystemRefInputSchema,
   SetBriefingUriInputSchema,
+  SetCodeInputSchema,
+  SetDescriptionInputSchema,
   SetEligibilityCriteriaInputSchema,
   SetEvaluationCriteriaInputSchema,
-  SetPoolEmailInputSchema,
-  SetPoolImageInputSchema,
+  SetGrantSystemRefInputSchema,
   SetPoolCoverImageInputSchema,
+  SetPoolEmailInputSchema,
   SetPoolExtensionsInputSchema,
+  SetPoolImageInputSchema,
+  SetPoolNameInputSchema,
 } from "../schema/zod.js";
 import type {
-  SetPoolNameInput,
-  SetDescriptionInput,
-  SetCodeInput,
-  SetGrantSystemRefInput,
   SetBriefingUriInput,
+  SetCodeInput,
+  SetDescriptionInput,
   SetEligibilityCriteriaInput,
   SetEvaluationCriteriaInput,
-  SetPoolEmailInput,
-  SetPoolImageInput,
+  SetGrantSystemRefInput,
   SetPoolCoverImageInput,
+  SetPoolEmailInput,
   SetPoolExtensionsInput,
+  SetPoolImageInput,
+  SetPoolNameInput,
 } from "../types.js";
 import type {
-  SetPoolNameAction,
-  SetDescriptionAction,
-  SetCodeAction,
-  SetGrantSystemRefAction,
   SetBriefingUriAction,
+  SetCodeAction,
+  SetDescriptionAction,
   SetEligibilityCriteriaAction,
   SetEvaluationCriteriaAction,
-  SetPoolEmailAction,
-  SetPoolImageAction,
+  SetGrantSystemRefAction,
   SetPoolCoverImageAction,
+  SetPoolEmailAction,
   SetPoolExtensionsAction,
+  SetPoolImageAction,
+  SetPoolNameAction,
 } from "./actions.js";
 
 export const setPoolName = (input: SetPoolNameInput) =>

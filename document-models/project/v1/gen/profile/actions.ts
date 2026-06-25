@@ -1,16 +1,20 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import type { Action } from "document-model";
 import type {
-  SetProjectNameInput,
-  SetProjectDescriptionInput,
   SetContentUriInput,
-  SetProjectEmailInput,
-  SetMembersUriInput,
-  SetProjectImageInput,
-  SetProjectCoverImageInput,
   SetLicenseUriInput,
-  SetProjectCodeInput,
+  SetMembersUriInput,
   SetOwnerDidInput,
+  SetProjectCodeInput,
+  SetProjectCoverImageInput,
+  SetProjectDescriptionInput,
+  SetProjectEmailInput,
   SetProjectExtensionsInput,
+  SetProjectImageInput,
+  SetProjectNameInput,
 } from "../types.js";
 
 export type SetProjectNameAction = Action & {

@@ -1,25 +1,27 @@
 import { generateMock } from "document-model";
-import { describe, expect, it } from "vitest";
 import {
-  reducer,
-  utils,
-  isGrantSystemDocument,
   addSameAs,
-  removeSameAs,
-  addSocial,
-  removeSocial,
-  updateSocialUrl,
   AddSameAsInputSchema,
-  RemoveSameAsInputSchema,
+  addSocial,
   AddSocialInputSchema,
+  isGrantSystemDocument,
+  reducer,
+  removeSameAs,
+  RemoveSameAsInputSchema,
+  removeSocial,
   RemoveSocialInputSchema,
+  updateSocialUrl,
   UpdateSocialUrlInputSchema,
+  utils,
 } from "document-models/grant-system/v1";
+import { describe, expect, it } from "vitest";
 
 describe("LinksOperations", () => {
   it("should handle addSameAs operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(AddSameAsInputSchema());
+    const input = generateMock(AddSameAsInputSchema(), {
+      url: "https://example.com",
+    });
 
     const updatedDocument = reducer(document, addSameAs(input));
 
@@ -36,7 +38,9 @@ describe("LinksOperations", () => {
 
   it("should handle removeSameAs operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(RemoveSameAsInputSchema());
+    const input = generateMock(RemoveSameAsInputSchema(), {
+      url: "https://example.com",
+    });
 
     const updatedDocument = reducer(document, removeSameAs(input));
 
@@ -53,7 +57,9 @@ describe("LinksOperations", () => {
 
   it("should handle addSocial operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(AddSocialInputSchema());
+    const input = generateMock(AddSocialInputSchema(), {
+      url: "https://example.com",
+    });
 
     const updatedDocument = reducer(document, addSocial(input));
 
@@ -85,7 +91,9 @@ describe("LinksOperations", () => {
 
   it("should handle updateSocialUrl operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(UpdateSocialUrlInputSchema());
+    const input = generateMock(UpdateSocialUrlInputSchema(), {
+      url: "https://example.com",
+    });
 
     const updatedDocument = reducer(document, updateSocialUrl(input));
 

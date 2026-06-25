@@ -1,42 +1,46 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { createAction } from "document-model";
 import {
-  SetProjectNameInputSchema,
-  SetProjectDescriptionInputSchema,
   SetContentUriInputSchema,
-  SetProjectEmailInputSchema,
-  SetMembersUriInputSchema,
-  SetProjectImageInputSchema,
-  SetProjectCoverImageInputSchema,
   SetLicenseUriInputSchema,
-  SetProjectCodeInputSchema,
+  SetMembersUriInputSchema,
   SetOwnerDidInputSchema,
+  SetProjectCodeInputSchema,
+  SetProjectCoverImageInputSchema,
+  SetProjectDescriptionInputSchema,
+  SetProjectEmailInputSchema,
   SetProjectExtensionsInputSchema,
+  SetProjectImageInputSchema,
+  SetProjectNameInputSchema,
 } from "../schema/zod.js";
 import type {
-  SetProjectNameInput,
-  SetProjectDescriptionInput,
   SetContentUriInput,
-  SetProjectEmailInput,
-  SetMembersUriInput,
-  SetProjectImageInput,
-  SetProjectCoverImageInput,
   SetLicenseUriInput,
-  SetProjectCodeInput,
+  SetMembersUriInput,
   SetOwnerDidInput,
+  SetProjectCodeInput,
+  SetProjectCoverImageInput,
+  SetProjectDescriptionInput,
+  SetProjectEmailInput,
   SetProjectExtensionsInput,
+  SetProjectImageInput,
+  SetProjectNameInput,
 } from "../types.js";
 import type {
-  SetProjectNameAction,
-  SetProjectDescriptionAction,
   SetContentUriAction,
-  SetProjectEmailAction,
-  SetMembersUriAction,
-  SetProjectImageAction,
-  SetProjectCoverImageAction,
   SetLicenseUriAction,
-  SetProjectCodeAction,
+  SetMembersUriAction,
   SetOwnerDidAction,
+  SetProjectCodeAction,
+  SetProjectCoverImageAction,
+  SetProjectDescriptionAction,
+  SetProjectEmailAction,
   SetProjectExtensionsAction,
+  SetProjectImageAction,
+  SetProjectNameAction,
 } from "./actions.js";
 
 export const setProjectName = (input: SetProjectNameInput) =>

@@ -1,36 +1,40 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { type SignalDispatch } from "document-model";
+import type { GrantPoolGlobalState } from "../types.js";
 import type {
-  SetFundingMechanismAction,
   AddPoolSizeEntryAction,
   RemovePoolSizeEntryAction,
-  SetTotalPoolSizeUsdAction,
+  SetFundingMechanismAction,
   SetGrantBoundsAction,
+  SetTotalPoolSizeUsdAction,
 } from "./actions.js";
-import type { GrantPoolState } from "../types.js";
 
 export interface GrantPoolFundingOperations {
   setFundingMechanismOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: SetFundingMechanismAction,
     dispatch?: SignalDispatch,
   ) => void;
   addPoolSizeEntryOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: AddPoolSizeEntryAction,
     dispatch?: SignalDispatch,
   ) => void;
   removePoolSizeEntryOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: RemovePoolSizeEntryAction,
     dispatch?: SignalDispatch,
   ) => void;
   setTotalPoolSizeUsdOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: SetTotalPoolSizeUsdAction,
     dispatch?: SignalDispatch,
   ) => void;
   setGrantBoundsOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: SetGrantBoundsAction,
     dispatch?: SignalDispatch,
   ) => void;

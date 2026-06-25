@@ -1,66 +1,66 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import type { Reducer, StateReducer } from "document-model";
-import { isDocumentAction, createReducer } from "document-model";
+import { createReducer, isDocumentAction } from "document-model";
 import type { GrantPoolPHState } from "document-models/grant-pool/v1";
 
-import { grantPoolMetadataOperations } from "../src/reducers/metadata.js";
-import { grantPoolFundingOperations } from "../src/reducers/funding.js";
-import { grantPoolScheduleOperations } from "../src/reducers/schedule.js";
 import { grantPoolClassificationOperations } from "../src/reducers/classification.js";
-import { grantPoolResourcesOperations } from "../src/reducers/resources.js";
-import { grantPoolReviewersOperations } from "../src/reducers/reviewers.js";
+import { grantPoolFundingOperations } from "../src/reducers/funding.js";
 import { grantPoolGovernanceOperations } from "../src/reducers/governance.js";
 import { grantPoolLineageOperations } from "../src/reducers/lineage.js";
+import { grantPoolMetadataOperations } from "../src/reducers/metadata.js";
+import { grantPoolResourcesOperations } from "../src/reducers/resources.js";
+import { grantPoolReviewersOperations } from "../src/reducers/reviewers.js";
+import { grantPoolScheduleOperations } from "../src/reducers/schedule.js";
 
 import {
-  SetPoolNameInputSchema,
-  SetDescriptionInputSchema,
-  SetCodeInputSchema,
-  SetGrantSystemRefInputSchema,
-  SetBriefingUriInputSchema,
-  SetEligibilityCriteriaInputSchema,
-  SetEvaluationCriteriaInputSchema,
-  SetPoolEmailInputSchema,
-  SetPoolImageInputSchema,
-  SetPoolCoverImageInputSchema,
-  SetPoolExtensionsInputSchema,
-  SetFundingMechanismInputSchema,
-  AddPoolSizeEntryInputSchema,
-  RemovePoolSizeEntryInputSchema,
-  SetTotalPoolSizeUsdInputSchema,
-  SetGrantBoundsInputSchema,
-  SetOpenDateInputSchema,
-  SetCloseDateInputSchema,
-  SetIsOpenInputSchema,
-  AdvanceLifecycleInputSchema,
   AddCategoryInputSchema,
-  RemoveCategoryInputSchema,
-  AddEcosystemInputSchema,
-  RemoveEcosystemInputSchema,
-  AddTagInputSchema,
-  RemoveTagInputSchema,
-  SetGovernanceUriInputSchema,
-  SetApplicationsUriInputSchema,
-  SetAttestationIssuersUriInputSchema,
-  AddRequiredCredentialInputSchema,
-  RemoveRequiredCredentialInputSchema,
   AddContextDocumentInputSchema,
-  RemoveContextDocumentInputSchema,
+  AddEcosystemInputSchema,
   AddPoolSameAsInputSchema,
-  RemovePoolSameAsInputSchema,
+  AddPoolSizeEntryInputSchema,
+  AddRequiredCredentialInputSchema,
   AddReviewerInputSchema,
-  RemoveReviewerInputSchema,
-  SetSubmitterInputSchema,
-  SetPublisherInputSchema,
-  RecordVerificationInputSchema,
-  PublishPoolInputSchema,
-  ClosePoolInputSchema,
+  AddTagInputSchema,
+  AdvanceLifecycleInputSchema,
   CancelPoolInputSchema,
-  SetGovernanceStateInputSchema,
-  MarkSupersedesInputSchema,
+  ClosePoolInputSchema,
   MarkClaimedFromEntryInputSchema,
   MarkDuplicateOfInputSchema,
+  MarkSupersedesInputSchema,
+  PublishPoolInputSchema,
+  RecordVerificationInputSchema,
+  RemoveCategoryInputSchema,
+  RemoveContextDocumentInputSchema,
+  RemoveEcosystemInputSchema,
+  RemovePoolSameAsInputSchema,
+  RemovePoolSizeEntryInputSchema,
+  RemoveRequiredCredentialInputSchema,
+  RemoveReviewerInputSchema,
+  RemoveTagInputSchema,
+  SetApplicationsUriInputSchema,
+  SetAttestationIssuersUriInputSchema,
+  SetBriefingUriInputSchema,
+  SetCloseDateInputSchema,
+  SetCodeInputSchema,
+  SetDescriptionInputSchema,
+  SetEligibilityCriteriaInputSchema,
+  SetEvaluationCriteriaInputSchema,
+  SetFundingMechanismInputSchema,
+  SetGovernanceStateInputSchema,
+  SetGovernanceUriInputSchema,
+  SetGrantBoundsInputSchema,
+  SetGrantSystemRefInputSchema,
+  SetIsOpenInputSchema,
+  SetOpenDateInputSchema,
+  SetPoolCoverImageInputSchema,
+  SetPoolEmailInputSchema,
+  SetPoolExtensionsInputSchema,
+  SetPoolImageInputSchema,
+  SetPoolNameInputSchema,
+  SetPublisherInputSchema,
+  SetSubmitterInputSchema,
+  SetTotalPoolSizeUsdInputSchema,
 } from "./schema/zod.js";
 
 const stateReducer: StateReducer<GrantPoolPHState> = (

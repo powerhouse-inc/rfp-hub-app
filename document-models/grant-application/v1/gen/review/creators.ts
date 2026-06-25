@@ -1,35 +1,39 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { createAction } from "document-model";
 import {
-  SubmitApplicationInputSchema,
-  OpenApplicationInputSchema,
-  StartReviewInputSchema,
-  RequestRevisionInputSchema,
-  MarkRevisedInputSchema,
   ApproveApplicationInputSchema,
   ConditionallyApproveInputSchema,
+  MarkRevisedInputSchema,
+  OpenApplicationInputSchema,
   RejectApplicationInputSchema,
+  RequestRevisionInputSchema,
+  StartReviewInputSchema,
+  SubmitApplicationInputSchema,
   WithdrawApplicationInputSchema,
 } from "../schema/zod.js";
 import type {
-  SubmitApplicationInput,
-  OpenApplicationInput,
-  StartReviewInput,
-  RequestRevisionInput,
-  MarkRevisedInput,
   ApproveApplicationInput,
   ConditionallyApproveInput,
+  MarkRevisedInput,
+  OpenApplicationInput,
   RejectApplicationInput,
+  RequestRevisionInput,
+  StartReviewInput,
+  SubmitApplicationInput,
   WithdrawApplicationInput,
 } from "../types.js";
 import type {
-  SubmitApplicationAction,
-  OpenApplicationAction,
-  StartReviewAction,
-  RequestRevisionAction,
-  MarkRevisedAction,
   ApproveApplicationAction,
   ConditionallyApproveAction,
+  MarkRevisedAction,
+  OpenApplicationAction,
   RejectApplicationAction,
+  RequestRevisionAction,
+  StartReviewAction,
+  SubmitApplicationAction,
   WithdrawApplicationAction,
 } from "./actions.js";
 

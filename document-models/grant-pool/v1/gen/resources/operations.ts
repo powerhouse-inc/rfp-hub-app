@@ -1,60 +1,64 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { type SignalDispatch } from "document-model";
+import type { GrantPoolGlobalState } from "../types.js";
 import type {
-  SetGovernanceUriAction,
+  AddContextDocumentAction,
+  AddPoolSameAsAction,
+  AddRequiredCredentialAction,
+  RemoveContextDocumentAction,
+  RemovePoolSameAsAction,
+  RemoveRequiredCredentialAction,
   SetApplicationsUriAction,
   SetAttestationIssuersUriAction,
-  AddRequiredCredentialAction,
-  RemoveRequiredCredentialAction,
-  AddContextDocumentAction,
-  RemoveContextDocumentAction,
-  AddPoolSameAsAction,
-  RemovePoolSameAsAction,
+  SetGovernanceUriAction,
 } from "./actions.js";
-import type { GrantPoolState } from "../types.js";
 
 export interface GrantPoolResourcesOperations {
   setGovernanceUriOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: SetGovernanceUriAction,
     dispatch?: SignalDispatch,
   ) => void;
   setApplicationsUriOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: SetApplicationsUriAction,
     dispatch?: SignalDispatch,
   ) => void;
   setAttestationIssuersUriOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: SetAttestationIssuersUriAction,
     dispatch?: SignalDispatch,
   ) => void;
   addRequiredCredentialOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: AddRequiredCredentialAction,
     dispatch?: SignalDispatch,
   ) => void;
   removeRequiredCredentialOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: RemoveRequiredCredentialAction,
     dispatch?: SignalDispatch,
   ) => void;
   addContextDocumentOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: AddContextDocumentAction,
     dispatch?: SignalDispatch,
   ) => void;
   removeContextDocumentOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: RemoveContextDocumentAction,
     dispatch?: SignalDispatch,
   ) => void;
   addPoolSameAsOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: AddPoolSameAsAction,
     dispatch?: SignalDispatch,
   ) => void;
   removePoolSameAsOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: RemovePoolSameAsAction,
     dispatch?: SignalDispatch,
   ) => void;

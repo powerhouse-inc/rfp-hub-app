@@ -1,24 +1,24 @@
 import { generateMock } from "document-model";
-import { describe, expect, it } from "vitest";
 import {
-  reducer,
-  utils,
-  isGrantApplicationDocument,
-  addFundsAsked,
-  removeFundsAsked,
-  setFundsAskedUsd,
   addFundsApproved,
-  setFundsApprovedUsd,
-  setPayoutAddress,
-  setPaymentTerm,
-  AddFundsAskedInputSchema,
-  RemoveFundsAskedInputSchema,
-  SetFundsAskedUsdInputSchema,
   AddFundsApprovedInputSchema,
+  addFundsAsked,
+  AddFundsAskedInputSchema,
+  isGrantApplicationDocument,
+  reducer,
+  removeFundsAsked,
+  RemoveFundsAskedInputSchema,
+  setFundsApprovedUsd,
   SetFundsApprovedUsdInputSchema,
-  SetPayoutAddressInputSchema,
+  setFundsAskedUsd,
+  SetFundsAskedUsdInputSchema,
+  setPaymentTerm,
   SetPaymentTermInputSchema,
+  setPayoutAddress,
+  SetPayoutAddressInputSchema,
+  utils,
 } from "document-models/grant-application/v1";
+import { describe, expect, it } from "vitest";
 
 describe("FundingOperations", () => {
   it("should handle addFundsAsked operation", () => {

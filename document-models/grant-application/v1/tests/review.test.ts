@@ -1,33 +1,35 @@
 import { generateMock } from "document-model";
-import { describe, expect, it } from "vitest";
 import {
-  reducer,
-  utils,
-  isGrantApplicationDocument,
-  submitApplication,
-  openApplication,
-  startReview,
-  requestRevision,
-  markRevised,
   approveApplication,
-  conditionallyApprove,
-  rejectApplication,
-  withdrawApplication,
-  SubmitApplicationInputSchema,
-  OpenApplicationInputSchema,
-  StartReviewInputSchema,
-  RequestRevisionInputSchema,
-  MarkRevisedInputSchema,
   ApproveApplicationInputSchema,
+  conditionallyApprove,
   ConditionallyApproveInputSchema,
+  isGrantApplicationDocument,
+  markRevised,
+  MarkRevisedInputSchema,
+  openApplication,
+  OpenApplicationInputSchema,
+  reducer,
+  rejectApplication,
   RejectApplicationInputSchema,
+  requestRevision,
+  RequestRevisionInputSchema,
+  startReview,
+  StartReviewInputSchema,
+  submitApplication,
+  SubmitApplicationInputSchema,
+  utils,
+  withdrawApplication,
   WithdrawApplicationInputSchema,
 } from "document-models/grant-application/v1";
+import { describe, expect, it } from "vitest";
 
 describe("ReviewOperations", () => {
   it("should handle submitApplication operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(SubmitApplicationInputSchema());
+    const input = generateMock(SubmitApplicationInputSchema(), {
+      submittedAt: "2024-01-01T00:00:00.000Z",
+    });
 
     const updatedDocument = reducer(document, submitApplication(input));
 

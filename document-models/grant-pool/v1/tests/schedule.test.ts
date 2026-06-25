@@ -1,23 +1,25 @@
 import { generateMock } from "document-model";
-import { describe, expect, it } from "vitest";
 import {
-  reducer,
-  utils,
-  isGrantPoolDocument,
-  setOpenDate,
-  setCloseDate,
-  setIsOpen,
   advanceLifecycle,
-  SetOpenDateInputSchema,
-  SetCloseDateInputSchema,
-  SetIsOpenInputSchema,
   AdvanceLifecycleInputSchema,
+  isGrantPoolDocument,
+  reducer,
+  setCloseDate,
+  SetCloseDateInputSchema,
+  setIsOpen,
+  SetIsOpenInputSchema,
+  setOpenDate,
+  SetOpenDateInputSchema,
+  utils,
 } from "document-models/grant-pool/v1";
+import { describe, expect, it } from "vitest";
 
 describe("ScheduleOperations", () => {
   it("should handle setOpenDate operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(SetOpenDateInputSchema());
+    const input = generateMock(SetOpenDateInputSchema(), {
+      openDate: "2024-01-01T00:00:00.000Z",
+    });
 
     const updatedDocument = reducer(document, setOpenDate(input));
 
@@ -34,7 +36,9 @@ describe("ScheduleOperations", () => {
 
   it("should handle setCloseDate operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(SetCloseDateInputSchema());
+    const input = generateMock(SetCloseDateInputSchema(), {
+      closeDate: "2024-01-01T00:00:00.000Z",
+    });
 
     const updatedDocument = reducer(document, setCloseDate(input));
 

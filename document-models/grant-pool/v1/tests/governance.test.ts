@@ -1,29 +1,31 @@
 import { generateMock } from "document-model";
-import { describe, expect, it } from "vitest";
 import {
-  reducer,
-  utils,
-  isGrantPoolDocument,
-  setSubmitter,
-  setPublisher,
-  recordVerification,
-  publishPool,
-  closePool,
   cancelPool,
-  setGovernanceState,
-  SetSubmitterInputSchema,
-  SetPublisherInputSchema,
-  RecordVerificationInputSchema,
-  PublishPoolInputSchema,
-  ClosePoolInputSchema,
   CancelPoolInputSchema,
+  closePool,
+  ClosePoolInputSchema,
+  isGrantPoolDocument,
+  publishPool,
+  PublishPoolInputSchema,
+  recordVerification,
+  RecordVerificationInputSchema,
+  reducer,
+  setGovernanceState,
   SetGovernanceStateInputSchema,
+  setPublisher,
+  SetPublisherInputSchema,
+  setSubmitter,
+  SetSubmitterInputSchema,
+  utils,
 } from "document-models/grant-pool/v1";
+import { describe, expect, it } from "vitest";
 
 describe("GovernanceOperations", () => {
   it("should handle setSubmitter operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(SetSubmitterInputSchema());
+    const input = generateMock(SetSubmitterInputSchema(), {
+      submittedAt: "2024-01-01T00:00:00.000Z",
+    });
 
     const updatedDocument = reducer(document, setSubmitter(input));
 
@@ -40,7 +42,9 @@ describe("GovernanceOperations", () => {
 
   it("should handle setPublisher operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(SetPublisherInputSchema());
+    const input = generateMock(SetPublisherInputSchema(), {
+      publishedAt: "2024-01-01T00:00:00.000Z",
+    });
 
     const updatedDocument = reducer(document, setPublisher(input));
 
@@ -74,7 +78,9 @@ describe("GovernanceOperations", () => {
 
   it("should handle publishPool operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(PublishPoolInputSchema());
+    const input = generateMock(PublishPoolInputSchema(), {
+      publishedAt: "2024-01-01T00:00:00.000Z",
+    });
 
     const updatedDocument = reducer(document, publishPool(input));
 

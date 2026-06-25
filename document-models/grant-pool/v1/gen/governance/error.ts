@@ -20,5 +20,6 @@ export class InvalidCloseStateError extends Error implements ReducerError {
 
 export const errors = {
   PublishPool: { AlreadyPublishedError },
+
   ClosePool: { InvalidCloseStateError },
 };

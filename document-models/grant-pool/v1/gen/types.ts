@@ -1,4 +1,8 @@
-import type { PHDocument, PHBaseState } from "document-model";
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
+import type { PHBaseState, PHDocument } from "document-model";
 import type { GrantPoolAction } from "./actions.js";
 import type { GrantPoolState as GrantPoolGlobalState } from "./schema/types.js";
 
@@ -13,9 +17,9 @@ type GrantPoolDocument = PHDocument<GrantPoolPHState>;
 export * from "./schema/types.js";
 
 export type {
+  GrantPoolAction,
+  GrantPoolDocument,
   GrantPoolGlobalState,
   GrantPoolLocalState,
   GrantPoolPHState,
-  GrantPoolAction,
-  GrantPoolDocument,
 };

@@ -1,36 +1,40 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { type SignalDispatch } from "document-model";
+import type { GrantSystemGlobalState } from "../types.js";
 import type {
   AddSameAsAction,
-  RemoveSameAsAction,
   AddSocialAction,
+  RemoveSameAsAction,
   RemoveSocialAction,
   UpdateSocialUrlAction,
 } from "./actions.js";
-import type { GrantSystemState } from "../types.js";
 
 export interface GrantSystemLinksOperations {
   addSameAsOperation: (
-    state: GrantSystemState,
+    state: GrantSystemGlobalState,
     action: AddSameAsAction,
     dispatch?: SignalDispatch,
   ) => void;
   removeSameAsOperation: (
-    state: GrantSystemState,
+    state: GrantSystemGlobalState,
     action: RemoveSameAsAction,
     dispatch?: SignalDispatch,
   ) => void;
   addSocialOperation: (
-    state: GrantSystemState,
+    state: GrantSystemGlobalState,
     action: AddSocialAction,
     dispatch?: SignalDispatch,
   ) => void;
   removeSocialOperation: (
-    state: GrantSystemState,
+    state: GrantSystemGlobalState,
     action: RemoveSocialAction,
     dispatch?: SignalDispatch,
   ) => void;
   updateSocialUrlOperation: (
-    state: GrantSystemState,
+    state: GrantSystemGlobalState,
     action: UpdateSocialUrlAction,
     dispatch?: SignalDispatch,
   ) => void;

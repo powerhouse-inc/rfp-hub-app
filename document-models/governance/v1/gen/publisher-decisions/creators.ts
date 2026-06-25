@@ -1,3 +1,7 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { createAction } from "document-model";
 import { RecordPublisherDecisionInputSchema } from "../schema/zod.js";
 import type { RecordPublisherDecisionInput } from "../types.js";

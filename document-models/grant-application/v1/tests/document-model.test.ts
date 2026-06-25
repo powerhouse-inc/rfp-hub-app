@@ -7,17 +7,17 @@
  * - change it by adding new tests or modifying the existing ones
  */
 
-import { describe, it, expect } from "vitest";
 import {
-  utils,
+  assertIsGrantApplicationDocument,
+  assertIsGrantApplicationState,
+  grantApplicationDocumentType,
   initialGlobalState,
   initialLocalState,
-  grantApplicationDocumentType,
   isGrantApplicationDocument,
-  assertIsGrantApplicationDocument,
   isGrantApplicationState,
-  assertIsGrantApplicationState,
+  utils,
 } from "document-models/grant-application/v1";
+import { describe, expect, it } from "vitest";
 import { ZodError } from "zod";
 
 describe("GrantApplication Document Model", () => {

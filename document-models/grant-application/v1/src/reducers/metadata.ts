@@ -1,5 +1,5 @@
-import { AppSocialNotFoundError } from "../../gen/metadata/error.js";
 import type { GrantApplicationMetadataOperations } from "document-models/grant-application/v1";
+import { AppSocialNotFoundError } from "../../gen/metadata/error.js";
 
 export const grantApplicationMetadataOperations: GrantApplicationMetadataOperations =
   {

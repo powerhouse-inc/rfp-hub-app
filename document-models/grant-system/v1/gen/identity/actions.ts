@@ -1,15 +1,19 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import type { Action } from "document-model";
 import type {
-  SetTypeInput,
   SetCodeInput,
-  SetDescriptionInput,
-  SetGrantPoolsUriInput,
-  SetExtensionsInput,
-  SetImageInput,
-  SetCoverImageInput,
-  SetEmailInput,
   SetContactNameInput,
+  SetCoverImageInput,
+  SetDescriptionInput,
+  SetEmailInput,
+  SetExtensionsInput,
+  SetGrantPoolsUriInput,
+  SetImageInput,
   SetOrgNameInput,
+  SetTypeInput,
 } from "../types.js";
 
 export type SetTypeAction = Action & { type: "SET_TYPE"; input: SetTypeInput };

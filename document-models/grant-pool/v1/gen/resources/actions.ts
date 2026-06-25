@@ -1,14 +1,18 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import type { Action } from "document-model";
 import type {
-  SetGovernanceUriInput,
+  AddContextDocumentInput,
+  AddPoolSameAsInput,
+  AddRequiredCredentialInput,
+  RemoveContextDocumentInput,
+  RemovePoolSameAsInput,
+  RemoveRequiredCredentialInput,
   SetApplicationsUriInput,
   SetAttestationIssuersUriInput,
-  AddRequiredCredentialInput,
-  RemoveRequiredCredentialInput,
-  AddContextDocumentInput,
-  RemoveContextDocumentInput,
-  AddPoolSameAsInput,
-  RemovePoolSameAsInput,
+  SetGovernanceUriInput,
 } from "../types.js";
 
 export type SetGovernanceUriAction = Action & {

@@ -1,24 +1,28 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { createAction } from "document-model";
 import {
-  SetFundingMechanismInputSchema,
   AddPoolSizeEntryInputSchema,
   RemovePoolSizeEntryInputSchema,
-  SetTotalPoolSizeUsdInputSchema,
+  SetFundingMechanismInputSchema,
   SetGrantBoundsInputSchema,
+  SetTotalPoolSizeUsdInputSchema,
 } from "../schema/zod.js";
 import type {
-  SetFundingMechanismInput,
   AddPoolSizeEntryInput,
   RemovePoolSizeEntryInput,
-  SetTotalPoolSizeUsdInput,
+  SetFundingMechanismInput,
   SetGrantBoundsInput,
+  SetTotalPoolSizeUsdInput,
 } from "../types.js";
 import type {
-  SetFundingMechanismAction,
   AddPoolSizeEntryAction,
   RemovePoolSizeEntryAction,
-  SetTotalPoolSizeUsdAction,
+  SetFundingMechanismAction,
   SetGrantBoundsAction,
+  SetTotalPoolSizeUsdAction,
 } from "./actions.js";
 
 export const setFundingMechanism = (input: SetFundingMechanismInput) =>

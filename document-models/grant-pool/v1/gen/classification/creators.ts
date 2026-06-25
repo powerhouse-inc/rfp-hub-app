@@ -1,26 +1,30 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { createAction } from "document-model";
 import {
   AddCategoryInputSchema,
-  RemoveCategoryInputSchema,
   AddEcosystemInputSchema,
-  RemoveEcosystemInputSchema,
   AddTagInputSchema,
+  RemoveCategoryInputSchema,
+  RemoveEcosystemInputSchema,
   RemoveTagInputSchema,
 } from "../schema/zod.js";
 import type {
   AddCategoryInput,
-  RemoveCategoryInput,
   AddEcosystemInput,
-  RemoveEcosystemInput,
   AddTagInput,
+  RemoveCategoryInput,
+  RemoveEcosystemInput,
   RemoveTagInput,
 } from "../types.js";
 import type {
   AddCategoryAction,
-  RemoveCategoryAction,
   AddEcosystemAction,
-  RemoveEcosystemAction,
   AddTagAction,
+  RemoveCategoryAction,
+  RemoveEcosystemAction,
   RemoveTagAction,
 } from "./actions.js";
 

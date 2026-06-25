@@ -1,9 +1,13 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { baseActions } from "document-model";
 import {
-  projectProfileActions,
   projectAttestationsActions,
-  projectRelevanceActions,
   projectLinksActions,
+  projectProfileActions,
+  projectRelevanceActions,
 } from "./gen/creators.js";
 
 /** Actions for the Project document model */

@@ -1,36 +1,40 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { type SignalDispatch } from "document-model";
+import type { GovernanceGlobalState } from "../types.js";
 import type {
-  FileDisputeAction,
-  AssignInvestigatorAction,
-  ResolveDisputeAction,
-  DismissDisputeAction,
   AppealDisputeAction,
+  AssignInvestigatorAction,
+  DismissDisputeAction,
+  FileDisputeAction,
+  ResolveDisputeAction,
 } from "./actions.js";
-import type { GovernanceState } from "../types.js";
 
 export interface GovernanceDisputesOperations {
   fileDisputeOperation: (
-    state: GovernanceState,
+    state: GovernanceGlobalState,
     action: FileDisputeAction,
     dispatch?: SignalDispatch,
   ) => void;
   assignInvestigatorOperation: (
-    state: GovernanceState,
+    state: GovernanceGlobalState,
     action: AssignInvestigatorAction,
     dispatch?: SignalDispatch,
   ) => void;
   resolveDisputeOperation: (
-    state: GovernanceState,
+    state: GovernanceGlobalState,
     action: ResolveDisputeAction,
     dispatch?: SignalDispatch,
   ) => void;
   dismissDisputeOperation: (
-    state: GovernanceState,
+    state: GovernanceGlobalState,
     action: DismissDisputeAction,
     dispatch?: SignalDispatch,
   ) => void;
   appealDisputeOperation: (
-    state: GovernanceState,
+    state: GovernanceGlobalState,
     action: AppealDisputeAction,
     dispatch?: SignalDispatch,
   ) => void;

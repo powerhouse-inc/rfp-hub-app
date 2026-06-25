@@ -1,10 +1,14 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { createAction } from "document-model";
 import {
-  RecordPayoutInputSchema,
   MarkCompletedInputSchema,
+  RecordPayoutInputSchema,
 } from "../schema/zod.js";
-import type { RecordPayoutInput, MarkCompletedInput } from "../types.js";
-import type { RecordPayoutAction, MarkCompletedAction } from "./actions.js";
+import type { MarkCompletedInput, RecordPayoutInput } from "../types.js";
+import type { MarkCompletedAction, RecordPayoutAction } from "./actions.js";
 
 export const recordPayout = (input: RecordPayoutInput) =>
   createAction<RecordPayoutAction>(

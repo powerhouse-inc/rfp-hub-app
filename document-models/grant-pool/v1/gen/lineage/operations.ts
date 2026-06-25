@@ -1,24 +1,28 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { type SignalDispatch } from "document-model";
+import type { GrantPoolGlobalState } from "../types.js";
 import type {
-  MarkSupersedesAction,
   MarkClaimedFromEntryAction,
   MarkDuplicateOfAction,
+  MarkSupersedesAction,
 } from "./actions.js";
-import type { GrantPoolState } from "../types.js";
 
 export interface GrantPoolLineageOperations {
   markSupersedesOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: MarkSupersedesAction,
     dispatch?: SignalDispatch,
   ) => void;
   markClaimedFromEntryOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: MarkClaimedFromEntryAction,
     dispatch?: SignalDispatch,
   ) => void;
   markDuplicateOfOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: MarkDuplicateOfAction,
     dispatch?: SignalDispatch,
   ) => void;

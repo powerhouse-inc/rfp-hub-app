@@ -1,12 +1,16 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import type { Action } from "document-model";
 import type {
-  SetSubmitterInput,
-  SetPublisherInput,
-  RecordVerificationInput,
-  PublishPoolInput,
-  ClosePoolInput,
   CancelPoolInput,
+  ClosePoolInput,
+  PublishPoolInput,
+  RecordVerificationInput,
   SetGovernanceStateInput,
+  SetPublisherInput,
+  SetSubmitterInput,
 } from "../types.js";
 
 export type SetSubmitterAction = Action & {

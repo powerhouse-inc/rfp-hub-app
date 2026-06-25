@@ -1,25 +1,27 @@
 import { generateMock } from "document-model";
-import { describe, expect, it } from "vitest";
 import {
-  reducer,
-  utils,
-  isProjectDocument,
-  addProjectSocial,
-  removeProjectSocial,
-  updateProjectSocialUrl,
   addProjectSameAs,
-  removeProjectSameAs,
-  AddProjectSocialInputSchema,
-  RemoveProjectSocialInputSchema,
-  UpdateProjectSocialUrlInputSchema,
   AddProjectSameAsInputSchema,
+  addProjectSocial,
+  AddProjectSocialInputSchema,
+  isProjectDocument,
+  reducer,
+  removeProjectSameAs,
   RemoveProjectSameAsInputSchema,
+  removeProjectSocial,
+  RemoveProjectSocialInputSchema,
+  updateProjectSocialUrl,
+  UpdateProjectSocialUrlInputSchema,
+  utils,
 } from "document-models/project/v1";
+import { describe, expect, it } from "vitest";
 
 describe("LinksOperations", () => {
   it("should handle addProjectSocial operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(AddProjectSocialInputSchema());
+    const input = generateMock(AddProjectSocialInputSchema(), {
+      value: "https://example.com",
+    });
 
     const updatedDocument = reducer(document, addProjectSocial(input));
 
@@ -53,7 +55,9 @@ describe("LinksOperations", () => {
 
   it("should handle updateProjectSocialUrl operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(UpdateProjectSocialUrlInputSchema());
+    const input = generateMock(UpdateProjectSocialUrlInputSchema(), {
+      value: "https://example.com",
+    });
 
     const updatedDocument = reducer(document, updateProjectSocialUrl(input));
 

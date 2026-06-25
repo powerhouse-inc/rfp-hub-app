@@ -1,19 +1,21 @@
 import { generateMock } from "document-model";
-import { describe, expect, it } from "vitest";
 import {
-  reducer,
-  utils,
   isGovernanceDocument,
   publishPolicy,
-  supersedePolicy,
   PublishPolicyInputSchema,
+  reducer,
+  supersedePolicy,
   SupersedePolicyInputSchema,
+  utils,
 } from "document-models/governance/v1";
+import { describe, expect, it } from "vitest";
 
 describe("PoliciesOperations", () => {
   it("should handle publishPolicy operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(PublishPolicyInputSchema());
+    const input = generateMock(PublishPolicyInputSchema(), {
+      effectiveFrom: "2024-01-01T00:00:00.000Z",
+    });
 
     const updatedDocument = reducer(document, publishPolicy(input));
 
@@ -30,7 +32,9 @@ describe("PoliciesOperations", () => {
 
   it("should handle supersedePolicy operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(SupersedePolicyInputSchema());
+    const input = generateMock(SupersedePolicyInputSchema(), {
+      supersededAt: "2024-01-01T00:00:00.000Z",
+    });
 
     const updatedDocument = reducer(document, supersedePolicy(input));
 

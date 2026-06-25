@@ -1,48 +1,52 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { type SignalDispatch } from "document-model";
+import type { GrantApplicationGlobalState } from "../types.js";
 import type {
+  AddFundsApprovedAction,
   AddFundsAskedAction,
   RemoveFundsAskedAction,
-  SetFundsAskedUsdAction,
-  AddFundsApprovedAction,
   SetFundsApprovedUsdAction,
-  SetPayoutAddressAction,
+  SetFundsAskedUsdAction,
   SetPaymentTermAction,
+  SetPayoutAddressAction,
 } from "./actions.js";
-import type { GrantApplicationState } from "../types.js";
 
 export interface GrantApplicationFundingOperations {
   addFundsAskedOperation: (
-    state: GrantApplicationState,
+    state: GrantApplicationGlobalState,
     action: AddFundsAskedAction,
     dispatch?: SignalDispatch,
   ) => void;
   removeFundsAskedOperation: (
-    state: GrantApplicationState,
+    state: GrantApplicationGlobalState,
     action: RemoveFundsAskedAction,
     dispatch?: SignalDispatch,
   ) => void;
   setFundsAskedUsdOperation: (
-    state: GrantApplicationState,
+    state: GrantApplicationGlobalState,
     action: SetFundsAskedUsdAction,
     dispatch?: SignalDispatch,
   ) => void;
   addFundsApprovedOperation: (
-    state: GrantApplicationState,
+    state: GrantApplicationGlobalState,
     action: AddFundsApprovedAction,
     dispatch?: SignalDispatch,
   ) => void;
   setFundsApprovedUsdOperation: (
-    state: GrantApplicationState,
+    state: GrantApplicationGlobalState,
     action: SetFundsApprovedUsdAction,
     dispatch?: SignalDispatch,
   ) => void;
   setPayoutAddressOperation: (
-    state: GrantApplicationState,
+    state: GrantApplicationGlobalState,
     action: SetPayoutAddressAction,
     dispatch?: SignalDispatch,
   ) => void;
   setPaymentTermOperation: (
-    state: GrantApplicationState,
+    state: GrantApplicationGlobalState,
     action: SetPaymentTermAction,
     dispatch?: SignalDispatch,
   ) => void;

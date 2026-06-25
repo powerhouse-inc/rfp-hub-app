@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import type { Reducer, StateReducer } from "document-model";
-import { isDocumentAction, createReducer } from "document-model";
+import { createReducer, isDocumentAction } from "document-model";
 import type { GrantSystemPHState } from "document-models/grant-system/v1";
 
 import { grantSystemIdentityOperations } from "../src/reducers/identity.js";
@@ -9,28 +9,28 @@ import { grantSystemLinksOperations } from "../src/reducers/links.js";
 import { grantSystemVerificationOperations } from "../src/reducers/verification.js";
 
 import {
-  SetTypeInputSchema,
-  SetCodeInputSchema,
-  SetDescriptionInputSchema,
-  SetGrantPoolsUriInputSchema,
-  SetExtensionsInputSchema,
-  SetImageInputSchema,
-  SetCoverImageInputSchema,
-  SetEmailInputSchema,
-  SetContactNameInputSchema,
-  SetOrgNameInputSchema,
   AddSameAsInputSchema,
-  RemoveSameAsInputSchema,
   AddSocialInputSchema,
-  RemoveSocialInputSchema,
-  UpdateSocialUrlInputSchema,
-  SetPublisherWalletInputSchema,
-  RequestVerificationInputSchema,
   ApproveVerificationInputSchema,
-  RejectVerificationInputSchema,
-  SuspendVerificationInputSchema,
-  RevokeVerificationInputSchema,
   ReinstateVerificationInputSchema,
+  RejectVerificationInputSchema,
+  RemoveSameAsInputSchema,
+  RemoveSocialInputSchema,
+  RequestVerificationInputSchema,
+  RevokeVerificationInputSchema,
+  SetCodeInputSchema,
+  SetContactNameInputSchema,
+  SetCoverImageInputSchema,
+  SetDescriptionInputSchema,
+  SetEmailInputSchema,
+  SetExtensionsInputSchema,
+  SetGrantPoolsUriInputSchema,
+  SetImageInputSchema,
+  SetOrgNameInputSchema,
+  SetPublisherWalletInputSchema,
+  SetTypeInputSchema,
+  SuspendVerificationInputSchema,
+  UpdateSocialUrlInputSchema,
 } from "./schema/zod.js";
 
 const stateReducer: StateReducer<GrantSystemPHState> = (

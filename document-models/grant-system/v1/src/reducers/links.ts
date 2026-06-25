@@ -1,9 +1,9 @@
+import type { GrantSystemLinksOperations } from "document-models/grant-system/v1";
 import {
   SameAsAlreadyExistsError,
   SameAsNotFoundError,
   SocialNotFoundError,
 } from "../../gen/links/error.js";
-import type { GrantSystemLinksOperations } from "document-models/grant-system/v1";
 
 export const grantSystemLinksOperations: GrantSystemLinksOperations = {
   addSameAsOperation(state, action) {

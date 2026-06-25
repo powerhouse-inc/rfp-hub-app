@@ -1,7 +1,9 @@
 /**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
  * Factory methods for creating GrantPoolDocument instances
  */
-import type { PHAuthState, PHDocumentState, PHBaseState } from "document-model";
+import type { PHAuthState, PHBaseState, PHDocumentState } from "document-model";
 import { createBaseState, defaultBaseState } from "document-model";
 import type {
   GrantPoolDocument,
@@ -73,7 +75,7 @@ export function createGlobalState(
   return {
     ...defaultGlobalState(),
     ...(state || {}),
-  } as GrantPoolGlobalState;
+  };
 }
 
 export function createLocalState(
@@ -111,13 +113,11 @@ export function createGrantPoolDocument(
   }>,
 ): GrantPoolDocument {
   const document = utils.createDocument(
-    state
-      ? createState(
-          createBaseState(state.auth, state.document),
-          state.global,
-          state.local,
-        )
-      : undefined,
+    createState(
+      createBaseState(state?.auth, { version: 1, ...state?.document }),
+      state?.global,
+      state?.local,
+    ),
   );
 
   return document;

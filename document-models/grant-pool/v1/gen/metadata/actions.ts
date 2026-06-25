@@ -1,16 +1,20 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import type { Action } from "document-model";
 import type {
-  SetPoolNameInput,
-  SetDescriptionInput,
-  SetCodeInput,
-  SetGrantSystemRefInput,
   SetBriefingUriInput,
+  SetCodeInput,
+  SetDescriptionInput,
   SetEligibilityCriteriaInput,
   SetEvaluationCriteriaInput,
-  SetPoolEmailInput,
-  SetPoolImageInput,
+  SetGrantSystemRefInput,
   SetPoolCoverImageInput,
+  SetPoolEmailInput,
   SetPoolExtensionsInput,
+  SetPoolImageInput,
+  SetPoolNameInput,
 } from "../types.js";
 
 export type SetPoolNameAction = Action & {

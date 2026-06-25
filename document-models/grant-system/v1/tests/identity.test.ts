@@ -1,30 +1,30 @@
 import { generateMock } from "document-model";
-import { describe, expect, it } from "vitest";
 import {
-  reducer,
-  utils,
   isGrantSystemDocument,
-  setType,
+  reducer,
   setCode,
-  setDescription,
-  setGrantPoolsUri,
-  setExtensions,
-  setImage,
-  setCoverImage,
-  setEmail,
-  setContactName,
-  SetTypeInputSchema,
   SetCodeInputSchema,
-  SetDescriptionInputSchema,
-  SetGrantPoolsUriInputSchema,
-  SetExtensionsInputSchema,
-  SetImageInputSchema,
-  SetCoverImageInputSchema,
-  SetEmailInputSchema,
+  setContactName,
   SetContactNameInputSchema,
+  setCoverImage,
+  SetCoverImageInputSchema,
+  setDescription,
+  SetDescriptionInputSchema,
+  setEmail,
+  SetEmailInputSchema,
+  setExtensions,
+  SetExtensionsInputSchema,
+  setGrantPoolsUri,
+  SetGrantPoolsUriInputSchema,
+  setImage,
+  SetImageInputSchema,
   setOrgName,
   SetOrgNameInputSchema,
+  setType,
+  SetTypeInputSchema,
+  utils,
 } from "document-models/grant-system/v1";
+import { describe, expect, it } from "vitest";
 
 describe("IdentityOperations", () => {
   it("should handle setType operation", () => {
@@ -76,7 +76,9 @@ describe("IdentityOperations", () => {
 
   it("should handle setGrantPoolsUri operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(SetGrantPoolsUriInputSchema());
+    const input = generateMock(SetGrantPoolsUriInputSchema(), {
+      grantPoolsURI: "https://example.com",
+    });
 
     const updatedDocument = reducer(document, setGrantPoolsUri(input));
 
@@ -110,7 +112,9 @@ describe("IdentityOperations", () => {
 
   it("should handle setImage operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(SetImageInputSchema());
+    const input = generateMock(SetImageInputSchema(), {
+      image: "https://example.com",
+    });
 
     const updatedDocument = reducer(document, setImage(input));
 
@@ -125,7 +129,9 @@ describe("IdentityOperations", () => {
 
   it("should handle setCoverImage operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(SetCoverImageInputSchema());
+    const input = generateMock(SetCoverImageInputSchema(), {
+      coverImage: "https://example.com",
+    });
 
     const updatedDocument = reducer(document, setCoverImage(input));
 

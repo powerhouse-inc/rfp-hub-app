@@ -1,8 +1,12 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import type { Action } from "document-model";
 import type {
   AddSameAsInput,
-  RemoveSameAsInput,
   AddSocialInput,
+  RemoveSameAsInput,
   RemoveSocialInput,
   UpdateSocialUrlInput,
 } from "../types.js";

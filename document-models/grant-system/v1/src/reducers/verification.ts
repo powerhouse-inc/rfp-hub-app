@@ -1,5 +1,5 @@
-import { InvalidStateTransitionError } from "../../gen/verification/error.js";
 import type { GrantSystemVerificationOperations } from "document-models/grant-system/v1";
+import { InvalidStateTransitionError } from "../../gen/verification/error.js";
 
 export const grantSystemVerificationOperations: GrantSystemVerificationOperations =
   {

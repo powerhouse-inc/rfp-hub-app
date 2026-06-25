@@ -1,10 +1,10 @@
 import type { GrantPoolClassificationOperations } from "document-models/grant-pool/v1";
 import {
-  DuplicateCategoryError,
   CategoryNotFoundError,
+  DuplicateCategoryError,
   DuplicateEcosystemError,
-  EcosystemNotFoundError,
   DuplicateTagError,
+  EcosystemNotFoundError,
   TagNotFoundError,
 } from "../../gen/classification/error.js";
 

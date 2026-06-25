@@ -1,20 +1,20 @@
 import { generateMock } from "document-model";
-import { describe, expect, it } from "vitest";
 import {
-  reducer,
-  utils,
-  isGrantPoolDocument,
-  setFundingMechanism,
   addPoolSizeEntry,
-  removePoolSizeEntry,
-  setTotalPoolSizeUsd,
-  setGrantBounds,
-  SetFundingMechanismInputSchema,
   AddPoolSizeEntryInputSchema,
+  isGrantPoolDocument,
+  reducer,
+  removePoolSizeEntry,
   RemovePoolSizeEntryInputSchema,
-  SetTotalPoolSizeUsdInputSchema,
+  setFundingMechanism,
+  SetFundingMechanismInputSchema,
+  setGrantBounds,
   SetGrantBoundsInputSchema,
+  setTotalPoolSizeUsd,
+  SetTotalPoolSizeUsdInputSchema,
+  utils,
 } from "document-models/grant-pool/v1";
+import { describe, expect, it } from "vitest";
 
 describe("FundingOperations", () => {
   it("should handle setFundingMechanism operation", () => {

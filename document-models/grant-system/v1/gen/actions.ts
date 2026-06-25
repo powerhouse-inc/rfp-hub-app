@@ -1,3 +1,7 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import type { GrantSystemIdentityAction } from "./identity/actions.js";
 import type { GrantSystemLinksAction } from "./links/actions.js";
 import type { GrantSystemVerificationAction } from "./verification/actions.js";
