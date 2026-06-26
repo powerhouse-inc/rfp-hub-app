@@ -1,30 +1,34 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { createAction } from "document-model";
 import {
+  AddFundsApprovedInputSchema,
   AddFundsAskedInputSchema,
   RemoveFundsAskedInputSchema,
-  SetFundsAskedUsdInputSchema,
-  AddFundsApprovedInputSchema,
   SetFundsApprovedUsdInputSchema,
-  SetPayoutAddressInputSchema,
+  SetFundsAskedUsdInputSchema,
   SetPaymentTermInputSchema,
+  SetPayoutAddressInputSchema,
 } from "../schema/zod.js";
 import type {
+  AddFundsApprovedInput,
   AddFundsAskedInput,
   RemoveFundsAskedInput,
-  SetFundsAskedUsdInput,
-  AddFundsApprovedInput,
   SetFundsApprovedUsdInput,
-  SetPayoutAddressInput,
+  SetFundsAskedUsdInput,
   SetPaymentTermInput,
+  SetPayoutAddressInput,
 } from "../types.js";
 import type {
+  AddFundsApprovedAction,
   AddFundsAskedAction,
   RemoveFundsAskedAction,
-  SetFundsAskedUsdAction,
-  AddFundsApprovedAction,
   SetFundsApprovedUsdAction,
-  SetPayoutAddressAction,
+  SetFundsAskedUsdAction,
   SetPaymentTermAction,
+  SetPayoutAddressAction,
 } from "./actions.js";
 
 export const addFundsAsked = (input: AddFundsAskedInput) =>

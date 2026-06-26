@@ -1,36 +1,40 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { type SignalDispatch } from "document-model";
+import type { ProjectGlobalState } from "../types.js";
 import type {
+  AddProjectSameAsAction,
   AddProjectSocialAction,
+  RemoveProjectSameAsAction,
   RemoveProjectSocialAction,
   UpdateProjectSocialUrlAction,
-  AddProjectSameAsAction,
-  RemoveProjectSameAsAction,
 } from "./actions.js";
-import type { ProjectState } from "../types.js";
 
 export interface ProjectLinksOperations {
   addProjectSocialOperation: (
-    state: ProjectState,
+    state: ProjectGlobalState,
     action: AddProjectSocialAction,
     dispatch?: SignalDispatch,
   ) => void;
   removeProjectSocialOperation: (
-    state: ProjectState,
+    state: ProjectGlobalState,
     action: RemoveProjectSocialAction,
     dispatch?: SignalDispatch,
   ) => void;
   updateProjectSocialUrlOperation: (
-    state: ProjectState,
+    state: ProjectGlobalState,
     action: UpdateProjectSocialUrlAction,
     dispatch?: SignalDispatch,
   ) => void;
   addProjectSameAsOperation: (
-    state: ProjectState,
+    state: ProjectGlobalState,
     action: AddProjectSameAsAction,
     dispatch?: SignalDispatch,
   ) => void;
   removeProjectSameAsOperation: (
-    state: ProjectState,
+    state: ProjectGlobalState,
     action: RemoveProjectSameAsAction,
     dispatch?: SignalDispatch,
   ) => void;

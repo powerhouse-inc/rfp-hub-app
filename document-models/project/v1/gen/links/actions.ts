@@ -1,10 +1,14 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import type { Action } from "document-model";
 import type {
+  AddProjectSameAsInput,
   AddProjectSocialInput,
+  RemoveProjectSameAsInput,
   RemoveProjectSocialInput,
   UpdateProjectSocialUrlInput,
-  AddProjectSameAsInput,
-  RemoveProjectSameAsInput,
 } from "../types.js";
 
 export type AddProjectSocialAction = Action & {

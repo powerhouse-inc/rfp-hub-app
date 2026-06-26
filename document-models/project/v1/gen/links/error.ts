@@ -41,7 +41,10 @@ export class SameAsNotFoundError extends Error implements ReducerError {
 
 export const errors = {
   RemoveProjectSocial: { ProjectSocialNotFoundError },
+
   UpdateProjectSocialUrl: { ProjectSocialNotFoundUpdateError },
+
   AddProjectSameAs: { SameAsAlreadyExistsError },
+
   RemoveProjectSameAs: { SameAsNotFoundError },
 };

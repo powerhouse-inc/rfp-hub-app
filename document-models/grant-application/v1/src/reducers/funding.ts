@@ -1,5 +1,5 @@
-import { FundsAskedNotFoundError } from "../../gen/funding/error.js";
 import type { GrantApplicationFundingOperations } from "document-models/grant-application/v1";
+import { FundsAskedNotFoundError } from "../../gen/funding/error.js";
 
 export const grantApplicationFundingOperations: GrantApplicationFundingOperations =
   {

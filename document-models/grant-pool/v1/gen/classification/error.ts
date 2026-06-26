@@ -54,9 +54,14 @@ export class TagNotFoundError extends Error implements ReducerError {
 
 export const errors = {
   AddCategory: { DuplicateCategoryError },
+
   RemoveCategory: { CategoryNotFoundError },
+
   AddEcosystem: { DuplicateEcosystemError },
+
   RemoveEcosystem: { EcosystemNotFoundError },
+
   AddTag: { DuplicateTagError },
+
   RemoveTag: { TagNotFoundError },
 };

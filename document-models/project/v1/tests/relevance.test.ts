@@ -1,14 +1,14 @@
 import { generateMock } from "document-model";
-import { describe, expect, it } from "vitest";
 import {
-  reducer,
-  utils,
-  isProjectDocument,
   addRelevantPool,
-  removeRelevantPool,
   AddRelevantPoolInputSchema,
+  isProjectDocument,
+  reducer,
+  removeRelevantPool,
   RemoveRelevantPoolInputSchema,
+  utils,
 } from "document-models/project/v1";
+import { describe, expect, it } from "vitest";
 
 describe("RelevanceOperations", () => {
   it("should handle addRelevantPool operation", () => {

@@ -1,16 +1,20 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import type { Action } from "document-model";
 import type {
-  SetPoolRefInput,
-  SetProjectRefInput,
-  SetCreatedAtInput,
-  SetAppContentUriInput,
-  SetDiscussionsToInput,
-  SetAppLicenseUriInput,
-  SetIsInactiveInput,
-  SetCompletionRateInput,
-  SetAppExtensionsInput,
   AddAppSocialInput,
   RemoveAppSocialInput,
+  SetAppContentUriInput,
+  SetAppExtensionsInput,
+  SetAppLicenseUriInput,
+  SetCompletionRateInput,
+  SetCreatedAtInput,
+  SetDiscussionsToInput,
+  SetIsInactiveInput,
+  SetPoolRefInput,
+  SetProjectRefInput,
 } from "../types.js";
 
 export type SetPoolRefAction = Action & {

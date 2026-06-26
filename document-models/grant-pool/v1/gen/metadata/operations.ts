@@ -1,72 +1,76 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { type SignalDispatch } from "document-model";
+import type { GrantPoolGlobalState } from "../types.js";
 import type {
-  SetPoolNameAction,
-  SetDescriptionAction,
-  SetCodeAction,
-  SetGrantSystemRefAction,
   SetBriefingUriAction,
+  SetCodeAction,
+  SetDescriptionAction,
   SetEligibilityCriteriaAction,
   SetEvaluationCriteriaAction,
-  SetPoolEmailAction,
-  SetPoolImageAction,
+  SetGrantSystemRefAction,
   SetPoolCoverImageAction,
+  SetPoolEmailAction,
   SetPoolExtensionsAction,
+  SetPoolImageAction,
+  SetPoolNameAction,
 } from "./actions.js";
-import type { GrantPoolState } from "../types.js";
 
 export interface GrantPoolMetadataOperations {
   setPoolNameOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: SetPoolNameAction,
     dispatch?: SignalDispatch,
   ) => void;
   setDescriptionOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: SetDescriptionAction,
     dispatch?: SignalDispatch,
   ) => void;
   setCodeOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: SetCodeAction,
     dispatch?: SignalDispatch,
   ) => void;
   setGrantSystemRefOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: SetGrantSystemRefAction,
     dispatch?: SignalDispatch,
   ) => void;
   setBriefingUriOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: SetBriefingUriAction,
     dispatch?: SignalDispatch,
   ) => void;
   setEligibilityCriteriaOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: SetEligibilityCriteriaAction,
     dispatch?: SignalDispatch,
   ) => void;
   setEvaluationCriteriaOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: SetEvaluationCriteriaAction,
     dispatch?: SignalDispatch,
   ) => void;
   setPoolEmailOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: SetPoolEmailAction,
     dispatch?: SignalDispatch,
   ) => void;
   setPoolImageOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: SetPoolImageAction,
     dispatch?: SignalDispatch,
   ) => void;
   setPoolCoverImageOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: SetPoolCoverImageAction,
     dispatch?: SignalDispatch,
   ) => void;
   setPoolExtensionsOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: SetPoolExtensionsAction,
     dispatch?: SignalDispatch,
   ) => void;

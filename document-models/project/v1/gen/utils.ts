@@ -1,19 +1,23 @@
-import type { DocumentModelUtils } from "document-model";
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
+import type { DocumentModelUtils, PHBaseState, Reducer } from "document-model";
 import {
   baseCreateDocument,
+  baseLoadFromInputVersioned,
   baseSaveToFileHandle,
-  baseLoadFromInput,
-  defaultBaseState,
-  generateId,
+  createBaseState,
 } from "document-model";
-import { reducer } from "./reducer.js";
-import { projectDocumentType } from "./document-type.js";
+import { projectUpgradeManifest } from "../../upgrades/upgrade-manifest.js";
 import {
   assertIsProjectDocument,
   assertIsProjectState,
   isProjectDocument,
   isProjectState,
 } from "./document-schema.js";
+import { projectDocumentType } from "./document-type.js";
+import { reducer } from "./reducer.js";
 import type {
   ProjectGlobalState,
   ProjectLocalState,
@@ -43,26 +47,22 @@ export const utils: DocumentModelUtils<ProjectPHState> = {
   fileExtension: "rfpr",
   createState(state) {
     return {
-      ...defaultBaseState(),
+      ...createBaseState(state?.auth, { version: 1, ...state?.document }),
       global: { ...initialGlobalState, ...state?.global },
       local: { ...initialLocalState, ...state?.local },
     };
   },
   createDocument(state) {
-    const document = baseCreateDocument(utils.createState, state);
-
-    document.header.documentType = projectDocumentType;
-
-    // for backwards compatibility, but this is NOT a valid signed document id
-    document.header.id = generateId();
-
-    return document;
+    return baseCreateDocument(utils.createState, state, projectDocumentType);
   },
   saveToFileHandle(document, input) {
     return baseSaveToFileHandle(document, input);
   },
   loadFromInput(input) {
-    return baseLoadFromInput(input, reducer);
+    return baseLoadFromInputVersioned(input, {
+      reducers: { 1: reducer as unknown as Reducer<PHBaseState> },
+      upgradeManifest: projectUpgradeManifest,
+    });
   },
   isStateOfType(state) {
     return isProjectState(state);

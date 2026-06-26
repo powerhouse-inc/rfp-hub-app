@@ -1,37 +1,39 @@
 import { generateMock } from "document-model";
-import { describe, expect, it } from "vitest";
 import {
-  reducer,
-  utils,
-  isGrantApplicationDocument,
-  setPoolRef,
-  setProjectRef,
-  setCreatedAt,
-  setAppContentUri,
-  setDiscussionsTo,
-  setAppLicenseUri,
-  setIsInactive,
-  setCompletionRate,
-  setAppExtensions,
   addAppSocial,
-  removeAppSocial,
-  SetPoolRefInputSchema,
-  SetProjectRefInputSchema,
-  SetCreatedAtInputSchema,
-  SetAppContentUriInputSchema,
-  SetDiscussionsToInputSchema,
-  SetAppLicenseUriInputSchema,
-  SetIsInactiveInputSchema,
-  SetCompletionRateInputSchema,
-  SetAppExtensionsInputSchema,
   AddAppSocialInputSchema,
+  isGrantApplicationDocument,
+  reducer,
+  removeAppSocial,
   RemoveAppSocialInputSchema,
+  setAppContentUri,
+  SetAppContentUriInputSchema,
+  setAppExtensions,
+  SetAppExtensionsInputSchema,
+  setAppLicenseUri,
+  SetAppLicenseUriInputSchema,
+  setCompletionRate,
+  SetCompletionRateInputSchema,
+  setCreatedAt,
+  SetCreatedAtInputSchema,
+  setDiscussionsTo,
+  SetDiscussionsToInputSchema,
+  setIsInactive,
+  SetIsInactiveInputSchema,
+  setPoolRef,
+  SetPoolRefInputSchema,
+  setProjectRef,
+  SetProjectRefInputSchema,
+  utils,
 } from "document-models/grant-application/v1";
+import { describe, expect, it } from "vitest";
 
 describe("MetadataOperations", () => {
   it("should handle setPoolRef operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(SetPoolRefInputSchema());
+    const input = generateMock(SetPoolRefInputSchema(), {
+      grantPoolsURI: "https://example.com",
+    });
 
     const updatedDocument = reducer(document, setPoolRef(input));
 
@@ -48,7 +50,9 @@ describe("MetadataOperations", () => {
 
   it("should handle setProjectRef operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(SetProjectRefInputSchema());
+    const input = generateMock(SetProjectRefInputSchema(), {
+      projectsURI: "https://example.com",
+    });
 
     const updatedDocument = reducer(document, setProjectRef(input));
 
@@ -65,7 +69,9 @@ describe("MetadataOperations", () => {
 
   it("should handle setCreatedAt operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(SetCreatedAtInputSchema());
+    const input = generateMock(SetCreatedAtInputSchema(), {
+      createdAt: "2024-01-01T00:00:00.000Z",
+    });
 
     const updatedDocument = reducer(document, setCreatedAt(input));
 
@@ -82,7 +88,9 @@ describe("MetadataOperations", () => {
 
   it("should handle setAppContentUri operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(SetAppContentUriInputSchema());
+    const input = generateMock(SetAppContentUriInputSchema(), {
+      contentURI: "https://example.com",
+    });
 
     const updatedDocument = reducer(document, setAppContentUri(input));
 
@@ -99,7 +107,9 @@ describe("MetadataOperations", () => {
 
   it("should handle setDiscussionsTo operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(SetDiscussionsToInputSchema());
+    const input = generateMock(SetDiscussionsToInputSchema(), {
+      discussionsTo: "https://example.com",
+    });
 
     const updatedDocument = reducer(document, setDiscussionsTo(input));
 
@@ -116,7 +126,9 @@ describe("MetadataOperations", () => {
 
   it("should handle setAppLicenseUri operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(SetAppLicenseUriInputSchema());
+    const input = generateMock(SetAppLicenseUriInputSchema(), {
+      licenseURI: "https://example.com",
+    });
 
     const updatedDocument = reducer(document, setAppLicenseUri(input));
 
@@ -184,7 +196,9 @@ describe("MetadataOperations", () => {
 
   it("should handle addAppSocial operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(AddAppSocialInputSchema());
+    const input = generateMock(AddAppSocialInputSchema(), {
+      url: "https://example.com",
+    });
 
     const updatedDocument = reducer(document, addAppSocial(input));
 

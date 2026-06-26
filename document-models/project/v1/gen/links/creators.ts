@@ -1,24 +1,28 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { createAction } from "document-model";
 import {
+  AddProjectSameAsInputSchema,
   AddProjectSocialInputSchema,
+  RemoveProjectSameAsInputSchema,
   RemoveProjectSocialInputSchema,
   UpdateProjectSocialUrlInputSchema,
-  AddProjectSameAsInputSchema,
-  RemoveProjectSameAsInputSchema,
 } from "../schema/zod.js";
 import type {
+  AddProjectSameAsInput,
   AddProjectSocialInput,
+  RemoveProjectSameAsInput,
   RemoveProjectSocialInput,
   UpdateProjectSocialUrlInput,
-  AddProjectSameAsInput,
-  RemoveProjectSameAsInput,
 } from "../types.js";
 import type {
+  AddProjectSameAsAction,
   AddProjectSocialAction,
+  RemoveProjectSameAsAction,
   RemoveProjectSocialAction,
   UpdateProjectSocialUrlAction,
-  AddProjectSameAsAction,
-  RemoveProjectSameAsAction,
 } from "./actions.js";
 
 export const addProjectSocial = (input: AddProjectSocialInput) =>

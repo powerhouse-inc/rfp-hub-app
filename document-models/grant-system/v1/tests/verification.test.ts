@@ -1,24 +1,24 @@
 import { generateMock } from "document-model";
-import { describe, expect, it } from "vitest";
 import {
-  reducer,
-  utils,
-  isGrantSystemDocument,
-  setPublisherWallet,
-  requestVerification,
   approveVerification,
-  rejectVerification,
-  suspendVerification,
-  revokeVerification,
-  reinstateVerification,
-  SetPublisherWalletInputSchema,
-  RequestVerificationInputSchema,
   ApproveVerificationInputSchema,
-  RejectVerificationInputSchema,
-  SuspendVerificationInputSchema,
-  RevokeVerificationInputSchema,
+  isGrantSystemDocument,
+  reducer,
+  reinstateVerification,
   ReinstateVerificationInputSchema,
+  rejectVerification,
+  RejectVerificationInputSchema,
+  requestVerification,
+  RequestVerificationInputSchema,
+  revokeVerification,
+  RevokeVerificationInputSchema,
+  setPublisherWallet,
+  SetPublisherWalletInputSchema,
+  suspendVerification,
+  SuspendVerificationInputSchema,
+  utils,
 } from "document-models/grant-system/v1";
+import { describe, expect, it } from "vitest";
 
 describe("VerificationOperations", () => {
   it("should handle setPublisherWallet operation", () => {
@@ -57,7 +57,9 @@ describe("VerificationOperations", () => {
 
   it("should handle approveVerification operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(ApproveVerificationInputSchema());
+    const input = generateMock(ApproveVerificationInputSchema(), {
+      verifiedAt: "2024-01-01T00:00:00.000Z",
+    });
 
     const updatedDocument = reducer(document, approveVerification(input));
 
@@ -108,7 +110,9 @@ describe("VerificationOperations", () => {
 
   it("should handle revokeVerification operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(RevokeVerificationInputSchema());
+    const input = generateMock(RevokeVerificationInputSchema(), {
+      revokedAt: "2024-01-01T00:00:00.000Z",
+    });
 
     const updatedDocument = reducer(document, revokeVerification(input));
 
@@ -125,7 +129,9 @@ describe("VerificationOperations", () => {
 
   it("should handle reinstateVerification operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(ReinstateVerificationInputSchema());
+    const input = generateMock(ReinstateVerificationInputSchema(), {
+      verifiedAt: "2024-01-01T00:00:00.000Z",
+    });
 
     const updatedDocument = reducer(document, reinstateVerification(input));
 

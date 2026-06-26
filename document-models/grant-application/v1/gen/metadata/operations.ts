@@ -1,72 +1,76 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { type SignalDispatch } from "document-model";
+import type { GrantApplicationGlobalState } from "../types.js";
 import type {
-  SetPoolRefAction,
-  SetProjectRefAction,
-  SetCreatedAtAction,
-  SetAppContentUriAction,
-  SetDiscussionsToAction,
-  SetAppLicenseUriAction,
-  SetIsInactiveAction,
-  SetCompletionRateAction,
-  SetAppExtensionsAction,
   AddAppSocialAction,
   RemoveAppSocialAction,
+  SetAppContentUriAction,
+  SetAppExtensionsAction,
+  SetAppLicenseUriAction,
+  SetCompletionRateAction,
+  SetCreatedAtAction,
+  SetDiscussionsToAction,
+  SetIsInactiveAction,
+  SetPoolRefAction,
+  SetProjectRefAction,
 } from "./actions.js";
-import type { GrantApplicationState } from "../types.js";
 
 export interface GrantApplicationMetadataOperations {
   setPoolRefOperation: (
-    state: GrantApplicationState,
+    state: GrantApplicationGlobalState,
     action: SetPoolRefAction,
     dispatch?: SignalDispatch,
   ) => void;
   setProjectRefOperation: (
-    state: GrantApplicationState,
+    state: GrantApplicationGlobalState,
     action: SetProjectRefAction,
     dispatch?: SignalDispatch,
   ) => void;
   setCreatedAtOperation: (
-    state: GrantApplicationState,
+    state: GrantApplicationGlobalState,
     action: SetCreatedAtAction,
     dispatch?: SignalDispatch,
   ) => void;
   setAppContentUriOperation: (
-    state: GrantApplicationState,
+    state: GrantApplicationGlobalState,
     action: SetAppContentUriAction,
     dispatch?: SignalDispatch,
   ) => void;
   setDiscussionsToOperation: (
-    state: GrantApplicationState,
+    state: GrantApplicationGlobalState,
     action: SetDiscussionsToAction,
     dispatch?: SignalDispatch,
   ) => void;
   setAppLicenseUriOperation: (
-    state: GrantApplicationState,
+    state: GrantApplicationGlobalState,
     action: SetAppLicenseUriAction,
     dispatch?: SignalDispatch,
   ) => void;
   setIsInactiveOperation: (
-    state: GrantApplicationState,
+    state: GrantApplicationGlobalState,
     action: SetIsInactiveAction,
     dispatch?: SignalDispatch,
   ) => void;
   setCompletionRateOperation: (
-    state: GrantApplicationState,
+    state: GrantApplicationGlobalState,
     action: SetCompletionRateAction,
     dispatch?: SignalDispatch,
   ) => void;
   setAppExtensionsOperation: (
-    state: GrantApplicationState,
+    state: GrantApplicationGlobalState,
     action: SetAppExtensionsAction,
     dispatch?: SignalDispatch,
   ) => void;
   addAppSocialOperation: (
-    state: GrantApplicationState,
+    state: GrantApplicationGlobalState,
     action: AddAppSocialAction,
     dispatch?: SignalDispatch,
   ) => void;
   removeAppSocialOperation: (
-    state: GrantApplicationState,
+    state: GrantApplicationGlobalState,
     action: RemoveAppSocialAction,
     dispatch?: SignalDispatch,
   ) => void;

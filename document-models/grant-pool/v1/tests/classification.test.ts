@@ -1,22 +1,22 @@
 import { generateMock } from "document-model";
-import { describe, expect, it } from "vitest";
 import {
-  reducer,
-  utils,
-  isGrantPoolDocument,
   addCategory,
-  removeCategory,
-  addEcosystem,
-  removeEcosystem,
-  addTag,
-  removeTag,
   AddCategoryInputSchema,
-  RemoveCategoryInputSchema,
+  addEcosystem,
   AddEcosystemInputSchema,
-  RemoveEcosystemInputSchema,
+  addTag,
   AddTagInputSchema,
+  isGrantPoolDocument,
+  reducer,
+  removeCategory,
+  RemoveCategoryInputSchema,
+  removeEcosystem,
+  RemoveEcosystemInputSchema,
+  removeTag,
   RemoveTagInputSchema,
+  utils,
 } from "document-models/grant-pool/v1";
+import { describe, expect, it } from "vitest";
 
 describe("ClassificationOperations", () => {
   it("should handle addCategory operation", () => {

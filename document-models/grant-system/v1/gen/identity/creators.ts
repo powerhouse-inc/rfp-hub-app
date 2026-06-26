@@ -1,39 +1,43 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { createAction } from "document-model";
 import {
-  SetTypeInputSchema,
   SetCodeInputSchema,
-  SetDescriptionInputSchema,
-  SetGrantPoolsUriInputSchema,
-  SetExtensionsInputSchema,
-  SetImageInputSchema,
-  SetCoverImageInputSchema,
-  SetEmailInputSchema,
   SetContactNameInputSchema,
+  SetCoverImageInputSchema,
+  SetDescriptionInputSchema,
+  SetEmailInputSchema,
+  SetExtensionsInputSchema,
+  SetGrantPoolsUriInputSchema,
+  SetImageInputSchema,
   SetOrgNameInputSchema,
+  SetTypeInputSchema,
 } from "../schema/zod.js";
 import type {
-  SetTypeInput,
   SetCodeInput,
-  SetDescriptionInput,
-  SetGrantPoolsUriInput,
-  SetExtensionsInput,
-  SetImageInput,
-  SetCoverImageInput,
-  SetEmailInput,
   SetContactNameInput,
+  SetCoverImageInput,
+  SetDescriptionInput,
+  SetEmailInput,
+  SetExtensionsInput,
+  SetGrantPoolsUriInput,
+  SetImageInput,
   SetOrgNameInput,
+  SetTypeInput,
 } from "../types.js";
 import type {
-  SetTypeAction,
   SetCodeAction,
-  SetDescriptionAction,
-  SetGrantPoolsUriAction,
-  SetExtensionsAction,
-  SetImageAction,
-  SetCoverImageAction,
-  SetEmailAction,
   SetContactNameAction,
+  SetCoverImageAction,
+  SetDescriptionAction,
+  SetEmailAction,
+  SetExtensionsAction,
+  SetGrantPoolsUriAction,
+  SetImageAction,
   SetOrgNameAction,
+  SetTypeAction,
 } from "./actions.js";
 
 export const setType = (input: SetTypeInput) =>

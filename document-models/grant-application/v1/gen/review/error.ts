@@ -84,12 +84,20 @@ export class InvalidWithdrawError extends Error implements ReducerError {
 
 export const errors = {
   SubmitApplication: { InvalidSubmitTransitionError },
+
   OpenApplication: { InvalidOpenTransitionError },
+
   StartReview: { InvalidStartReviewError },
+
   RequestRevision: { InvalidRequestRevisionError },
+
   MarkRevised: { InvalidMarkRevisedError },
+
   ApproveApplication: { InvalidApproveError },
+
   ConditionallyApprove: { InvalidConditionalApproveError },
+
   RejectApplication: { InvalidRejectError },
+
   WithdrawApplication: { InvalidWithdrawError },
 };

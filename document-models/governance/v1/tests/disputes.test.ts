@@ -1,25 +1,27 @@
 import { generateMock } from "document-model";
-import { describe, expect, it } from "vitest";
 import {
-  reducer,
-  utils,
-  isGovernanceDocument,
-  fileDispute,
-  assignInvestigator,
-  resolveDispute,
-  dismissDispute,
   appealDispute,
-  FileDisputeInputSchema,
-  AssignInvestigatorInputSchema,
-  ResolveDisputeInputSchema,
-  DismissDisputeInputSchema,
   AppealDisputeInputSchema,
+  assignInvestigator,
+  AssignInvestigatorInputSchema,
+  dismissDispute,
+  DismissDisputeInputSchema,
+  fileDispute,
+  FileDisputeInputSchema,
+  isGovernanceDocument,
+  reducer,
+  resolveDispute,
+  ResolveDisputeInputSchema,
+  utils,
 } from "document-models/governance/v1";
+import { describe, expect, it } from "vitest";
 
 describe("DisputesOperations", () => {
   it("should handle fileDispute operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(FileDisputeInputSchema());
+    const input = generateMock(FileDisputeInputSchema(), {
+      filedAt: "2024-01-01T00:00:00.000Z",
+    });
 
     const updatedDocument = reducer(document, fileDispute(input));
 
@@ -53,7 +55,9 @@ describe("DisputesOperations", () => {
 
   it("should handle resolveDispute operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(ResolveDisputeInputSchema());
+    const input = generateMock(ResolveDisputeInputSchema(), {
+      resolvedAt: "2024-01-01T00:00:00.000Z",
+    });
 
     const updatedDocument = reducer(document, resolveDispute(input));
 
@@ -87,7 +91,9 @@ describe("DisputesOperations", () => {
 
   it("should handle appealDispute operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(AppealDisputeInputSchema());
+    const input = generateMock(AppealDisputeInputSchema(), {
+      appealAt: "2024-01-01T00:00:00.000Z",
+    });
 
     const updatedDocument = reducer(document, appealDispute(input));
 

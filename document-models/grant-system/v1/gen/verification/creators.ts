@@ -1,30 +1,34 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { createAction } from "document-model";
 import {
-  SetPublisherWalletInputSchema,
-  RequestVerificationInputSchema,
   ApproveVerificationInputSchema,
-  RejectVerificationInputSchema,
-  SuspendVerificationInputSchema,
-  RevokeVerificationInputSchema,
   ReinstateVerificationInputSchema,
+  RejectVerificationInputSchema,
+  RequestVerificationInputSchema,
+  RevokeVerificationInputSchema,
+  SetPublisherWalletInputSchema,
+  SuspendVerificationInputSchema,
 } from "../schema/zod.js";
 import type {
-  SetPublisherWalletInput,
-  RequestVerificationInput,
   ApproveVerificationInput,
-  RejectVerificationInput,
-  SuspendVerificationInput,
-  RevokeVerificationInput,
   ReinstateVerificationInput,
+  RejectVerificationInput,
+  RequestVerificationInput,
+  RevokeVerificationInput,
+  SetPublisherWalletInput,
+  SuspendVerificationInput,
 } from "../types.js";
 import type {
-  SetPublisherWalletAction,
-  RequestVerificationAction,
   ApproveVerificationAction,
-  RejectVerificationAction,
-  SuspendVerificationAction,
-  RevokeVerificationAction,
   ReinstateVerificationAction,
+  RejectVerificationAction,
+  RequestVerificationAction,
+  RevokeVerificationAction,
+  SetPublisherWalletAction,
+  SuspendVerificationAction,
 } from "./actions.js";
 
 export const setPublisherWallet = (input: SetPublisherWalletInput) =>

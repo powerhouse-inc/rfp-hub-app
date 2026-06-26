@@ -1,32 +1,32 @@
 import { generateMock } from "document-model";
-import { describe, expect, it } from "vitest";
 import {
-  reducer,
-  utils,
   isProjectDocument,
-  setProjectName,
-  setProjectDescription,
+  reducer,
   setContentUri,
-  setProjectEmail,
-  setMembersUri,
-  setProjectImage,
-  setProjectCoverImage,
-  setLicenseUri,
-  setProjectCode,
-  setOwnerDid,
-  setProjectExtensions,
-  SetProjectNameInputSchema,
-  SetProjectDescriptionInputSchema,
   SetContentUriInputSchema,
-  SetProjectEmailInputSchema,
-  SetMembersUriInputSchema,
-  SetProjectImageInputSchema,
-  SetProjectCoverImageInputSchema,
+  setLicenseUri,
   SetLicenseUriInputSchema,
-  SetProjectCodeInputSchema,
+  setMembersUri,
+  SetMembersUriInputSchema,
+  setOwnerDid,
   SetOwnerDidInputSchema,
+  setProjectCode,
+  SetProjectCodeInputSchema,
+  setProjectCoverImage,
+  SetProjectCoverImageInputSchema,
+  setProjectDescription,
+  SetProjectDescriptionInputSchema,
+  setProjectEmail,
+  SetProjectEmailInputSchema,
+  setProjectExtensions,
   SetProjectExtensionsInputSchema,
+  setProjectImage,
+  SetProjectImageInputSchema,
+  setProjectName,
+  SetProjectNameInputSchema,
+  utils,
 } from "document-models/project/v1";
+import { describe, expect, it } from "vitest";
 
 describe("ProfileOperations", () => {
   it("should handle setProjectName operation", () => {
@@ -65,7 +65,9 @@ describe("ProfileOperations", () => {
 
   it("should handle setContentUri operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(SetContentUriInputSchema());
+    const input = generateMock(SetContentUriInputSchema(), {
+      contentURI: "https://example.com",
+    });
 
     const updatedDocument = reducer(document, setContentUri(input));
 
@@ -99,7 +101,9 @@ describe("ProfileOperations", () => {
 
   it("should handle setMembersUri operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(SetMembersUriInputSchema());
+    const input = generateMock(SetMembersUriInputSchema(), {
+      membersURI: "https://example.com",
+    });
 
     const updatedDocument = reducer(document, setMembersUri(input));
 
@@ -116,7 +120,9 @@ describe("ProfileOperations", () => {
 
   it("should handle setProjectImage operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(SetProjectImageInputSchema());
+    const input = generateMock(SetProjectImageInputSchema(), {
+      image: "https://example.com",
+    });
 
     const updatedDocument = reducer(document, setProjectImage(input));
 
@@ -133,7 +139,9 @@ describe("ProfileOperations", () => {
 
   it("should handle setProjectCoverImage operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(SetProjectCoverImageInputSchema());
+    const input = generateMock(SetProjectCoverImageInputSchema(), {
+      coverImage: "https://example.com",
+    });
 
     const updatedDocument = reducer(document, setProjectCoverImage(input));
 
@@ -150,7 +158,9 @@ describe("ProfileOperations", () => {
 
   it("should handle setLicenseUri operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(SetLicenseUriInputSchema());
+    const input = generateMock(SetLicenseUriInputSchema(), {
+      licenseURI: "https://example.com",
+    });
 
     const updatedDocument = reducer(document, setLicenseUri(input));
 

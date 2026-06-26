@@ -1,4 +1,8 @@
-import type { PHDocument, PHBaseState } from "document-model";
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
+import type { PHBaseState, PHDocument } from "document-model";
 import type { GrantApplicationAction } from "./actions.js";
 import type { GrantApplicationState as GrantApplicationGlobalState } from "./schema/types.js";
 
@@ -13,9 +17,9 @@ type GrantApplicationDocument = PHDocument<GrantApplicationPHState>;
 export * from "./schema/types.js";
 
 export type {
+  GrantApplicationAction,
+  GrantApplicationDocument,
   GrantApplicationGlobalState,
   GrantApplicationLocalState,
   GrantApplicationPHState,
-  GrantApplicationAction,
-  GrantApplicationDocument,
 };

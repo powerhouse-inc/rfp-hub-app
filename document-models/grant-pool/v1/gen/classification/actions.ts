@@ -1,10 +1,14 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import type { Action } from "document-model";
 import type {
   AddCategoryInput,
-  RemoveCategoryInput,
   AddEcosystemInput,
-  RemoveEcosystemInput,
   AddTagInput,
+  RemoveCategoryInput,
+  RemoveEcosystemInput,
   RemoveTagInput,
 } from "../types.js";
 

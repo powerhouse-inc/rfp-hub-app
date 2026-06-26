@@ -1,18 +1,22 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { createAction } from "document-model";
 import {
-  MarkSupersedesInputSchema,
   MarkClaimedFromEntryInputSchema,
   MarkDuplicateOfInputSchema,
+  MarkSupersedesInputSchema,
 } from "../schema/zod.js";
 import type {
-  MarkSupersedesInput,
   MarkClaimedFromEntryInput,
   MarkDuplicateOfInput,
+  MarkSupersedesInput,
 } from "../types.js";
 import type {
-  MarkSupersedesAction,
   MarkClaimedFromEntryAction,
   MarkDuplicateOfAction,
+  MarkSupersedesAction,
 } from "./actions.js";
 
 export const markSupersedes = (input: MarkSupersedesInput) =>

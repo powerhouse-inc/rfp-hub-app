@@ -1,21 +1,25 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { createAction } from "document-model";
 import {
-  SetOpenDateInputSchema,
+  AdvanceLifecycleInputSchema,
   SetCloseDateInputSchema,
   SetIsOpenInputSchema,
-  AdvanceLifecycleInputSchema,
+  SetOpenDateInputSchema,
 } from "../schema/zod.js";
 import type {
-  SetOpenDateInput,
+  AdvanceLifecycleInput,
   SetCloseDateInput,
   SetIsOpenInput,
-  AdvanceLifecycleInput,
+  SetOpenDateInput,
 } from "../types.js";
 import type {
-  SetOpenDateAction,
+  AdvanceLifecycleAction,
   SetCloseDateAction,
   SetIsOpenAction,
-  AdvanceLifecycleAction,
+  SetOpenDateAction,
 } from "./actions.js";
 
 export const setOpenDate = (input: SetOpenDateInput) =>

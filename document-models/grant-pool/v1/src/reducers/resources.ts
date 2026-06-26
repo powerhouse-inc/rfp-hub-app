@@ -1,8 +1,8 @@
 import type { GrantPoolResourcesOperations } from "document-models/grant-pool/v1";
 import {
-  DuplicateCredentialError,
-  CredentialNotFoundError,
   ContextDocumentNotFoundError,
+  CredentialNotFoundError,
+  DuplicateCredentialError,
   SameAsAlreadyExistsError,
   SameAsNotFoundError,
 } from "../../gen/resources/error.js";

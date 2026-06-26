@@ -1,66 +1,70 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { type SignalDispatch } from "document-model";
+import type { GrantSystemGlobalState } from "../types.js";
 import type {
-  SetTypeAction,
   SetCodeAction,
-  SetDescriptionAction,
-  SetGrantPoolsUriAction,
-  SetExtensionsAction,
-  SetImageAction,
-  SetCoverImageAction,
-  SetEmailAction,
   SetContactNameAction,
+  SetCoverImageAction,
+  SetDescriptionAction,
+  SetEmailAction,
+  SetExtensionsAction,
+  SetGrantPoolsUriAction,
+  SetImageAction,
   SetOrgNameAction,
+  SetTypeAction,
 } from "./actions.js";
-import type { GrantSystemState } from "../types.js";
 
 export interface GrantSystemIdentityOperations {
   setTypeOperation: (
-    state: GrantSystemState,
+    state: GrantSystemGlobalState,
     action: SetTypeAction,
     dispatch?: SignalDispatch,
   ) => void;
   setCodeOperation: (
-    state: GrantSystemState,
+    state: GrantSystemGlobalState,
     action: SetCodeAction,
     dispatch?: SignalDispatch,
   ) => void;
   setDescriptionOperation: (
-    state: GrantSystemState,
+    state: GrantSystemGlobalState,
     action: SetDescriptionAction,
     dispatch?: SignalDispatch,
   ) => void;
   setGrantPoolsUriOperation: (
-    state: GrantSystemState,
+    state: GrantSystemGlobalState,
     action: SetGrantPoolsUriAction,
     dispatch?: SignalDispatch,
   ) => void;
   setExtensionsOperation: (
-    state: GrantSystemState,
+    state: GrantSystemGlobalState,
     action: SetExtensionsAction,
     dispatch?: SignalDispatch,
   ) => void;
   setImageOperation: (
-    state: GrantSystemState,
+    state: GrantSystemGlobalState,
     action: SetImageAction,
     dispatch?: SignalDispatch,
   ) => void;
   setCoverImageOperation: (
-    state: GrantSystemState,
+    state: GrantSystemGlobalState,
     action: SetCoverImageAction,
     dispatch?: SignalDispatch,
   ) => void;
   setEmailOperation: (
-    state: GrantSystemState,
+    state: GrantSystemGlobalState,
     action: SetEmailAction,
     dispatch?: SignalDispatch,
   ) => void;
   setContactNameOperation: (
-    state: GrantSystemState,
+    state: GrantSystemGlobalState,
     action: SetContactNameAction,
     dispatch?: SignalDispatch,
   ) => void;
   setOrgNameOperation: (
-    state: GrantSystemState,
+    state: GrantSystemGlobalState,
     action: SetOrgNameAction,
     dispatch?: SignalDispatch,
   ) => void;

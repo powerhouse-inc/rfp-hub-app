@@ -1,30 +1,34 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { createAction } from "document-model";
 import {
-  SetSubmitterInputSchema,
-  SetPublisherInputSchema,
-  RecordVerificationInputSchema,
-  PublishPoolInputSchema,
-  ClosePoolInputSchema,
   CancelPoolInputSchema,
+  ClosePoolInputSchema,
+  PublishPoolInputSchema,
+  RecordVerificationInputSchema,
   SetGovernanceStateInputSchema,
+  SetPublisherInputSchema,
+  SetSubmitterInputSchema,
 } from "../schema/zod.js";
 import type {
-  SetSubmitterInput,
-  SetPublisherInput,
-  RecordVerificationInput,
-  PublishPoolInput,
-  ClosePoolInput,
   CancelPoolInput,
+  ClosePoolInput,
+  PublishPoolInput,
+  RecordVerificationInput,
   SetGovernanceStateInput,
+  SetPublisherInput,
+  SetSubmitterInput,
 } from "../types.js";
 import type {
-  SetSubmitterAction,
-  SetPublisherAction,
-  RecordVerificationAction,
-  PublishPoolAction,
-  ClosePoolAction,
   CancelPoolAction,
+  ClosePoolAction,
+  PublishPoolAction,
+  RecordVerificationAction,
   SetGovernanceStateAction,
+  SetPublisherAction,
+  SetSubmitterAction,
 } from "./actions.js";
 
 export const setSubmitter = (input: SetSubmitterInput) =>

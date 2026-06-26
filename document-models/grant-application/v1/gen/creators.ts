@@ -1,8 +1,12 @@
-export * from "./metadata/creators.js";
-export * as grantApplicationMetadataActions from "./metadata/creators.js";
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 export * from "./funding/creators.js";
 export * as grantApplicationFundingActions from "./funding/creators.js";
-export * from "./review/creators.js";
-export * as grantApplicationReviewActions from "./review/creators.js";
+export * from "./metadata/creators.js";
+export * as grantApplicationMetadataActions from "./metadata/creators.js";
 export * from "./payouts/creators.js";
 export * as grantApplicationPayoutsActions from "./payouts/creators.js";
+export * from "./review/creators.js";
+export * as grantApplicationReviewActions from "./review/creators.js";

@@ -7,17 +7,17 @@
  * - change it by adding new tests or modifying the existing ones
  */
 
-import { describe, it, expect } from "vitest";
 import {
-  utils,
+  assertIsProjectDocument,
+  assertIsProjectState,
   initialGlobalState,
   initialLocalState,
-  projectDocumentType,
   isProjectDocument,
-  assertIsProjectDocument,
   isProjectState,
-  assertIsProjectState,
+  projectDocumentType,
+  utils,
 } from "document-models/project/v1";
+import { describe, expect, it } from "vitest";
 import { ZodError } from "zod";
 
 describe("Project Document Model", () => {

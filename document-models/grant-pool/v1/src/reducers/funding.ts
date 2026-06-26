@@ -24,17 +24,13 @@ export const grantPoolFundingOperations: GrantPoolFundingOperations = {
       action.input.totalGrantPoolSizeInUSD || null;
   },
   setGrantBoundsOperation(state, action) {
-    state.minGrant = [
-      {
-        id: action.input.minGrantId1,
-        amount: action.input.minGrantAmount1 ?? { value: undefined, unit: undefined },
-      },
-    ];
-    state.maxGrant = [
-      {
-        id: action.input.maxGrantId1,
-        amount: action.input.maxGrantAmount1 ?? { value: undefined, unit: undefined },
-      },
-    ];
+    // Only record a bound when an amount is provided — fabricating an entry with an
+    // undefined amount produces an invalid FundingAmount (value must be a finite number).
+    state.minGrant = action.input.minGrantAmount1
+      ? [{ id: action.input.minGrantId1, amount: action.input.minGrantAmount1 }]
+      : [];
+    state.maxGrant = action.input.maxGrantAmount1
+      ? [{ id: action.input.maxGrantId1, amount: action.input.maxGrantAmount1 }]
+      : [];
   },
 };

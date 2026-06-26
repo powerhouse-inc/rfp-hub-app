@@ -1,34 +1,34 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import type { Reducer, StateReducer } from "document-model";
-import { isDocumentAction, createReducer } from "document-model";
+import { createReducer, isDocumentAction } from "document-model";
 import type { ProjectPHState } from "document-models/project/v1";
 
-import { projectProfileOperations } from "../src/reducers/profile.js";
 import { projectAttestationsOperations } from "../src/reducers/attestations.js";
-import { projectRelevanceOperations } from "../src/reducers/relevance.js";
 import { projectLinksOperations } from "../src/reducers/links.js";
+import { projectProfileOperations } from "../src/reducers/profile.js";
+import { projectRelevanceOperations } from "../src/reducers/relevance.js";
 
 import {
-  SetProjectNameInputSchema,
-  SetProjectDescriptionInputSchema,
-  SetContentUriInputSchema,
-  SetProjectEmailInputSchema,
-  SetMembersUriInputSchema,
-  SetProjectImageInputSchema,
-  SetProjectCoverImageInputSchema,
-  SetLicenseUriInputSchema,
-  SetProjectCodeInputSchema,
-  SetOwnerDidInputSchema,
-  SetProjectExtensionsInputSchema,
-  SetProjectAttestationIssuersUriInputSchema,
-  AddRelevantPoolInputSchema,
-  RemoveRelevantPoolInputSchema,
-  AddProjectSocialInputSchema,
-  RemoveProjectSocialInputSchema,
-  UpdateProjectSocialUrlInputSchema,
   AddProjectSameAsInputSchema,
+  AddProjectSocialInputSchema,
+  AddRelevantPoolInputSchema,
   RemoveProjectSameAsInputSchema,
+  RemoveProjectSocialInputSchema,
+  RemoveRelevantPoolInputSchema,
+  SetContentUriInputSchema,
+  SetLicenseUriInputSchema,
+  SetMembersUriInputSchema,
+  SetOwnerDidInputSchema,
+  SetProjectAttestationIssuersUriInputSchema,
+  SetProjectCodeInputSchema,
+  SetProjectCoverImageInputSchema,
+  SetProjectDescriptionInputSchema,
+  SetProjectEmailInputSchema,
+  SetProjectExtensionsInputSchema,
+  SetProjectImageInputSchema,
+  SetProjectNameInputSchema,
+  UpdateProjectSocialUrlInputSchema,
 } from "./schema/zod.js";
 
 const stateReducer: StateReducer<ProjectPHState> = (

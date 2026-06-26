@@ -49,8 +49,12 @@ export class SameAsNotFoundError extends Error implements ReducerError {
 
 export const errors = {
   AddRequiredCredential: { DuplicateCredentialError },
+
   RemoveRequiredCredential: { CredentialNotFoundError },
+
   RemoveContextDocument: { ContextDocumentNotFoundError },
+
   AddPoolSameAs: { SameAsAlreadyExistsError },
+
   RemovePoolSameAs: { SameAsNotFoundError },
 };

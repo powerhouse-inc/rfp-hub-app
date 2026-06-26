@@ -1,13 +1,17 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { baseActions } from "document-model";
 import {
-  grantPoolMetadataActions,
-  grantPoolFundingActions,
-  grantPoolScheduleActions,
   grantPoolClassificationActions,
-  grantPoolResourcesActions,
-  grantPoolReviewersActions,
+  grantPoolFundingActions,
   grantPoolGovernanceActions,
   grantPoolLineageActions,
+  grantPoolMetadataActions,
+  grantPoolResourcesActions,
+  grantPoolReviewersActions,
+  grantPoolScheduleActions,
 } from "./gen/creators.js";
 
 /** Actions for the GrantPool document model */

@@ -1,14 +1,14 @@
 import { generateMock } from "document-model";
-import { describe, expect, it } from "vitest";
 import {
-  reducer,
-  utils,
-  isGrantPoolDocument,
   addReviewer,
-  removeReviewer,
   AddReviewerInputSchema,
+  isGrantPoolDocument,
+  reducer,
+  removeReviewer,
   RemoveReviewerInputSchema,
+  utils,
 } from "document-models/grant-pool/v1";
+import { describe, expect, it } from "vitest";
 
 describe("ReviewersOperations", () => {
   it("should handle addReviewer operation", () => {

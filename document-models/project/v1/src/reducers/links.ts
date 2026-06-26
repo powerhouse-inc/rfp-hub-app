@@ -1,9 +1,9 @@
+import type { ProjectLinksOperations } from "document-models/project/v1";
 import {
   ProjectSocialNotFoundError,
   SameAsAlreadyExistsError,
   SameAsNotFoundError,
 } from "../../gen/links/error.js";
-import type { ProjectLinksOperations } from "document-models/project/v1";
 
 export const projectLinksOperations: ProjectLinksOperations = {
   addProjectSocialOperation(state, action) {

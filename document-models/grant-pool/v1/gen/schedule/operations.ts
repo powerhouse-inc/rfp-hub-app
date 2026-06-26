@@ -1,30 +1,34 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { type SignalDispatch } from "document-model";
+import type { GrantPoolGlobalState } from "../types.js";
 import type {
-  SetOpenDateAction,
+  AdvanceLifecycleAction,
   SetCloseDateAction,
   SetIsOpenAction,
-  AdvanceLifecycleAction,
+  SetOpenDateAction,
 } from "./actions.js";
-import type { GrantPoolState } from "../types.js";
 
 export interface GrantPoolScheduleOperations {
   setOpenDateOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: SetOpenDateAction,
     dispatch?: SignalDispatch,
   ) => void;
   setCloseDateOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: SetCloseDateAction,
     dispatch?: SignalDispatch,
   ) => void;
   setIsOpenOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: SetIsOpenAction,
     dispatch?: SignalDispatch,
   ) => void;
   advanceLifecycleOperation: (
-    state: GrantPoolState,
+    state: GrantPoolGlobalState,
     action: AdvanceLifecycleAction,
     dispatch?: SignalDispatch,
   ) => void;

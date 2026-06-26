@@ -1,5 +1,5 @@
-import { RelevantPoolNotFoundError } from "../../gen/relevance/error.js";
 import type { ProjectRelevanceOperations } from "document-models/project/v1";
+import { RelevantPoolNotFoundError } from "../../gen/relevance/error.js";
 
 export const projectRelevanceOperations: ProjectRelevanceOperations = {
   addRelevantPoolOperation(state, action) {

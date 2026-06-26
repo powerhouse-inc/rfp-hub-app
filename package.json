@@ -66,27 +66,27 @@
     "service-unstartup": "bash ./node_modules/@powerhousedao/ph-cli/dist/scripts/service-unstartup.sh"
   },
   "dependencies": {
-    "@powerhousedao/analytics-engine-core": "6.0.0-dev.192",
-    "@powerhousedao/connect": "6.0.0-dev.192",
-    "@powerhousedao/design-system": "6.0.0-dev.192",
+    "@powerhousedao/analytics-engine-core": "6.2.0-dev.36",
+    "@powerhousedao/connect": "6.2.0-dev.36",
+    "@powerhousedao/design-system": "6.2.0-dev.36",
     "@powerhousedao/document-engineering": "1.40.1",
-    "@powerhousedao/reactor-api": "6.0.0-dev.192",
-    "@powerhousedao/reactor-browser": "6.0.0-dev.192",
-    "@powerhousedao/shared": "6.0.0-dev.192",
-    "document-model": "6.0.0-dev.192",
+    "@powerhousedao/reactor-api": "6.2.0-dev.36",
+    "@powerhousedao/reactor-browser": "6.2.0-dev.36",
+    "@powerhousedao/shared": "6.2.0-dev.36",
+    "document-model": "6.2.0-dev.36",
     "dotenv": "^17.4.2",
     "graphql": "^16.10.0",
     "graphql-tag": "^2.12.6",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "zod": "^4.3.5"
+    "zod": "4.3.6"
   },
   "devDependencies": {
     "@electric-sql/pglite": "0.3.15",
     "@electric-sql/pglite-tools": "0.2.20",
     "@eslint/js": "^9.38.0",
-    "@powerhousedao/ph-cli": "6.0.0-dev.192",
-    "@powerhousedao/reactor": "6.0.0-dev.192",
+    "@powerhousedao/ph-cli": "6.2.0-dev.36",
+    "@powerhousedao/reactor": "6.2.0-dev.36",
     "@tailwindcss/cli": "^4.1.18",
     "@types/node": "^24.9.2",
     "@types/react": "^19.2.3",
@@ -98,6 +98,7 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "globals": "^16.4.0",
     "tailwindcss": "^4.1.16",
+    "tsdown": "0.21.1",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.2",
     "vite": "8.0.2",
@@ -105,5 +106,18 @@
     "vitest": "4.1.1"
   },
   "readme": "ERROR: No README data found!",
-  "_id": "rfp-hub-app@1.0.0"
+  "_id": "rfp-hub-app@1.0.0",
+  "overrides": {
+    "graphql": "16.13.0",
+    "zod": "4.3.6"
+  },
+  "resolutions": {
+    "graphql": "16.13.0",
+    "zod": "4.3.6"
+  },
+  "pnpm": {
+    "overrides": {
+      "graphql": "16.14.2"
+    }
+  }
 }

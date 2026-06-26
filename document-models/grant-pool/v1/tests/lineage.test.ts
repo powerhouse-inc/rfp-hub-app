@@ -1,16 +1,16 @@
 import { generateMock } from "document-model";
-import { describe, expect, it } from "vitest";
 import {
+  isGrantPoolDocument,
+  markClaimedFromEntry,
+  MarkClaimedFromEntryInputSchema,
+  markDuplicateOf,
+  MarkDuplicateOfInputSchema,
+  markSupersedes,
+  MarkSupersedesInputSchema,
   reducer,
   utils,
-  isGrantPoolDocument,
-  markSupersedes,
-  markClaimedFromEntry,
-  markDuplicateOf,
-  MarkSupersedesInputSchema,
-  MarkClaimedFromEntryInputSchema,
-  MarkDuplicateOfInputSchema,
 } from "document-models/grant-pool/v1";
+import { describe, expect, it } from "vitest";
 
 describe("LineageOperations", () => {
   it("should handle markSupersedes operation", () => {

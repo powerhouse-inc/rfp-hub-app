@@ -1,24 +1,28 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { createAction } from "document-model";
 import {
-  FileDisputeInputSchema,
-  AssignInvestigatorInputSchema,
-  ResolveDisputeInputSchema,
-  DismissDisputeInputSchema,
   AppealDisputeInputSchema,
+  AssignInvestigatorInputSchema,
+  DismissDisputeInputSchema,
+  FileDisputeInputSchema,
+  ResolveDisputeInputSchema,
 } from "../schema/zod.js";
 import type {
-  FileDisputeInput,
-  AssignInvestigatorInput,
-  ResolveDisputeInput,
-  DismissDisputeInput,
   AppealDisputeInput,
+  AssignInvestigatorInput,
+  DismissDisputeInput,
+  FileDisputeInput,
+  ResolveDisputeInput,
 } from "../types.js";
 import type {
-  FileDisputeAction,
-  AssignInvestigatorAction,
-  ResolveDisputeAction,
-  DismissDisputeAction,
   AppealDisputeAction,
+  AssignInvestigatorAction,
+  DismissDisputeAction,
+  FileDisputeAction,
+  ResolveDisputeAction,
 } from "./actions.js";
 
 export const fileDispute = (input: FileDisputeInput) =>

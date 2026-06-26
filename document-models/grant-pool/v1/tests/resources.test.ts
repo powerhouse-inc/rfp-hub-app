@@ -1,33 +1,35 @@
 import { generateMock } from "document-model";
-import { describe, expect, it } from "vitest";
 import {
-  reducer,
-  utils,
-  isGrantPoolDocument,
-  setGovernanceUri,
-  setApplicationsUri,
-  setAttestationIssuersUri,
-  addRequiredCredential,
-  removeRequiredCredential,
   addContextDocument,
-  removeContextDocument,
-  addPoolSameAs,
-  removePoolSameAs,
-  SetGovernanceUriInputSchema,
-  SetApplicationsUriInputSchema,
-  SetAttestationIssuersUriInputSchema,
-  AddRequiredCredentialInputSchema,
-  RemoveRequiredCredentialInputSchema,
   AddContextDocumentInputSchema,
-  RemoveContextDocumentInputSchema,
+  addPoolSameAs,
   AddPoolSameAsInputSchema,
+  addRequiredCredential,
+  AddRequiredCredentialInputSchema,
+  isGrantPoolDocument,
+  reducer,
+  removeContextDocument,
+  RemoveContextDocumentInputSchema,
+  removePoolSameAs,
   RemovePoolSameAsInputSchema,
+  removeRequiredCredential,
+  RemoveRequiredCredentialInputSchema,
+  setApplicationsUri,
+  SetApplicationsUriInputSchema,
+  setAttestationIssuersUri,
+  SetAttestationIssuersUriInputSchema,
+  setGovernanceUri,
+  SetGovernanceUriInputSchema,
+  utils,
 } from "document-models/grant-pool/v1";
+import { describe, expect, it } from "vitest";
 
 describe("ResourcesOperations", () => {
   it("should handle setGovernanceUri operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(SetGovernanceUriInputSchema());
+    const input = generateMock(SetGovernanceUriInputSchema(), {
+      governanceURI: "https://example.com",
+    });
 
     const updatedDocument = reducer(document, setGovernanceUri(input));
 
@@ -44,7 +46,9 @@ describe("ResourcesOperations", () => {
 
   it("should handle setApplicationsUri operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(SetApplicationsUriInputSchema());
+    const input = generateMock(SetApplicationsUriInputSchema(), {
+      applicationsURI: "https://example.com",
+    });
 
     const updatedDocument = reducer(document, setApplicationsUri(input));
 
@@ -61,7 +65,9 @@ describe("ResourcesOperations", () => {
 
   it("should handle setAttestationIssuersUri operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(SetAttestationIssuersUriInputSchema());
+    const input = generateMock(SetAttestationIssuersUriInputSchema(), {
+      attestationIssuersURI: "https://example.com",
+    });
 
     const updatedDocument = reducer(document, setAttestationIssuersUri(input));
 
@@ -112,7 +118,9 @@ describe("ResourcesOperations", () => {
 
   it("should handle addContextDocument operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(AddContextDocumentInputSchema());
+    const input = generateMock(AddContextDocumentInputSchema(), {
+      url: "https://example.com",
+    });
 
     const updatedDocument = reducer(document, addContextDocument(input));
 
@@ -146,7 +154,9 @@ describe("ResourcesOperations", () => {
 
   it("should handle addPoolSameAs operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(AddPoolSameAsInputSchema());
+    const input = generateMock(AddPoolSameAsInputSchema(), {
+      url: "https://example.com",
+    });
 
     const updatedDocument = reducer(document, addPoolSameAs(input));
 
@@ -163,7 +173,9 @@ describe("ResourcesOperations", () => {
 
   it("should handle removePoolSameAs operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(RemovePoolSameAsInputSchema());
+    const input = generateMock(RemovePoolSameAsInputSchema(), {
+      url: "https://example.com",
+    });
 
     const updatedDocument = reducer(document, removePoolSameAs(input));
 

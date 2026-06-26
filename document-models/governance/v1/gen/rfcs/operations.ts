@@ -1,42 +1,46 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { type SignalDispatch } from "document-model";
+import type { GovernanceGlobalState } from "../types.js";
 import type {
-  ProposeRfcAction,
-  StartRfcReviewAction,
-  RatifyRfcAction,
   ImplementRfcAction,
+  ProposeRfcAction,
+  RatifyRfcAction,
   RejectRfcAction,
+  StartRfcReviewAction,
   WithdrawRfcAction,
 } from "./actions.js";
-import type { GovernanceState } from "../types.js";
 
 export interface GovernanceRfcsOperations {
   proposeRfcOperation: (
-    state: GovernanceState,
+    state: GovernanceGlobalState,
     action: ProposeRfcAction,
     dispatch?: SignalDispatch,
   ) => void;
   startRfcReviewOperation: (
-    state: GovernanceState,
+    state: GovernanceGlobalState,
     action: StartRfcReviewAction,
     dispatch?: SignalDispatch,
   ) => void;
   ratifyRfcOperation: (
-    state: GovernanceState,
+    state: GovernanceGlobalState,
     action: RatifyRfcAction,
     dispatch?: SignalDispatch,
   ) => void;
   implementRfcOperation: (
-    state: GovernanceState,
+    state: GovernanceGlobalState,
     action: ImplementRfcAction,
     dispatch?: SignalDispatch,
   ) => void;
   rejectRfcOperation: (
-    state: GovernanceState,
+    state: GovernanceGlobalState,
     action: RejectRfcAction,
     dispatch?: SignalDispatch,
   ) => void;
   withdrawRfcOperation: (
-    state: GovernanceState,
+    state: GovernanceGlobalState,
     action: WithdrawRfcAction,
     dispatch?: SignalDispatch,
   ) => void;

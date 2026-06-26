@@ -1,17 +1,19 @@
 import { generateMock } from "document-model";
-import { describe, expect, it } from "vitest";
 import {
-  reducer,
-  utils,
   isProjectDocument,
+  reducer,
   setProjectAttestationIssuersUri,
   SetProjectAttestationIssuersUriInputSchema,
+  utils,
 } from "document-models/project/v1";
+import { describe, expect, it } from "vitest";
 
 describe("AttestationsOperations", () => {
   it("should handle setProjectAttestationIssuersUri operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(SetProjectAttestationIssuersUriInputSchema());
+    const input = generateMock(SetProjectAttestationIssuersUriInputSchema(), {
+      attestationIssuersURI: "https://example.com",
+    });
 
     const updatedDocument = reducer(
       document,

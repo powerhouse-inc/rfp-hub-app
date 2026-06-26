@@ -1,9 +1,13 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import type { Action } from "document-model";
 import type {
-  SetOpenDateInput,
+  AdvanceLifecycleInput,
   SetCloseDateInput,
   SetIsOpenInput,
-  AdvanceLifecycleInput,
+  SetOpenDateInput,
 } from "../types.js";
 
 export type SetOpenDateAction = Action & {

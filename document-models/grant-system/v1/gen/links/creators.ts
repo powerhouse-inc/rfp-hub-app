@@ -1,22 +1,26 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import { createAction } from "document-model";
 import {
   AddSameAsInputSchema,
-  RemoveSameAsInputSchema,
   AddSocialInputSchema,
+  RemoveSameAsInputSchema,
   RemoveSocialInputSchema,
   UpdateSocialUrlInputSchema,
 } from "../schema/zod.js";
 import type {
   AddSameAsInput,
-  RemoveSameAsInput,
   AddSocialInput,
+  RemoveSameAsInput,
   RemoveSocialInput,
   UpdateSocialUrlInput,
 } from "../types.js";
 import type {
   AddSameAsAction,
-  RemoveSameAsAction,
   AddSocialAction,
+  RemoveSameAsAction,
   RemoveSocialAction,
   UpdateSocialUrlAction,
 } from "./actions.js";

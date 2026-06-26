@@ -1,12 +1,16 @@
+/**
+ * WARNING: DO NOT EDIT
+ * This file is auto-generated and updated by codegen
+ */
 import type { Action } from "document-model";
 import type {
-  SetPublisherWalletInput,
-  RequestVerificationInput,
   ApproveVerificationInput,
-  RejectVerificationInput,
-  SuspendVerificationInput,
-  RevokeVerificationInput,
   ReinstateVerificationInput,
+  RejectVerificationInput,
+  RequestVerificationInput,
+  RevokeVerificationInput,
+  SetPublisherWalletInput,
+  SuspendVerificationInput,
 } from "../types.js";
 
 export type SetPublisherWalletAction = Action & {

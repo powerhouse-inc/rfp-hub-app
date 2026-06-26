@@ -1,19 +1,21 @@
 import { generateMock } from "document-model";
-import { describe, expect, it } from "vitest";
 import {
+  isGrantApplicationDocument,
+  markCompleted,
+  MarkCompletedInputSchema,
+  recordPayout,
+  RecordPayoutInputSchema,
   reducer,
   utils,
-  isGrantApplicationDocument,
-  recordPayout,
-  markCompleted,
-  RecordPayoutInputSchema,
-  MarkCompletedInputSchema,
 } from "document-models/grant-application/v1";
+import { describe, expect, it } from "vitest";
 
 describe("PayoutsOperations", () => {
   it("should handle recordPayout operation", () => {
     const document = utils.createDocument();
-    const input = generateMock(RecordPayoutInputSchema());
+    const input = generateMock(RecordPayoutInputSchema(), {
+      timestamp: "2024-01-01T00:00:00.000Z",
+    });
 
     const updatedDocument = reducer(document, recordPayout(input));
 
